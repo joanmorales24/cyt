@@ -97,8 +97,63 @@
         .bg-gradient-secondary {
             background: linear-gradient(45deg, #006685, #59cefe);
         }
+
+        /* Logo carousel styles (copiado de index.html) */
+        .logo-carousel {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-carousel-track {
+            display: flex;
+            width: max-content;
+            animation: logoScroll 34s linear infinite;
+        }
+
+        .logo-carousel:hover .logo-carousel-track {
+            animation-play-state: paused;
+        }
+
+        .logo-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 18rem;
+            margin-right: 2.75rem;
+        }
+
+        .logo-slide img {
+            display: block;
+            max-height: 7rem;
+            width: auto;
+            max-width: 100%;
+            object-fit: contain;
+            filter: grayscale(0.45) brightness(1.45) contrast(1.08) saturate(1.1);
+            opacity: 0.98;
+        }
+
+        @keyframes logoScroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(-50%); }
+        }
+
+        @media (max-width: 768px) {
+            .logo-slide { min-width: 13rem; margin-right: 1.5rem; }
+            .logo-slide img { max-height: 4.75rem; }
+            .logo-carousel-track { animation-duration: 28s; }
+        }
+
+        /* Parallax background: enabled on medium+ screens to avoid mobile issues */
+        @media (min-width: 768px) {
+            .parallax-bg {
+                /* background-attachment removed to allow JS-driven parallax */
+                background-position: center center;
+                background-size: cover;
+            }
+        }
     </style>
 </head>
+
 
 <body class="bg-background font-body text-on-surface">
     <!-- Top Navigation Bar -->
@@ -172,7 +227,7 @@
                     class="glass-card rounded-[2.5rem] p-4 shadow-2xl relative z-20 overflow-hidden border border-white/40">
                     <img class="rounded-[2rem] w-full object-cover aspect-square lg:aspect-video shadow-inner"
                         data-alt="Modern high-tech command center interface with floating data charts and customer service interaction heatmaps in violet and blue tones"
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBAmXac-uFQAj6eJSxuRVszYqAM_6slFgfoaTdLMo07HYQtU5KkAQejBoIU6F2JoOg7ksY0inmmDI83kbV0V4W1sK-ciGZ9GY6kw3J6vY_Ax5501iqSW5Ou-UAhQHnRNAhDLITIKpTEh68E_40t8SF-ys4rQub2ezkSj99bNEPCYsfU09RMdVXmNgt5vsx6-VegULREatVB-Br3XiTKOYcMuKbI-6TmDuSGYkg2QT0cCX9q1fjf6YFLPYOG1BAH5EHiGhnwcyJPr48" />
+                        src="img/home/8.jpg" style="object-position: center 40%;" />
                     <div
                         class="absolute bottom-10 left-10 bg-white/90 backdrop-blur-md p-6 rounded-2xl shadow-xl border border-primary/10 flex items-center gap-4">
                         <div
@@ -188,6 +243,48 @@
                 </div>
                 <div
                     class="absolute -z-10 -bottom-10 -right-10 w-full h-full bg-surface-container-highest rounded-[2.5rem] transform rotate-3">
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="px-6 pb-10">
+        <div class="mx-auto max-w-7xl">
+            <div class="py-3 md:py-4">
+                <p class="mb-4 text-center text-xs font-bold uppercase tracking-[0.32em] text-cyanSoft">
+                    Empresas que ya confian en CYT
+                </p>
+                <div class="logo-carousel">
+                    <div class="logo-carousel-track">
+                        <div class="logo-slide"><img alt="Cliente Naturgy" src="img/home/naturgy.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Barbuss" src="img/home/barbuss-300x300.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Musimundo" src="img/home/musimundo.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Carrefour" src="img/home/carrefour.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Avellaneda" src="img/home/3-300x300.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="img/home/mercedes-benz.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Oncity" src="img/home/oncity-300x300.webp" /></div>
+                        <div class="logo-slide"><img alt="Cliente Paramedic" src="img/home/paramedic.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Edenor" src="img/home/edenor.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente 911" src="img/home/8-300x300.webp" /></div>
+                        <div class="logo-slide"><img alt="Cliente John Deere" src="img/home/john-deere.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="img/home/nacion-servicios.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Metrovias" src="img/home/metrovias.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Banco FIE" src="img/home/banco-fie.svg" /></div>
+
+                        <div class="logo-slide"><img alt="Cliente Naturgy" src="img/home/naturgy.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Barbuss" src="img/home/barbuss-300x300.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Musimundo" src="img/home/musimundo.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Carrefour" src="img/home/carrefour.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Avellaneda" src="img/home/3-300x300.png" /></div>
+                        <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="img/home/mercedes-benz.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Oncity" src="img/home/oncity-300x300.webp" /></div>
+                        <div class="logo-slide"><img alt="Cliente Paramedic" src="img/home/paramedic.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Edenor" src="img/home/edenor.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente 911" src="img/home/8-300x300.webp" /></div>
+                        <div class="logo-slide"><img alt="Cliente John Deere" src="img/home/john-deere.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="img/home/nacion-servicios.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Metrovias" src="img/home/metrovias.svg" /></div>
+                        <div class="logo-slide"><img alt="Cliente Banco FIE" src="img/home/banco-fie.svg" /></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -258,24 +355,128 @@
             <div class="order-1 lg:order-2">
                 <h2 class="text-4xl md:text-5xl font-headline font-extrabold text-on-surface mb-8">
                     Tu Contact Center no está fallando. <br />
-                    <span class="text-error">Está fragmentado.</span>
+                    <span class="text-error">Tu CX vive en silos.</span>
                 </h2>
                 <div class="space-y-6">
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-error mt-1">link_off</span>
-                        <p class="text-lg text-on-surface-variant">Sistemas que no se hablan entre sí, obligando a tus
-                            agentes a saltar entre 5 pestañas para una sola llamada.</p>
+                        <p class="text-lg text-on-surface-variant">Canales y sistemas que no se integran — por ejemplo WhatsApp conversacional, voz y chat — obligan a tus agentes a saltar entre múltiples pestañas.</p>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-error mt-1">running_with_errors</span>
-                        <p class="text-lg text-on-surface-variant">Datos dispersos que imposibilitan una visión 360° del
-                            cliente y su historial de interacciones.</p>
+                        <p class="text-lg text-on-surface-variant">Procesos manuales y tareas repetitivas que consumen tiempo, mientras los casos complejos esperan atención y se degrada la experiencia de cliente (CX).</p>
                     </div>
                     <div class="flex gap-4 items-start">
                         <span class="material-symbols-outlined text-error mt-1">crisis_alert</span>
-                        <p class="text-lg text-on-surface-variant">Altos costos de mantenimiento de infraestructuras
-                            obsoletas y falta de agilidad para escalar.</p>
+                        <p class="text-lg text-on-surface-variant">Altos costos de mantenimiento de infraestructuras obsoletas y falta de agilidad para escalar.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva sección: Solución Voice Bot con IA (no rompe layout) -->
+    <section class="py-28 md:py-36 px-6 relative">
+        <div class="max-w-7xl mx-auto">
+            <div class="glass-card p-10 md:p-14 rounded-[2.5rem] border border-white/20 shadow-2xl overflow-hidden">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl md:text-5xl font-headline font-extrabold mb-4 text-on-surface">Automatizá tu CX con un Voice Bot capaz de hacer <span class="text-primary px-2">1000 llamadas</span> por hora.</h2>
+                    <p class="text-lg text-on-surface-variant max-w-3xl mx-auto">Automatizá conversaciones de voz a escala, integradas con tu CRM y canales (WhatsApp conversacional, chat y voz) para mejorar el CX.</p>
+                </div>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <div class="bg-white/6 backdrop-blur-md border border-white/10 p-8 rounded-[2rem]">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-primary text-2xl">trending_up</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Escalabilidad</h4>
+                                <p class="text-on-surface-variant">Ejecución simultánea de campañas telefónicas con transferencia a agente cuando hace falta.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/6 backdrop-blur-md border border-white/10 p-8 rounded-[2rem]">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-primary text-2xl">hub</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Integración omnicanal</h4>
+                                <p class="text-on-surface-variant">Conectá WhatsApp conversacional, voz, chat y CRM para un historial unificado y mejor trazabilidad.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bg-white/6 backdrop-blur-md border border-white/10 p-8 rounded-[2rem]">
+                        <div class="flex items-start gap-4">
+                            <div class="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
+                                <span class="material-symbols-outlined text-primary text-2xl">autorenew</span>
+                            </div>
+                            <div>
+                                <h4 class="font-bold mb-1">Mejora continua</h4>
+                                <p class="text-on-surface-variant">Entrenamiento continuo con datos reales para mejorar la tasa de resolución automática.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mt-8 text-center">
+                    <a href="#contact" class="inline-block bg-gradient-primary text-white px-8 py-3 rounded-full font-bold shadow-lg">Solicitar demo</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Nueva sección: Soluciones por industria (ej: Yoizen) -->
+    <section class="py-36 md:py-44 px-6 bg-surface-container-low relative parallax-bg" style="background-image: url('img/home/background-cx.jpg'); background-size: 140% auto; background-position: center; background-repeat: no-repeat; min-height: 80vh; overflow:hidden;">
+        <div class="absolute inset-0 bg-black/60"></div>
+        <div class="max-w-7xl mx-auto relative z-10">
+            <div class="text-center mb-8">
+                <h2 class="text-3xl md:text-4xl font-headline font-extrabold mb-2" style="color: #ffffff !important;">Soluciones segmentadas por industria</h2>
+                <!-- Descripción eliminada por solicitud del usuario -->
+            </div>
+            <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-[1.5rem] shadow-sm text-white">
+                    <div class="flex items-start gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-emerald-300 text-2xl">monetization_on</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Finanzas</h4>
+                        </div>
+                    </div>
+                    <p class="text-white/80 text-sm">Automatización de cobranzas y notificaciones por WhatsApp conversacional y voz.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-[1.5rem] shadow-sm text-white">
+                    <div class="flex items-start gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-emerald-300 text-2xl">storefront</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Retail</h4>
+                        </div>
+                    </div>
+                    <p class="text-white/80 text-sm">Soporte post-venta, confirmación de pedidos y devoluciones multicanal.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-[1.5rem] shadow-sm text-white">
+                    <div class="flex items-start gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-emerald-300 text-2xl">health_and_safety</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Salud</h4>
+                        </div>
+                    </div>
+                    <p class="text-white/80 text-sm">Recordatorios de turnos, confirmaciones y seguimiento con trazabilidad.</p>
+                </div>
+                <div class="bg-white/10 backdrop-blur-md border border-white/10 p-6 rounded-[1.5rem] shadow-sm text-white">
+                    <div class="flex items-start gap-4 mb-3">
+                        <div class="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                            <span class="material-symbols-outlined text-emerald-300 text-2xl">support_agent</span>
+                        </div>
+                        <div>
+                            <h4 class="font-bold text-white">Seguros / Telecom</h4>
+                        </div>
+                    </div>
+                    <p class="text-white/80 text-sm">Gestión de siniestros, verificaciones y campañas masivas automatizadas.</p>
                 </div>
             </div>
         </div>
@@ -323,6 +524,59 @@
             </div>
         </div>
     </section>
+        <script>
+            (function(){
+                const el = document.querySelector('.parallax-bg');
+                if(!el) return;
+                const speed = 0.18; // lower = subtler parallax
+                let ticking = false;
+
+                function update(){
+                    const rect = el.getBoundingClientRect();
+                    const elementCenter = rect.top + rect.height / 2;
+                    const viewportCenter = window.innerHeight / 2;
+                    // offset in px relative to center (positive -> move background down)
+                    let offset = Math.round((elementCenter - viewportCenter) * speed);
+                    // Clamp offset to avoid revealing image borders (18% of element height)
+                    const limit = Math.max(40, Math.round(el.offsetHeight * 0.18));
+                    if(offset > limit) offset = limit;
+                    if(offset < -limit) offset = -limit;
+                    el.style.backgroundPosition = `center calc(50% + ${offset}px)`;
+                    ticking = false;
+                }
+
+                function onScroll(){
+                    if(!ticking){
+                        window.requestAnimationFrame(update);
+                        ticking = true;
+                    }
+                }
+
+                function init(){
+                    const mq = window.matchMedia('(min-width: 768px)');
+                    // Start centered vertically
+                    el.style.backgroundPosition = 'center 50%';
+
+                    if(mq.matches){
+                        window.addEventListener('scroll', onScroll, {passive:true});
+                        window.addEventListener('resize', update);
+                        update();
+                    }
+
+                    mq.addEventListener('change', () => {
+                        if(mq.matches){
+                            window.addEventListener('scroll', onScroll, {passive:true});
+                            update();
+                        } else {
+                            window.removeEventListener('scroll', onScroll);
+                            el.style.backgroundPosition = '';
+                        }
+                    });
+                }
+
+                init();
+            })();
+        </script>
     <!-- How it Works: Bento Grid -->
     <section class="py-24 px-6 bg-surface-container-low">
         <div class="max-w-7xl mx-auto">

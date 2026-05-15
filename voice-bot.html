@@ -5,7 +5,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>
-      CYT Comunicaciones | Contact Center, Omnicanalidad y CX en LATAM
+      CYT Comunicaciones | Voice Bot con IA para Automatización y CX
     </title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
@@ -382,6 +382,13 @@
   <body
     class="bg-[#fdf7ff] font-sans text-[#210853] selection:bg-brand/40 selection:text-white"
   >
+    <div class="fixed inset-0 z-[-20] bg-hero hidden"></div>
+    <div class="fixed inset-0 z-[-10] grid-lines" style="opacity:0;transition:opacity 320ms ease;"></div>
+    <!-- three-bg placed behind hero and content -->
+    <div id="three-bg" class="fixed inset-0 z-[-30] pointer-events-none" style="z-index:-30;opacity:0;transition:opacity 320ms ease;">
+      <canvas id="three-canvas" class="w-full h-full"></canvas>
+    </div>
+    <button id="audio-toggle" aria-pressed="false" title="Activar visual audio" style="position:fixed;left:1rem;bottom:1rem;z-index:60;padding:.45rem .7rem;border-radius:.5rem;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.06);font-size:0.85rem;backdrop-filter:blur(6px)">Activar audio</button>
 
     <nav
       class="light-nav fixed top-0 z-50 w-full border-b backdrop-blur-xl"
@@ -395,15 +402,11 @@
         <div
           class="hidden items-center gap-8 text-sm font-semibold md:flex"
         >
+          <a class="nav-link" href="#diferencia">Voice Bot</a>
           <a class="nav-link" href="#plataforma">Plataforma</a>
+          <a class="nav-link" href="#usos">Usos</a>
           <a class="nav-link" href="#industrias">Industrias</a>
-          <a class="nav-link" href="#resultados">Resultados</a>
           <a class="nav-link" href="#nosotros">Nosotros</a>
-          <a
-            class="nav-link font-extrabold text-cyanSoft"
-            href="voice-bot.html"
-            >Voice Bot ↗</a
-          >
           <button
             class="rounded-full bg-cta px-5 py-2.5 text-white shadow-glow transition hover:scale-[1.02]"
             id="open-schedule-modal-nav"
@@ -416,79 +419,254 @@
     </nav>
 
     <main id="top">
-      <section
-        id="hero-section"
-        class="relative flex min-h-screen items-center overflow-hidden px-6 py-32"
-        style="background: url('img/home/background-cx.jpg') center/cover no-repeat;"
-      >
-        <div
-          class="absolute inset-0"
-          style="background: linear-gradient(105deg, rgba(13,8,32,0.94) 0%, rgba(13,8,32,0.78) 55%, rgba(13,8,32,0.42) 100%);"
-        ></div>
-        <div class="relative mx-auto w-full max-w-7xl">
-          <span
-            class="mb-6 inline-flex rounded-full border border-brandSoft/30 bg-brandSoft/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-cyanSoft"
-          >
-            Liderando la evolución del CX en LATAM desde 1990
-          </span>
-          <h1
-            class="max-w-3xl text-5xl font-extrabold leading-[0.96] tracking-[-0.04em] text-white md:text-7xl"
-          >
-            Transformá tu Contact Center en una
-            <span class="text-gradient">operación omnicanal</span>.
-          </h1>
-          <p class="mt-8 max-w-xl text-lg leading-8 text-muted md:text-xl">
-            CYT combina más de 35 años de experiencia con tecnología propia:
-            Orion Contact Center, INTEGRA CRM y Voice Bot con IA generativa para
-            llevar tu CX al siguiente nivel.
-          </p>
-          <div class="mt-10 flex flex-wrap gap-4">
-            <button
-              class="rounded-full bg-cta px-8 py-4 text-lg font-extrabold text-white shadow-glow transition hover:scale-[1.02]"
-              id="open-schedule-modal-hero"
-              type="button"
-            >
-              Solicitar demo
-            </button>
-            <a
-              href="voice-bot.html"
-              class="glass inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-lg font-bold text-white transition hover:bg-white/10"
-            >
-              Voice Bot con IA →
-            </a>
-          </div>
-          <div class="mt-14 grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
-            <div class="glass rounded-2xl border border-white/10 px-5 py-4">
-              <p class="text-3xl font-extrabold text-white">35+</p>
-              <p
-                class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
+      <section id="hero-section" class="relative overflow-hidden px-6 pb-24 pt-28 md:pt-32">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <span
+                class="mb-6 inline-flex rounded-full border border-brandSoft/30 bg-brandSoft/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-cyanSoft"
               >
-                Años en LATAM
+                Voice Bot con IA para automatización de CX
+              </span>
+              <h1
+                class="max-w-4xl text-5xl font-extrabold leading-[0.96] tracking-[-0.04em] md:text-7xl"
+              >
+                Automatizá tu CX con un
+                <span class="text-gradient"
+                  >Voice Bot capaz de hacer 1000 llamadas por hora</span
+                >.
+              </h1>
+              <p class="mt-8 max-w-2xl text-lg leading-8 text-muted md:text-xl">
+                CYT combina IA generativa, lenguaje natural y entrenamiento
+                continuo para automatizar cobranzas, ventas, seguros, post venta
+                y consultas masivas sin perder contexto ni calidad de atención,
+                con capacidad de hasta 1000 llamadas por hora.
               </p>
+              <div class="mt-10 flex flex-wrap gap-4">
+                <button
+                  class="rounded-full bg-cta px-8 py-4 text-lg font-extrabold text-white shadow-glow transition hover:scale-[1.02]"
+                  id="open-schedule-modal-hero"
+                  type="button"
+                >
+                  Solicitar demo
+                </button>
+                <button
+                  class="glass inline-flex items-center gap-4 rounded-full border border-white/10 px-6 py-3 text-lg font-bold text-white transition hover:bg-white/10"
+                  id="open-video-modal"
+                  type="button"
+                >
+                  <span
+                    class="flex h-14 w-14 items-center justify-center rounded-full bg-cta shadow-glow"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="h-6 w-6 fill-white"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 0 0 0-1.68L9.54 5.98A1 1 0 0 0 8 6.82Z" />
+                    </svg>
+                  </span>
+                  <span>Ver demo del Voice Bot</span>
+                </button>
+              </div>
+              <div class="mt-10 grid gap-4 md:grid-cols-3">
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Escala
+                  </p>
+                  <p class="mt-3 text-4xl font-extrabold">Alto volumen</p>
+                  <p class="mt-2 text-sm text-muted">
+                    Hasta 1000 llamadas por hora con ejecución simultánea.
+                  </p>
+                </div>
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Automatización
+                  </p>
+                  <p class="mt-3 text-4xl font-extrabold">24/7</p>
+                  <p class="mt-2 text-sm text-muted">
+                    respuesta inmediata con transferencia humana cuando hace
+                    falta.
+                  </p>
+                </div>
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Canales
+                  </p>
+                  <div class="mt-3 flex items-center gap-3">
+                    <span class="social-chip" aria-label="WhatsApp">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.57 0 .29 5.28.29 11.77c0 2.07.54 4.09 1.57 5.87L0 24l6.54-1.71a11.7 11.7 0 0 0 5.52 1.41h.01c6.49 0 11.77-5.28 11.77-11.77 0-3.14-1.22-6.09-3.32-8.45Zm-8.46 18.23h-.01a9.84 9.84 0 0 1-5.01-1.37l-.36-.21-3.88 1.01 1.04-3.79-.23-.39a9.8 9.8 0 0 1-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.09 1.02 6.95 2.89a9.79 9.79 0 0 1 2.88 6.96c0 5.43-4.42 9.85-9.85 9.85Zm5.4-7.38c-.29-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.19.29-.77.96-.94 1.15-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.08-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.19 0-.51.07-.77.36-.27.29-1.01.99-1.01 2.42 0 1.43 1.03 2.81 1.17 3 .15.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.62.69.22 1.32.19 1.82.12.55-.08 1.74-.71 1.99-1.39.25-.69.25-1.28.17-1.4-.07-.12-.27-.19-.56-.34Z" />
+                      </svg>
+                    </span>
+                    <span class="social-chip" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.12 11.93v-8.43H7.08v-3.5h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.26h3.32l-.53 3.5h-2.79V24C19.61 23.08 24 18.09 24 12.07Z" />
+                      </svg>
+                    </span>
+                    <span class="social-chip" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.96 3.96 0 0 0 3.8 7.75v8.5a3.96 3.96 0 0 0 3.95 3.95h8.5a3.96 3.96 0 0 0 3.95-3.95v-8.5a3.96 3.96 0 0 0-3.95-3.95h-8.5Zm8.97 1.35a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16ZM12 6.86A5.14 5.14 0 1 1 6.86 12 5.15 5.15 0 0 1 12 6.86Zm0 1.8A3.34 3.34 0 1 0 15.34 12 3.34 3.34 0 0 0 12 8.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <p class="mt-2 text-sm text-muted">
+                    voz y mensajería conectadas en la misma estrategia.
+                  </p>
+                </div>
+              </div>
             </div>
-            <div class="glass rounded-2xl border border-white/10 px-5 py-4">
-              <p class="text-3xl font-extrabold text-white">ISO 9001</p>
-              <p
-                class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
+
+            <div class="relative">
+              <div
+                class="absolute -left-12 top-10 h-40 w-40 rounded-full bg-brand/25 blur-3xl"
+              ></div>
+              <div
+                class="absolute -bottom-12 right-0 h-44 w-44 rounded-full bg-cyan/20 blur-3xl"
+              ></div>
+              <div
+                class="glass relative overflow-hidden rounded-[2.5rem] border border-white/10 p-6 shadow-card"
               >
-                Certificados
-              </p>
-            </div>
-            <div class="glass rounded-2xl border border-white/10 px-5 py-4">
-              <p class="text-3xl font-extrabold text-white">1000</p>
-              <p
-                class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
-              >
-                Llamadas/hora
-              </p>
-            </div>
-            <div class="glass rounded-2xl border border-white/10 px-5 py-4">
-              <p class="text-3xl font-extrabold text-white">6+</p>
-              <p
-                class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
-              >
-                Países
-              </p>
+                <div
+                  class="flex items-center justify-between rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4"
+                >
+                  <div>
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      Panel de automatización
+                    </p>
+                    <p class="mt-2 text-2xl font-extrabold">Voice Bot con IA</p>
+                  </div>
+                  <div
+                    class="rounded-full bg-accent/15 px-4 py-2 text-sm font-bold text-accent"
+                  >
+                    Activo ahora
+                  </div>
+                </div>
+
+                <div class="mt-6 grid gap-5 md:grid-cols-[0.95fr_1.05fr]">
+                  <div class="glass rounded-[2rem] border border-white/10 p-5">
+                    <div
+                      class="ring-chart relative mx-auto flex h-44 w-44 items-center justify-center rounded-full animate-floaty"
+                    >
+                      <div class="relative z-10 text-center">
+                        <p class="text-4xl font-extrabold">1000</p>
+                        <p
+                          class="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-muted"
+                        >
+                          llamadas/hora
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="mx-auto mt-5 h-px w-32 bg-gradient-to-r from-transparent via-cyanSoft to-transparent animate-pulseLine"
+                    ></div>
+                    <p class="mt-4 text-center text-sm leading-6 text-muted">
+                      Campañas, seguimiento y automatización simultánea.
+                    </p>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div
+                      class="glass rounded-[1.5rem] border border-white/10 p-5"
+                    >
+                      <p
+                        class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                      >
+                        Diferencia clave
+                      </p>
+                      <p class="mt-3 text-lg font-bold text-white">
+                        Un chatbot resuelve texto. Un Voice Bot escala
+                        conversaciones telefónicas masivas.
+                      </p>
+                    </div>
+                    <div
+                      class="glass rounded-[1.5rem] border border-white/10 p-5"
+                    >
+                      <div
+                        class="flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Voice Bot</span>
+                        <span class="font-bold text-white">alto volumen</span>
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-cta"
+                          style="width: 96%"
+                        ></div>
+                      </div>
+                      <div
+                        class="mt-4 flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Chatbot</span>
+                        <span class="font-bold text-white"
+                          >texto asincrónico</span
+                        >
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-white/30"
+                          style="width: 44%"
+                        ></div>
+                      </div>
+                      <div
+                        class="mt-4 flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Operación humana</span>
+                        <span class="font-bold text-white"
+                          >limitada por dotación</span
+                        >
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-white/20"
+                          style="width: 18%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <div
+                    class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4"
+                  >
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      CX
+                    </p>
+                    <p class="mt-2 text-lg font-bold text-white">
+                      Contexto unificado
+                    </p>
+                    <p class="mt-2 text-sm leading-6 text-muted">
+                      Historial e intención visibles en cada interacción.
+                    </p>
+                  </div>
+                  <div
+                    class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4"
+                  >
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      IA
+                    </p>
+                    <p class="mt-2 text-lg font-bold text-white">
+                      Respuesta dinámica
+                    </p>
+                    <p class="mt-2 text-sm leading-6 text-muted">
+                      Lenguaje natural y decisiones según cada escenario.
+                    </p>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -593,6 +771,135 @@
                 datos de toda la operación.
               </p>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="diferencia">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              La diferencia importa
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              Voice Bot no es chatbot con otro nombre.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              La diferencia está en la escala, el canal y el impacto operativo.
+              Cuando el desafío es hablar con miles de personas en poco tiempo,
+              el Voice Bot resuelve una necesidad que el chatbot no cubre.
+            </p>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-3">
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Voice Bot
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Automatiza llamadas masivas
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent">call</span
+                  ><span
+                    >Hasta 1000 llamadas por hora con flujos simultáneos.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent"
+                    >record_voice_over</span
+                  ><span
+                    >Conversaciones por voz con lenguaje natural y guiones
+                    entrenables.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent"
+                    >route</span
+                  ><span
+                    >Escala campañas de cobranzas, ventas, seguros y post
+                    venta.</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Chatbot
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Automatiza conversaciones escritas
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >chat</span
+                  ><span
+                    >Opera por texto en web, WhatsApp y redes sociales.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >schedule</span
+                  ><span
+                    >Depende del ritmo de respuesta del usuario en
+                    mensajería.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >forum</span
+                  ><span
+                    >Ideal para consultas, seguimiento y autogestión
+                    escrita.</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Humano + IA
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Intervención donde genera valor
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan"
+                    >person_check</span
+                  ><span
+                    >El agente toma casos complejos, objeciones y cierres
+                    sensibles.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan">hub</span
+                  ><span
+                    >La automatización filtra, prioriza y entrega contexto listo
+                    para actuar.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan"
+                    >trending_up</span
+                  ><span
+                    >Menos saturación operativa y mejor experiencia total de
+                    CX.</span
+                  >
+                </li>
+              </ul>
+            </article>
           </div>
         </div>
       </section>
@@ -847,6 +1154,104 @@
         </div>
       </section>
 
+      <section class="px-6 py-24" id="usos">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Casos de uso
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              ¿Para qué se usa el Voice Bot?
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              El foco no es solo automatizar llamadas. Es resolver problemáticas
+              concretas en áreas donde la velocidad, la consistencia y la escala
+              mueven el resultado.
+            </p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+            <article
+              class="glass rounded-[2rem] border border-white/10 p-6 xl:col-span-2"
+            >
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Cobranzas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Recupero sin cuello de botella operativo
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Llamadas automáticas para promesas de pago, recordatorios,
+                refinanciaciones y segmentación por riesgo.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Ventas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Más alcance comercial
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Contacta bases masivas, precalifica interés y agenda
+                oportunidades para el equipo comercial.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Seguros
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Renovaciones y seguimiento
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Gestiona vencimientos, documentación pendiente y campañas de
+                retención con trazabilidad.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Post venta
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Experiencias consistentes
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Encuestas, confirmaciones, seguimiento y contención temprana
+                ante incidencias o reclamos.
+              </p>
+            </article>
+            <article
+              class="glass rounded-[2rem] border border-white/10 p-6 xl:col-span-2"
+            >
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Automatización de consultas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Respuesta inmediata en voz y mensajería
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Resuelve preguntas frecuentes, estados de gestión, validaciones
+                y derivaciones desde una sola lógica conversacional.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
       <section class="px-6 py-24" id="industrias">
         <div class="mx-auto max-w-7xl">
           <div class="mb-14 max-w-3xl">
@@ -988,6 +1393,59 @@
                   Respuestas ágiles en DM para campañas, leads y post venta.
                 </p>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Cómo opera
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              Entrenamiento, lenguaje natural y ejecución a escala.
+            </h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-4">
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">01</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Entrenamiento</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Cargamos objetivos, tonos, flujos, objeciones y reglas de
+                negocio.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">02</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Comprensión</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                La IA interpreta intención, contexto y variables del cliente en
+                lenguaje natural.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">03</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Automatización</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Ejecuta campañas, responde consultas y toma decisiones según
+                cada escenario.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">04</p>
+              <h3 class="mt-4 text-2xl font-extrabold">
+                Escalamiento inteligente
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Deriva al agente humano cuando detecta complejidad o una
+                oportunidad de cierre.
+              </p>
             </div>
           </div>
         </div>
