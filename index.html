@@ -389,7 +389,7 @@
       <div
         class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4"
       >
-        <a class="flex items-center gap-3" href="#top">
+        <a class="flex items-center gap-3" href="index.html">
           <img alt="CYT Comunicaciones" class="h-9 w-auto" src="img/logo.png" />
         </a>
         <div
@@ -397,7 +397,6 @@
         >
           <a class="nav-link" href="#plataforma">Plataforma</a>
           <a class="nav-link" href="#industrias">Industrias</a>
-          <a class="nav-link" href="#resultados">Resultados</a>
           <a class="nav-link" href="#nosotros">Nosotros</a>
           <a
             class="nav-link font-extrabold text-cyanSoft"
@@ -1812,60 +1811,6 @@
               "afterend",
               '<p class="text-xs text-red-400 text-center">Hubo un error. Intentá de nuevo o escribinos a info@cytcomunicaciones.com.ar</p>',
             );
-          }
-        });
-      })();
-    </script>
-    <script type="module" src="/js/three-bg.js"></script>
-    <script>
-      // Mostrar fondos oscuros sólo cuando el hero esté visible
-      (function(){
-        const hero = document.getElementById('hero-section');
-        const bg = document.querySelector('.bg-hero');
-        const threeBg = document.getElementById('three-bg');
-        const gridLines = document.querySelector('.grid-lines');
-        if (!hero) return;
-
-        function showHeroBg(visible) {
-          if (bg) {
-            if (visible) { bg.classList.remove('hidden'); bg.classList.add('visible'); }
-            else { bg.classList.remove('visible'); bg.classList.add('hidden'); }
-          }
-          if (threeBg) threeBg.style.opacity = visible ? '1' : '0';
-          if (gridLines) gridLines.style.opacity = visible ? '0.3' : '0';
-        }
-
-        const obs = new IntersectionObserver((entries) => {
-          entries.forEach(e => showHeroBg(e.isIntersecting));
-        }, { threshold: [0, 0.15, 0.5] });
-        obs.observe(hero);
-
-        const rect = hero.getBoundingClientRect();
-        showHeroBg(rect.top < window.innerHeight && rect.bottom > 0);
-      })();
-    </script>
-    <script>
-      (function(){
-        const btn = document.getElementById('audio-toggle');
-        if(!btn) return;
-        let active = false;
-        btn.addEventListener('click', async () => {
-          if(active){
-            btn.textContent = 'Activar audio';
-            btn.setAttribute('aria-pressed','false');
-            active = false;
-            return;
-          }
-          try{
-            btn.textContent = 'Pidiendo mic...';
-            await window.startThreeAudio();
-            btn.textContent = 'Audio activo';
-            btn.setAttribute('aria-pressed','true');
-            active = true;
-          }catch(e){
-            btn.textContent = 'Error audio';
-            console.warn(e);
-            setTimeout(()=>{ btn.textContent = 'Activar audio'; },2000);
           }
         });
       })();
