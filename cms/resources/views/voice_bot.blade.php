@@ -1,0 +1,2307 @@
+<!doctype html>
+
+<html class="scroll-smooth" lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>
+      CYT Comunicaciones | Voice Bot con IA para Automatización y CX
+    </title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              base: "#09051c",
+              ink: "#f8f7ff",
+              muted: "#c5c0e0",
+              line: "rgba(255,255,255,0.08)",
+              brand: "#7b3ff2",
+              brandSoft: "#aa7cff",
+              cyan: "#1ca9ff",
+              cyanSoft: "#8de4ff",
+              panel: "rgba(18, 14, 44, 0.72)",
+              panelStrong: "rgba(13, 10, 34, 0.92)",
+              accent: "#72ffd2",
+            },
+            boxShadow: {
+              glow: "0 24px 80px rgba(73, 43, 180, 0.45)",
+              card: "0 18px 60px rgba(4, 7, 30, 0.35)",
+            },
+            backgroundImage: {
+              hero: "radial-gradient(circle at top left, rgba(123, 63, 242, 0.45), transparent 35%), radial-gradient(circle at 80% 20%, rgba(28, 169, 255, 0.28), transparent 24%), linear-gradient(135deg, #1b0d44 0%, #0a0b25 48%, #080414 100%)",
+              mesh: "linear-gradient(135deg, rgba(123,63,242,0.22), rgba(28,169,255,0.12))",
+              cta: "linear-gradient(90deg, #9d2cf3 0%, #7457ff 45%, #1ca9ff 100%)",
+              panel:
+                "linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))",
+            },
+            fontFamily: {
+              sans: ["Manrope", "sans-serif"],
+            },
+            keyframes: {
+              floaty: {
+                "0%, 100%": { transform: "translateY(0px)" },
+                "50%": { transform: "translateY(-10px)" },
+              },
+              pulseLine: {
+                "0%, 100%": { opacity: "0.5", transform: "scaleX(0.92)" },
+                "50%": { opacity: "1", transform: "scaleX(1)" },
+              },
+            },
+            animation: {
+              floaty: "floaty 6s ease-in-out infinite",
+              pulseLine: "pulseLine 4s ease-in-out infinite",
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      .material-symbols-outlined {
+        font-variation-settings:
+          "FILL" 0,
+          "wght" 500,
+          "GRAD" 0,
+          "opsz" 24;
+      }
+
+      .glass {
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.12),
+          rgba(255, 255, 255, 0.05)
+        );
+        backdrop-filter: blur(20px);
+        -webkit-backdrop-filter: blur(20px);
+      }
+
+      .grid-lines {
+        background-image:
+          linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
+        background-size: 44px 44px;
+      }
+
+      .ring-chart {
+        background:
+          radial-gradient(
+            circle at center,
+            rgba(123, 63, 242, 0.18) 0 44%,
+            transparent 45%
+          ),
+          conic-gradient(
+            from 220deg,
+            #c5a8ff 0 18%,
+            #7b3ff2 18% 68%,
+            #1ca9ff 68% 100%
+          );
+      }
+
+      .ring-chart::after {
+        content: "";
+        position: absolute;
+        inset: 18px;
+        border-radius: 9999px;
+        background: linear-gradient(
+          180deg,
+          rgba(18, 14, 44, 0.98),
+          rgba(10, 11, 37, 0.98)
+        );
+        box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+      }
+
+      .text-gradient {
+        background: linear-gradient(
+          90deg,
+          #f8f7ff 0%,
+          #b79aff 36%,
+          #5ebeff 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .social-chip {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 9999px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.06);
+        color: #f8f7ff;
+      }
+
+      .social-chip svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        fill: currentColor;
+      }
+
+      .nav-link {
+        position: relative;
+        display: inline-flex;
+        color: #c5c0e0;
+        transition:
+          color 150ms ease,
+          opacity 150ms ease;
+      }
+
+      .nav-link:hover {
+        color: #ffffff;
+      }
+
+      .nav-link-active {
+        color: #ffffff;
+      }
+
+      .nav-link-active::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: -0.65rem;
+        width: 1.75rem;
+        height: 2px;
+        transform: translateX(-50%);
+        border-radius: 9999px;
+        background: linear-gradient(90deg, #9d2cf3 0%, #1ca9ff 100%);
+      }
+
+      .logo-carousel {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .logo-carousel-track {
+        display: flex;
+        width: max-content;
+        animation: logoScroll 34s linear infinite;
+      }
+
+      .logo-carousel:hover .logo-carousel-track {
+        animation-play-state: paused;
+      }
+
+      .logo-slide {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 18rem;
+        margin-right: 2.75rem;
+      }
+
+      .logo-slide img {
+        display: block;
+        max-height: 7rem;
+        width: auto;
+        max-width: 100%;
+        object-fit: contain;
+        filter: grayscale(0.45) brightness(1.45) contrast(1.08) saturate(1.1);
+        opacity: 0.98;
+      }
+
+      @@keyframes logoScroll {
+        from {
+          transform: translateX(0);
+        }
+
+        to {
+          transform: translateX(-50%);
+        }
+      }
+
+      @@media (max-width: 768px) {
+        .logo-slide {
+          min-width: 13rem;
+          margin-right: 1.5rem;
+        }
+
+        .logo-slide img {
+          max-height: 4.75rem;
+        }
+
+        .logo-carousel-track {
+          animation-duration: 28s;
+        }
+      }
+      /* hero bg visibility control */
+      .bg-hero {
+        transition: opacity 320ms ease;
+        background: rgba(0,0,0,0.45) !important;
+      }
+      .bg-hero.hidden { opacity: 0; }
+      .bg-hero.visible { opacity: 1; }
+
+      /* ── LIGHT THEME ── */
+      .light-body {
+        background: #fdf7ff;
+        color: #210853;
+      }
+
+      .light-body .text-muted {
+        color: #5a4e6e !important;
+      }
+
+      .light-body h2, .light-body h3, .light-body h4 {
+        color: #210853;
+      }
+
+      .light-body .glass {
+        background: rgba(255, 255, 255, 0.88) !important;
+        box-shadow: 0 4px 32px rgba(113,42,236,0.07);
+      }
+
+      .light-body [class*="border-white/"] {
+        border-color: rgba(113, 42, 236, 0.14) !important;
+      }
+
+      .light-body [class*="bg-white/"] {
+        background: rgba(255, 255, 255, 0.7) !important;
+      }
+
+      .light-body .bg-panel\/80,
+      .light-body [class*="bg-panel"] {
+        background: rgba(248, 241, 255, 0.95) !important;
+        color: #210853;
+      }
+
+      .light-body .bg-panelStrong\/90 {
+        background: rgba(243, 234, 255, 0.97) !important;
+        color: #210853;
+      }
+
+      .light-body .border-line {
+        border-color: rgba(113, 42, 236, 0.1) !important;
+      }
+
+      .light-body .logo-slide img {
+        filter: grayscale(0.3) brightness(0.8) contrast(1.15) saturate(1.05);
+      }
+
+      /* ── HERO DARK SECTION ── */
+      #hero-section {
+        background: radial-gradient(circle at top left, rgba(123,63,242,0.45), transparent 35%),
+                    radial-gradient(circle at 80% 20%, rgba(28,169,255,0.28), transparent 24%),
+                    linear-gradient(135deg, #1b0d44 0%, #0a0b25 48%, #080414 100%);
+        color: #f8f7ff;
+      }
+
+      #hero-section h1, #hero-section p, #hero-section li {
+        color: inherit;
+      }
+
+      /* ── LIGHT NAV ── */
+      nav.light-nav {
+        background: rgba(253, 247, 255, 0.94) !important;
+        border-color: rgba(113, 42, 236, 0.1) !important;
+      }
+
+      nav.light-nav .nav-link {
+        color: #4a4456 !important;
+      }
+
+      nav.light-nav .nav-link:hover {
+        color: #210853 !important;
+      }
+
+      nav.light-nav .nav-link-active {
+        color: #210853 !important;
+      }
+
+      /* Override light-on-light text in non-hero */
+      .light-body .text-white {
+        color: #210853 !important;
+      }
+
+      /* Keep white text on colored CTA buttons */
+      .light-body .bg-cta,
+      .light-body [class*="bg-cta"] {
+        color: #ffffff !important;
+      }
+
+      /* Accent label colors → visible dark variants on light bg */
+      .light-body .text-cyanSoft {
+        color: #0077cc !important;
+      }
+
+      .light-body .text-brandSoft {
+        color: #6713e1 !important;
+      }
+
+      .light-body .text-accent {
+        color: #00a879 !important;
+      }
+
+      .light-body .text-cyan {
+        color: #006bb3 !important;
+      }
+
+      /* Social chips adapt for light bg */
+      .light-body .social-chip {
+        background: rgba(113, 42, 236, 0.08);
+        color: #210853;
+        border-color: rgba(113, 42, 236, 0.18);
+      }
+
+      /* ── LIGHT FOOTER ── */
+      footer.light-footer {
+        background: #f3eaff !important;
+        border-color: rgba(113, 42, 236, 0.12) !important;
+        color: #210853;
+      }
+
+      footer.light-footer .text-muted {
+        color: #5a4e6e !important;
+      }
+
+      /* Force white text inside gradient panels in light mode */
+      .panel-cta,
+      .panel-cta h1,
+      .panel-cta h2,
+      .panel-cta h3,
+      .panel-cta h4,
+      .panel-cta p,
+      .panel-cta li,
+      .panel-cta span {
+        color: #f8f7ff !important;
+      }
+    </style>
+  </head>
+
+  <body
+    class="bg-[#fdf7ff] font-sans text-[#210853] selection:bg-brand/40 selection:text-white"
+  >
+    <div class="fixed inset-0 z-[-20] bg-hero hidden"></div>
+    <div class="fixed inset-0 z-[-10] grid-lines" style="opacity:0;transition:opacity 320ms ease;"></div>
+    <!-- three-bg placed behind hero and content -->
+    <div id="three-bg" class="fixed inset-0 z-[-30] pointer-events-none" style="z-index:-30;opacity:0;transition:opacity 320ms ease;">
+      <canvas id="three-canvas" class="w-full h-full"></canvas>
+    </div>
+    <button id="audio-toggle" aria-pressed="false" title="Activar visual audio" style="position:fixed;left:1rem;bottom:1rem;z-index:60;padding:.45rem .7rem;border-radius:.5rem;background:rgba(255,255,255,0.06);color:#fff;border:1px solid rgba(255,255,255,0.06);font-size:0.85rem;backdrop-filter:blur(6px)">Activar audio</button>
+
+    @include('partials._nav', ['active' => 'voice-bot'])
+
+
+    <main id="top">
+      <section id="hero-section" class="relative overflow-hidden px-6 pb-24 pt-28 md:pt-32">
+        <div class="mx-auto max-w-7xl">
+          <div class="grid items-center gap-14 lg:grid-cols-[1.1fr_0.9fr]">
+            <div>
+              <span
+                class="mb-6 inline-flex rounded-full border border-brandSoft/30 bg-brandSoft/10 px-4 py-2 text-xs font-extrabold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                Voice Bot con IA para automatización de CX
+              </span>
+              <h1
+                class="max-w-4xl text-5xl font-extrabold leading-[0.96] tracking-[-0.04em] md:text-7xl"
+              >
+                Automatizá tu CX con un
+                <span class="text-gradient"
+                  >Voice Bot capaz de hacer 1000 llamadas por hora</span
+                >.
+              </h1>
+              <p class="mt-8 max-w-2xl text-lg leading-8 text-muted md:text-xl">
+                CYT combina IA generativa, lenguaje natural y entrenamiento
+                continuo para automatizar cobranzas, ventas, seguros, post venta
+                y consultas masivas sin perder contexto ni calidad de atención,
+                con capacidad de hasta 1000 llamadas por hora.
+              </p>
+              <div class="mt-10 flex flex-wrap gap-4">
+                <button
+                  class="rounded-full bg-cta px-8 py-4 text-lg font-extrabold text-white shadow-glow transition hover:scale-[1.02]"
+                  id="open-schedule-modal-hero"
+                  type="button"
+                >
+                  Solicitar demo
+                </button>
+                <button
+                  class="glass inline-flex items-center gap-4 rounded-full border border-white/10 px-6 py-3 text-lg font-bold text-white transition hover:bg-white/10"
+                  id="open-video-modal"
+                  type="button"
+                >
+                  <span
+                    class="flex h-14 w-14 items-center justify-center rounded-full bg-cta shadow-glow"
+                  >
+                    <svg
+                      aria-hidden="true"
+                      class="h-6 w-6 fill-white"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M8 6.82v10.36c0 .79.87 1.27 1.54.84l8.14-5.18a1 1 0 0 0 0-1.68L9.54 5.98A1 1 0 0 0 8 6.82Z" />
+                    </svg>
+                  </span>
+                  <span>Ver demo del Voice Bot</span>
+                </button>
+              </div>
+              <div class="mt-10 grid gap-4 md:grid-cols-3">
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Escala
+                  </p>
+                  <p class="mt-3 text-4xl font-extrabold">Alto volumen</p>
+                  <p class="mt-2 text-sm text-muted">
+                    Hasta 1000 llamadas por hora con ejecución simultánea.
+                  </p>
+                </div>
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Automatización
+                  </p>
+                  <p class="mt-3 text-4xl font-extrabold">24/7</p>
+                  <p class="mt-2 text-sm text-muted">
+                    respuesta inmediata con transferencia humana cuando hace
+                    falta.
+                  </p>
+                </div>
+                <div class="glass rounded-[1.75rem] border border-white/10 p-5">
+                  <p
+                    class="text-sm font-semibold uppercase tracking-[0.22em] text-cyanSoft"
+                  >
+                    Canales
+                  </p>
+                  <div class="mt-3 flex items-center gap-3">
+                    <span class="social-chip" aria-label="WhatsApp">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.57 0 .29 5.28.29 11.77c0 2.07.54 4.09 1.57 5.87L0 24l6.54-1.71a11.7 11.7 0 0 0 5.52 1.41h.01c6.49 0 11.77-5.28 11.77-11.77 0-3.14-1.22-6.09-3.32-8.45Zm-8.46 18.23h-.01a9.84 9.84 0 0 1-5.01-1.37l-.36-.21-3.88 1.01 1.04-3.79-.23-.39a9.8 9.8 0 0 1-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.09 1.02 6.95 2.89a9.79 9.79 0 0 1 2.88 6.96c0 5.43-4.42 9.85-9.85 9.85Zm5.4-7.38c-.29-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.19.29-.77.96-.94 1.15-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.08-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.19 0-.51.07-.77.36-.27.29-1.01.99-1.01 2.42 0 1.43 1.03 2.81 1.17 3 .15.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.62.69.22 1.32.19 1.82.12.55-.08 1.74-.71 1.99-1.39.25-.69.25-1.28.17-1.4-.07-.12-.27-.19-.56-.34Z" />
+                      </svg>
+                    </span>
+                    <span class="social-chip" aria-label="Facebook">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.12 11.93v-8.43H7.08v-3.5h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.26h3.32l-.53 3.5h-2.79V24C19.61 23.08 24 18.09 24 12.07Z" />
+                      </svg>
+                    </span>
+                    <span class="social-chip" aria-label="Instagram">
+                      <svg viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.96 3.96 0 0 0 3.8 7.75v8.5a3.96 3.96 0 0 0 3.95 3.95h8.5a3.96 3.96 0 0 0 3.95-3.95v-8.5a3.96 3.96 0 0 0-3.95-3.95h-8.5Zm8.97 1.35a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16ZM12 6.86A5.14 5.14 0 1 1 6.86 12 5.15 5.15 0 0 1 12 6.86Zm0 1.8A3.34 3.34 0 1 0 15.34 12 3.34 3.34 0 0 0 12 8.66Z" />
+                      </svg>
+                    </span>
+                  </div>
+                  <p class="mt-2 text-sm text-muted">
+                    voz y mensajería conectadas en la misma estrategia.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <div class="relative">
+              <div
+                class="absolute -left-12 top-10 h-40 w-40 rounded-full bg-brand/25 blur-3xl"
+              ></div>
+              <div
+                class="absolute -bottom-12 right-0 h-44 w-44 rounded-full bg-cyan/20 blur-3xl"
+              ></div>
+              <div
+                class="glass relative overflow-hidden rounded-[2.5rem] border border-white/10 p-6 shadow-card"
+              >
+                <div
+                  class="flex items-center justify-between rounded-[1.5rem] border border-white/10 bg-white/5 px-5 py-4"
+                >
+                  <div>
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      Panel de automatización
+                    </p>
+                    <p class="mt-2 text-2xl font-extrabold">Voice Bot con IA</p>
+                  </div>
+                  <div
+                    class="rounded-full bg-accent/15 px-4 py-2 text-sm font-bold text-accent"
+                  >
+                    Activo ahora
+                  </div>
+                </div>
+
+                <div class="mt-6 grid gap-5 md:grid-cols-[0.95fr_1.05fr]">
+                  <div class="glass rounded-[2rem] border border-white/10 p-5">
+                    <div
+                      class="ring-chart relative mx-auto flex h-44 w-44 items-center justify-center rounded-full animate-floaty"
+                    >
+                      <div class="relative z-10 text-center">
+                        <p class="text-4xl font-extrabold">1000</p>
+                        <p
+                          class="mt-1 text-[0.65rem] font-semibold uppercase tracking-[0.28em] text-muted"
+                        >
+                          llamadas/hora
+                        </p>
+                      </div>
+                    </div>
+                    <div
+                      class="mx-auto mt-5 h-px w-32 bg-gradient-to-r from-transparent via-cyanSoft to-transparent animate-pulseLine"
+                    ></div>
+                    <p class="mt-4 text-center text-sm leading-6 text-muted">
+                      Campañas, seguimiento y automatización simultánea.
+                    </p>
+                  </div>
+
+                  <div class="space-y-4">
+                    <div
+                      class="glass rounded-[1.5rem] border border-white/10 p-5"
+                    >
+                      <p
+                        class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                      >
+                        Diferencia clave
+                      </p>
+                      <p class="mt-3 text-lg font-bold text-white">
+                        Un chatbot resuelve texto. Un Voice Bot escala
+                        conversaciones telefónicas masivas.
+                      </p>
+                    </div>
+                    <div
+                      class="glass rounded-[1.5rem] border border-white/10 p-5"
+                    >
+                      <div
+                        class="flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Voice Bot</span>
+                        <span class="font-bold text-white">alto volumen</span>
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-cta"
+                          style="width: 96%"
+                        ></div>
+                      </div>
+                      <div
+                        class="mt-4 flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Chatbot</span>
+                        <span class="font-bold text-white"
+                          >texto asincrónico</span
+                        >
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-white/30"
+                          style="width: 44%"
+                        ></div>
+                      </div>
+                      <div
+                        class="mt-4 flex items-center justify-between text-sm text-muted"
+                      >
+                        <span>Operación humana</span>
+                        <span class="font-bold text-white"
+                          >limitada por dotación</span
+                        >
+                      </div>
+                      <div class="mt-3 h-3 rounded-full bg-white/10">
+                        <div
+                          class="h-3 rounded-full bg-white/20"
+                          style="width: 18%"
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="mt-5 grid gap-4 md:grid-cols-2">
+                  <div
+                    class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4"
+                  >
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      CX
+                    </p>
+                    <p class="mt-2 text-lg font-bold text-white">
+                      Contexto unificado
+                    </p>
+                    <p class="mt-2 text-sm leading-6 text-muted">
+                      Historial e intención visibles en cada interacción.
+                    </p>
+                  </div>
+                  <div
+                    class="rounded-[1.5rem] border border-white/10 bg-white/5 p-4"
+                  >
+                    <p
+                      class="text-sm font-semibold uppercase tracking-[0.2em] text-cyanSoft"
+                    >
+                      IA
+                    </p>
+                    <p class="mt-2 text-lg font-bold text-white">
+                      Respuesta dinámica
+                    </p>
+                    <p class="mt-2 text-sm leading-6 text-muted">
+                      Lenguaje natural y decisiones según cada escenario.
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div class="light-body">
+
+      <section class="px-6 pb-10">
+        <div class="mx-auto max-w-7xl">
+          <div class="py-3 md:py-4">
+            <p
+              class="mb-4 text-center text-xs font-bold uppercase tracking-[0.32em] text-cyanSoft"
+            >
+              Empresas que ya confian en CYT
+            </p>
+            <div class="logo-carousel">
+              <div class="logo-carousel-track">
+                <div class="logo-slide"><img alt="Cliente Naturgy" src="/img/home/naturgy.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Barbuss" src="/img/home/barbuss-300x300.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Musimundo" src="/img/home/musimundo.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Carrefour" src="/img/home/carrefour.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Avellaneda" src="/img/home/3-300x300.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="/img/home/mercedes-benz.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Oncity" src="/img/home/oncity-300x300.webp" /></div>
+                <div class="logo-slide"><img alt="Cliente Paramedic" src="/img/home/paramedic.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Edenor" src="/img/home/edenor.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente 911" src="/img/home/8-300x300.webp" /></div>
+                <div class="logo-slide"><img alt="Cliente John Deere" src="/img/home/john-deere.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="/img/home/nacion-servicios.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Metrovias" src="/img/home/metrovias.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Banco FIE" src="/img/home/banco-fie.svg" /></div>
+
+                <div class="logo-slide"><img alt="Cliente Naturgy" src="/img/home/naturgy.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Barbuss" src="/img/home/barbuss-300x300.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Musimundo" src="/img/home/musimundo.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Carrefour" src="/img/home/carrefour.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Avellaneda" src="/img/home/3-300x300.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="/img/home/mercedes-benz.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Oncity" src="/img/home/oncity-300x300.webp" /></div>
+                <div class="logo-slide"><img alt="Cliente Paramedic" src="/img/home/paramedic.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Edenor" src="/img/home/edenor.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente 911" src="/img/home/8-300x300.webp" /></div>
+                <div class="logo-slide"><img alt="Cliente John Deere" src="/img/home/john-deere.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="/img/home/nacion-servicios.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Metrovias" src="/img/home/metrovias.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Banco FIE" src="/img/home/banco-fie.svg" /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl mx-auto text-center">
+            <h2
+              class="text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+            >
+              No necesitás más herramientas.<br />Necesitás control.
+            </h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-3xl text-cyanSoft"
+                >savings</span
+              >
+              <h3 class="mt-5 text-xl font-extrabold">
+                Optimización de costos
+              </h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Automatización inteligente que reduce costos operativos sin
+                sacrificar calidad ni escala.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-3xl text-cyanSoft"
+                >smart_toy</span
+              >
+              <h3 class="mt-5 text-xl font-extrabold">Automatización</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Bots con IA que resuelven consultas frecuentes sin intervención
+                humana, en cualquier canal.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-3xl text-brandSoft"
+                >bolt</span
+              >
+              <h3 class="mt-5 text-xl font-extrabold">Productividad</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Discadores predictivos que eliminan tiempos muertos y maximizan
+                el tiempo de habla efectiva.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-3xl text-brandSoft"
+                >query_stats</span
+              >
+              <h3 class="mt-5 text-xl font-extrabold">Control total</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Dashboards en tiempo real para tomar decisiones estratégicas con
+                datos de toda la operación.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="diferencia">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              La diferencia importa
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              Voice Bot no es chatbot con otro nombre.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              La diferencia está en la escala, el canal y el impacto operativo.
+              Cuando el desafío es hablar con miles de personas en poco tiempo,
+              el Voice Bot resuelve una necesidad que el chatbot no cubre.
+            </p>
+          </div>
+
+          <div class="grid gap-6 lg:grid-cols-3">
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Voice Bot
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Automatiza llamadas masivas
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent">call</span
+                  ><span
+                    >Hasta 1000 llamadas por hora con flujos simultáneos.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent"
+                    >record_voice_over</span
+                  ><span
+                    >Conversaciones por voz con lenguaje natural y guiones
+                    entrenables.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-accent"
+                    >route</span
+                  ><span
+                    >Escala campañas de cobranzas, ventas, seguros y post
+                    venta.</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Chatbot
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Automatiza conversaciones escritas
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >chat</span
+                  ><span
+                    >Opera por texto en web, WhatsApp y redes sociales.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >schedule</span
+                  ><span
+                    >Depende del ritmo de respuesta del usuario en
+                    mensajería.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >forum</span
+                  ><span
+                    >Ideal para consultas, seguimiento y autogestión
+                    escrita.</span
+                  >
+                </li>
+              </ul>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.2em] text-cyanSoft"
+              >
+                Humano + IA
+              </p>
+              <h3 class="mt-4 text-3xl font-extrabold">
+                Intervención donde genera valor
+              </h3>
+              <ul class="mt-6 space-y-4 text-base leading-7 text-muted">
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan"
+                    >person_check</span
+                  ><span
+                    >El agente toma casos complejos, objeciones y cierres
+                    sensibles.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan">hub</span
+                  ><span
+                    >La automatización filtra, prioriza y entrega contexto listo
+                    para actuar.</span
+                  >
+                </li>
+                <li class="flex gap-3">
+                  <span class="material-symbols-outlined text-cyan"
+                    >trending_up</span
+                  ><span
+                    >Menos saturación operativa y mejor experiencia total de
+                    CX.</span
+                  >
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="cx">
+        <div
+          class="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[0.9fr_1.1fr]"
+        >
+          <div
+            class="glass rounded-[2.5rem] border border-white/10 p-8 md:p-10"
+          >
+            <p
+              class="text-sm font-bold uppercase tracking-[0.28em] text-cyanSoft"
+            >
+              Problema real
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+            >
+              De la fragmentación al control total de tu CX.
+            </h2>
+            <div class="mt-8 space-y-5 text-lg leading-8 text-muted">
+              <div class="flex gap-4">
+                <span class="material-symbols-outlined mt-1 text-brandSoft"
+                  >hub</span
+                >
+                <p>
+                  Consultas dispersas entre voz, WhatsApp, Facebook e Instagram
+                  que rompen el contexto del cliente.
+                </p>
+              </div>
+              <div class="flex gap-4">
+                <span class="material-symbols-outlined mt-1 text-brandSoft"
+                  >timer</span
+                >
+                <p>
+                  Equipos ocupados en gestiones repetitivas mientras los casos
+                  complejos esperan atención.
+                </p>
+              </div>
+              <div class="flex gap-4">
+                <span class="material-symbols-outlined mt-1 text-brandSoft"
+                  >visibility_off</span
+                >
+                <p>
+                  Falta de trazabilidad, seguimiento y métricas para ordenar la
+                  experiencia de punta a punta.
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="grid gap-5 md:grid-cols-2">
+            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                IA generativa
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">Respuestas dinámicas</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Adapta la conversación según intención, contexto y objetivo de
+                negocio.
+              </p>
+            </div>
+            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Lenguaje natural
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Conversaciones fluidas
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Comprende cómo habla el usuario y reduce fricción en cada
+                interacción.
+              </p>
+            </div>
+            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Entrenamiento
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">Mejora continua</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Se ajusta con nuevos escenarios, objeciones, productos y
+                políticas.
+              </p>
+            </div>
+            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Automatización
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Derivación inteligente
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Escala lo repetitivo y lleva al agente solo lo que requiere
+                intervención humana.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="plataforma">
+        <div
+          class="mx-auto max-w-7xl rounded-[2.5rem] border border-white/10 bg-panel/80 p-8 shadow-card md:p-12"
+        >
+          <div class="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <p
+                class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+              >
+                La plataforma
+              </p>
+              <h2
+                class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+              >
+                CYT no es otro software.<br />Es la arquitectura de tu
+                operación.
+              </h2>
+              <p class="mt-5 text-lg leading-8 text-muted">
+                Más de 35 años construyendo el stack tecnológico completo:
+                <strong>Orion Contact Center</strong> e
+                <strong>INTEGRA CRM</strong> operan como un ecosistema nativo,
+                sin fricciones de compatibilidad, sin depender de terceros.
+              </p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span
+                  class="material-symbols-outlined text-3xl text-cyanSoft"
+                  >hub</span
+                >
+                <h3 class="mt-3 text-xl font-extrabold">Ecosistema nativo</h3>
+                <p class="mt-2 text-sm leading-6 text-muted">
+                  Stack diseñado y desarrollado de punta a punta. Todo nace de
+                  la misma fuente.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span
+                  class="material-symbols-outlined text-3xl text-cyanSoft"
+                  >cloud</span
+                >
+                <h3 class="mt-3 text-xl font-extrabold">Nube híbrida</h3>
+                <p class="mt-2 text-sm leading-6 text-muted">
+                  Full Cloud, on-premise o modelo híbrido. La plataforma se
+                  adapta a tu infraestructura.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span
+                  class="material-symbols-outlined text-3xl text-brandSoft"
+                  >verified</span
+                >
+                <h3 class="mt-3 text-xl font-extrabold">ISO 9001:2015</h3>
+                <p class="mt-2 text-sm leading-6 text-muted">
+                  Certificados por Bureau Veritas. Calidad de proceso garantizada
+                  en cada implementación.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span
+                  class="material-symbols-outlined text-3xl text-brandSoft"
+                  >integration_instructions</span
+                >
+                <h3 class="mt-3 text-xl font-extrabold">
+                  Integración abierta
+                </h3>
+                <p class="mt-2 text-sm leading-6 text-muted">
+                  Conecta con SAP, CRM/ERP y cualquier sistema de terceros
+                  sin romper tu infraestructura actual.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14">
+            <h2
+              class="text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+            >
+              Todo conectado.<br />Todo bajo control.
+            </h2>
+          </div>
+          <div class="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-8 md:col-span-2"
+            >
+              <p class="text-4xl font-extrabold text-brandSoft">01</p>
+              <h3 class="mt-4 text-2xl font-extrabold">CRM integrado</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                INTEGRA CRM centraliza toda la información del cliente antes de
+                que empiece la conversación. Una sola vista, sin saltar entre
+                herramientas.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">02</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Dialer predictivo</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Algoritmos que predicen la disponibilidad del agente y eliminan
+                tiempos muertos entre llamadas.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">03</p>
+              <h3 class="mt-4 text-2xl font-extrabold">IVR inteligente</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Navegación por voz que deriva al cliente al área correcta en
+                segundos, sin fricción.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">04</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Chatbots IA</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Automatización de consultas en WhatsApp, web y redes con
+                lenguaje natural y IA generativa.
+              </p>
+            </div>
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-8 md:col-span-2 lg:col-span-3"
+            >
+              <p class="text-4xl font-extrabold text-brandSoft">05</p>
+              <h3 class="mt-4 text-2xl font-extrabold">
+                Canales centralizados
+              </h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Telefonía IP, WhatsApp, Instagram, Facebook Messenger, SMS,
+                mail y redes sociales en una única bandeja omnicanal dentro de
+                Orion. Sin silos de información.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="usos">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Casos de uso
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              ¿Para qué se usa el Voice Bot?
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              El foco no es solo automatizar llamadas. Es resolver problemáticas
+              concretas en áreas donde la velocidad, la consistencia y la escala
+              mueven el resultado.
+            </p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+            <article
+              class="glass rounded-[2rem] border border-white/10 p-6 xl:col-span-2"
+            >
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Cobranzas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Recupero sin cuello de botella operativo
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Llamadas automáticas para promesas de pago, recordatorios,
+                refinanciaciones y segmentación por riesgo.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Ventas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Más alcance comercial
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Contacta bases masivas, precalifica interés y agenda
+                oportunidades para el equipo comercial.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Seguros
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Renovaciones y seguimiento
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Gestiona vencimientos, documentación pendiente y campañas de
+                retención con trazabilidad.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-6">
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Post venta
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Experiencias consistentes
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Encuestas, confirmaciones, seguimiento y contención temprana
+                ante incidencias o reclamos.
+              </p>
+            </article>
+            <article
+              class="glass rounded-[2rem] border border-white/10 p-6 xl:col-span-2"
+            >
+              <p
+                class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
+              >
+                Automatización de consultas
+              </p>
+              <h3 class="mt-3 text-2xl font-extrabold">
+                Respuesta inmediata en voz y mensajería
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Resuelve preguntas frecuentes, estados de gestión, validaciones
+                y derivaciones desde una sola lógica conversacional.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="industrias">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Por industria
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              La misma tecnología.<br />Adaptada a cada vertical.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              Más de 35 años de proyectos en sectores críticos y de gran escala.
+              CYT adapta su plataforma a las reglas, volúmenes y flujos de cada
+              industria.
+            </p>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-4xl text-accent"
+                >monetization_on</span
+              >
+              <h3 class="mt-5 text-2xl font-extrabold">Finanzas</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Automatización de cobranzas, notificaciones por voz y WhatsApp,
+                y segmentación por riesgo de crédito.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-4xl text-accent"
+                >storefront</span
+              >
+              <h3 class="mt-5 text-2xl font-extrabold">Retail</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Soporte post venta, confirmación de pedidos, devoluciones y
+                seguimiento de reclamos multicanal.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-4xl text-accent"
+                >health_and_safety</span
+              >
+              <h3 class="mt-5 text-2xl font-extrabold">Salud</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Recordatorios de turnos, confirmaciones automáticas y
+                seguimiento de pacientes con trazabilidad completa.
+              </p>
+            </article>
+            <article class="glass rounded-[2rem] border border-white/10 p-8">
+              <span class="material-symbols-outlined text-4xl text-accent"
+                >support_agent</span
+              >
+              <h3 class="mt-5 text-2xl font-extrabold">Seguros y Telecom</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Gestión de siniestros, verificaciones, renovaciones y campañas
+                de retención a gran escala.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="canales">
+        <div
+          class="mx-auto max-w-7xl rounded-[2.5rem] border border-white/10 bg-panel/80 p-8 shadow-card md:p-12"
+        >
+          <div class="grid items-start gap-10 lg:grid-cols-[0.95fr_1.05fr]">
+            <div>
+              <p
+                class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+              >
+                Canales conectados
+              </p>
+              <h2
+                class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+              >
+                Una estrategia conversacional para voz, WhatsApp, Facebook e
+                Instagram.
+              </h2>
+              <p class="mt-5 text-lg leading-8 text-muted">
+                El Voice Bot escala la atención telefónica. El ecosistema CYT
+                suma automatización de consultas en canales digitales para que
+                la experiencia sea continua, medible y centralizada.
+              </p>
+            </div>
+            <div class="grid gap-4 sm:grid-cols-2">
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span class="material-symbols-outlined text-4xl text-cyanSoft"
+                  >phone_in_talk</span
+                >
+                <h3 class="mt-4 text-2xl font-extrabold">Voice Bot</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Campañas salientes, atención automática y derivación
+                  contextual.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span class="social-chip" aria-label="WhatsApp">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M20.52 3.48A11.8 11.8 0 0 0 12.06 0C5.57 0 .29 5.28.29 11.77c0 2.07.54 4.09 1.57 5.87L0 24l6.54-1.71a11.7 11.7 0 0 0 5.52 1.41h.01c6.49 0 11.77-5.28 11.77-11.77 0-3.14-1.22-6.09-3.32-8.45Zm-8.46 18.23h-.01a9.84 9.84 0 0 1-5.01-1.37l-.36-.21-3.88 1.01 1.04-3.79-.23-.39a9.8 9.8 0 0 1-1.5-5.19c0-5.43 4.42-9.85 9.86-9.85 2.63 0 5.09 1.02 6.95 2.89a9.79 9.79 0 0 1 2.88 6.96c0 5.43-4.42 9.85-9.85 9.85Zm5.4-7.38c-.29-.15-1.74-.86-2.01-.96-.27-.1-.47-.15-.67.15-.19.29-.77.96-.94 1.15-.17.19-.34.22-.63.07-.29-.15-1.22-.45-2.32-1.44-.86-.77-1.44-1.72-1.61-2.01-.17-.29-.02-.45.13-.6.13-.13.29-.34.44-.51.14-.17.19-.29.29-.48.1-.19.05-.36-.02-.51-.08-.15-.67-1.61-.92-2.2-.24-.58-.48-.5-.67-.5h-.57c-.19 0-.51.07-.77.36-.27.29-1.01.99-1.01 2.42 0 1.43 1.03 2.81 1.17 3 .15.19 2.02 3.08 4.9 4.32.69.3 1.22.48 1.64.62.69.22 1.32.19 1.82.12.55-.08 1.74-.71 1.99-1.39.25-.69.25-1.28.17-1.4-.07-.12-.27-.19-.56-.34Z" />
+                  </svg>
+                </span>
+                <h3 class="mt-4 text-2xl font-extrabold">WhatsApp</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Consultas, seguimiento y envío de información con
+                  trazabilidad.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span class="social-chip" aria-label="Facebook">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.02 4.39 11.01 10.12 11.93v-8.43H7.08v-3.5h3.04V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.68.24 2.68.24v2.97h-1.51c-1.49 0-1.95.93-1.95 1.88v2.26h3.32l-.53 3.5h-2.79V24C19.61 23.08 24 18.09 24 12.07Z" />
+                  </svg>
+                </span>
+                <h3 class="mt-4 text-2xl font-extrabold">Facebook</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Mensajería automatizada para captar, informar y reconducir
+                  conversaciones.
+                </p>
+              </div>
+              <div
+                class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
+              >
+                <span class="social-chip" aria-label="Instagram">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M7.75 2h8.5A5.76 5.76 0 0 1 22 7.75v8.5A5.76 5.76 0 0 1 16.25 22h-8.5A5.76 5.76 0 0 1 2 16.25v-8.5A5.76 5.76 0 0 1 7.75 2Zm0 1.8A3.96 3.96 0 0 0 3.8 7.75v8.5a3.96 3.96 0 0 0 3.95 3.95h8.5a3.96 3.96 0 0 0 3.95-3.95v-8.5a3.96 3.96 0 0 0-3.95-3.95h-8.5Zm8.97 1.35a1.08 1.08 0 1 1 0 2.16 1.08 1.08 0 0 1 0-2.16ZM12 6.86A5.14 5.14 0 1 1 6.86 12 5.15 5.15 0 0 1 12 6.86Zm0 1.8A3.34 3.34 0 1 0 15.34 12 3.34 3.34 0 0 0 12 8.66Z" />
+                  </svg>
+                </span>
+                <h3 class="mt-4 text-2xl font-extrabold">Instagram</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Respuestas ágiles en DM para campañas, leads y post venta.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Cómo opera
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              Entrenamiento, lenguaje natural y ejecución a escala.
+            </h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-4">
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">01</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Entrenamiento</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Cargamos objetivos, tonos, flujos, objeciones y reglas de
+                negocio.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">02</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Comprensión</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                La IA interpreta intención, contexto y variables del cliente en
+                lenguaje natural.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">03</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Automatización</h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Ejecuta campañas, responde consultas y toma decisiones según
+                cada escenario.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-6">
+              <p class="text-5xl font-extrabold text-brandSoft">04</p>
+              <h3 class="mt-4 text-2xl font-extrabold">
+                Escalamiento inteligente
+              </h3>
+              <p class="mt-4 text-base leading-7 text-muted">
+                Deriva al agente humano cuando detecta complejidad o una
+                oportunidad de cierre.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="resultados">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Resultados reales
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              No funcionalidades.<br />Resultados medibles.
+            </h2>
+          </div>
+          <div class="grid gap-6 md:grid-cols-3">
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-10 text-center"
+            >
+              <p class="text-7xl font-extrabold text-brand">98%</p>
+              <h3 class="mt-5 text-2xl font-extrabold">
+                Tasa de contacto efectivo
+              </h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Limpieza de bases y discadores inteligentes que maximizan el
+                resultado de cada campaña.
+              </p>
+            </div>
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-10 text-center"
+            >
+              <p class="text-7xl font-extrabold text-cyan">-40%</p>
+              <h3 class="mt-5 text-2xl font-extrabold">
+                Tiempos muertos del agente
+              </h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Automatización que elimina esperas y gestiones manuales sin
+                valor operativo real.
+              </p>
+            </div>
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-10 text-center"
+            >
+              <p class="text-7xl font-extrabold text-accent">70%</p>
+              <h3 class="mt-5 text-2xl font-extrabold">
+                Consultas resueltas sin agente
+              </h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Bots que atienden la mayoría de los tickets sin intervención
+                humana, 24/7.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="nosotros">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Por qué CYT
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
+            >
+              Más de 35 años<br />transformando CX en LATAM.
+            </h2>
+            <p class="mt-5 text-lg leading-8 text-muted">
+              No somos una suscripción. Somos un socio tecnológico. Cada
+              implementación es una consultoría a medida respaldada por décadas
+              de operación real en Argentina y toda la región.
+            </p>
+          </div>
+          <div class="grid gap-6 md:grid-cols-2">
+            <article
+              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
+            >
+              <span
+                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-cyanSoft"
+                >hub</span
+              >
+              <div>
+                <h3 class="text-2xl font-extrabold">Ecosistema propio</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Orion Contact Center e INTEGRA CRM son desarrollos propios.
+                  Sin problemas de compatibilidad porque todo nace de la misma
+                  fuente.
+                </p>
+              </div>
+            </article>
+            <article
+              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
+            >
+              <span
+                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-cyanSoft"
+                >verified</span
+              >
+              <div>
+                <h3 class="text-2xl font-extrabold">ISO 9001:2015</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Certificados por Bureau Veritas. Calidad de proceso auditada
+                  en cada proyecto, no solo en el producto.
+                </p>
+              </div>
+            </article>
+            <article
+              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
+            >
+              <span
+                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-brandSoft"
+                >public</span
+              >
+              <div>
+                <h3 class="text-2xl font-extrabold">Liderazgo regional</h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Presencia en Argentina, Bolivia, Chile, Paraguay, Uruguay y
+                  Brasil. Soporte local en cada país, sin depender de un
+                  proveedor global.
+                </p>
+              </div>
+            </article>
+            <article
+              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
+            >
+              <span
+                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-brandSoft"
+                >workspace_premium</span
+              >
+              <div>
+                <h3 class="text-2xl font-extrabold">
+                  Consultoría, no licencia
+                </h3>
+                <p class="mt-3 text-base leading-7 text-muted">
+                  Ofrecemos una solución escalable y acompañamiento real, no
+                  solo acceso a un software. El éxito de tu operación es parte
+                  del acuerdo.
+                </p>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24">
+        <div class="mx-auto max-w-5xl">
+          <div class="mb-14 text-center">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              El antes y el después
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+            >
+              De la fragmentación al control total.
+            </h2>
+          </div>
+          <div
+            class="overflow-hidden rounded-[3rem] border border-white/10 shadow-card md:grid md:grid-cols-2"
+          >
+            <div class="bg-white/5 p-10 lg:p-14">
+              <h3 class="text-2xl font-bold text-muted">Antes de CYT</h3>
+              <ul class="mt-8 space-y-5">
+                <li class="flex items-center gap-4 text-base text-muted">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >close</span
+                  >Múltiples proveedores y facturas desconectadas
+                </li>
+                <li class="flex items-center gap-4 text-base text-muted">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >close</span
+                  >Agentes saturados con herramientas distintas
+                </li>
+                <li class="flex items-center gap-4 text-base text-muted">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >close</span
+                  >Reportes manuales, tardíos e inconsistentes
+                </li>
+                <li class="flex items-center gap-4 text-base text-muted">
+                  <span class="material-symbols-outlined text-brandSoft"
+                    >close</span
+                  >Clientes frustrados por esperas y repetición
+                </li>
+              </ul>
+            </div>
+            <div
+              class="panel-cta p-10 lg:p-14"
+              style="
+                background: linear-gradient(
+                  90deg,
+                  #9d2cf3 0%,
+                  #7457ff 45%,
+                  #1ca9ff 100%
+                );
+              "
+            >
+              <h3 class="text-2xl font-bold">Con CYT</h3>
+              <ul class="mt-8 space-y-5">
+                <li class="flex items-center gap-4 text-base">
+                  <span class="material-symbols-outlined text-accent"
+                    >check_circle</span
+                  >Ecosistema único bajo una misma visión
+                </li>
+                <li class="flex items-center gap-4 text-base">
+                  <span class="material-symbols-outlined text-accent"
+                    >check_circle</span
+                  >Consola unificada e intuitiva para el agente
+                </li>
+                <li class="flex items-center gap-4 text-base">
+                  <span class="material-symbols-outlined text-accent"
+                    >check_circle</span
+                  >Data en tiempo real y analítica predictiva
+                </li>
+                <li class="flex items-center gap-4 text-base">
+                  <span class="material-symbols-outlined text-accent"
+                    >check_circle</span
+                  >Experiencia de cliente fluida de punta a punta
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 py-24" id="premios">
+        <div class="mx-auto max-w-7xl">
+          <div class="mb-14 max-w-3xl">
+            <p
+              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
+            >
+              Reconocimientos
+            </p>
+            <h2
+              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+            >
+              Premios que<br />avalan la trayectoria.
+            </h2>
+          </div>
+          <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                1994 · Banco de Crédito Argentino
+              </p>
+              <h3 class="mt-3 text-xl font-extrabold">
+                Premio al Tecno Emprendedor
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-muted">
+                Reconocimiento al desarrollo del primer hardware de telefonía
+                interactiva de fabricación local en Argentina.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                Dialogic · LATAM
+              </p>
+              <h3 class="mt-3 text-xl font-extrabold">
+                Highest Growth Award
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-muted">
+                Reconocimiento internacional al mayor crecimiento en
+                Latinoamérica, acreditando el liderazgo regional de CYT.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                Gobierno de CABA
+              </p>
+              <h3 class="mt-3 text-xl font-extrabold">
+                Primer Premio Producto Porteño
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-muted">
+                Distinción a la innovación tecnológica de producción local
+                otorgada por el Gobierno de la Ciudad de Buenos Aires.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] border border-white/10 p-8">
+              <p
+                class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                AMDIA 2014
+              </p>
+              <h3 class="mt-3 text-xl font-extrabold">Premio Proyecto SISA</h3>
+              <p class="mt-3 text-sm leading-6 text-muted">
+                Reconocimiento al proyecto SISA implementado para el Gobierno
+                de San Juan: solución integral de comunicación institucional.
+              </p>
+            </div>
+            <div
+              class="glass rounded-[2rem] border border-white/10 p-8 sm:col-span-2"
+            >
+              <p
+                class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
+              >
+                PAMOIC / LATAM · 2017–2023
+              </p>
+              <h3 class="mt-3 text-xl font-extrabold">
+                Premios nacionales e internacionales
+              </h3>
+              <p class="mt-3 text-sm leading-6 text-muted">
+                Seis años consecutivos de premios y menciones en los
+                principales eventos de CX y contact centers de América Latina,
+                incluyendo el CX Day Argentina y Chile y el Premio Integración
+                del Grupo Brasil.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="px-6 pb-24 pt-8">
+        <div
+          class="mx-auto max-w-7xl overflow-hidden rounded-[3rem] border border-white/10 bg-panelStrong/90 p-10 text-center shadow-card md:p-16"
+        >
+          <p
+            class="text-sm font-bold uppercase tracking-[0.32em] text-cyanSoft"
+          >
+            Demo Voice Bot CYT
+          </p>
+          <h2
+            class="mx-auto mt-5 max-w-4xl text-4xl font-extrabold tracking-[-0.04em] md:text-6xl"
+          >
+            Convertí tu contact center en un motor de crecimiento.
+          </h2>
+          <p class="mx-auto mt-6 max-w-2xl text-lg leading-8 text-muted">
+            Mostramos en vivo cómo aplicar Voice Bot con IA, automatización
+            omnicanal y la plataforma Orion a tu operación específica.
+          </p>
+          <div
+            class="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row"
+          >
+            <button
+              class="rounded-full bg-cta px-10 py-4 text-lg font-extrabold text-white shadow-glow transition hover:scale-[1.02]"
+              id="open-schedule-modal-final"
+              type="button"
+            >
+              Solicitar demo
+            </button>
+            <a
+              class="rounded-full border border-brand/30 bg-brand/5 px-10 py-4 text-lg font-bold text-brand transition hover:bg-brand/10"
+              href="mailto:info@cytcomunicaciones.com.ar"
+            >
+              info@cytcomunicaciones.com.ar
+            </a>
+          </div>
+        </div>
+      </section>
+
+      </div><!-- end light-body -->
+    </main>
+
+    <footer class="light-footer border-t px-6 py-16">
+      <div class="mx-auto max-w-7xl">
+        <div class="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
+          <div class="col-span-2">
+            <img
+              alt="CYT Comunicaciones"
+              class="h-10 w-auto"
+              src="/img/logo.png"
+            />
+            <p class="mt-4 max-w-xs text-sm leading-7 text-muted">
+              Más de 35 años transformando contact centers en LATAM con
+              tecnología propia. Orion Contact Center e INTEGRA CRM.
+            </p>
+            <div
+              class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2"
+            >
+              <span
+                class="material-symbols-outlined text-base text-cyanSoft"
+                >verified</span
+              >
+              <span class="text-xs font-bold text-muted"
+                >ISO 9001:2015 · Bureau Veritas</span
+              >
+            </div>
+            <div class="mt-6 flex gap-3">
+              <a
+                href="https://www.linkedin.com/company/cyt-comunicaciones"
+                class="social-chip"
+                aria-label="LinkedIn"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true">
+                  <path
+                    d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0z"
+                  />
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <div>
+            <h6
+              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
+            >
+              Soluciones
+            </h6>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#diferencia"
+                  >Voice Bot con IA</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#cx"
+                  >Automatización CX</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#plataforma"
+                  >Orion Contact Center</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#plataforma"
+                  >INTEGRA CRM</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#canales"
+                  >Omnicanalidad</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h6
+              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
+            >
+              Empresa
+            </h6>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#nosotros"
+                  >Nosotros</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#industrias"
+                  >Industrias</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#premios"
+                  >Premios</a
+                >
+              </li>
+              <li>
+                <a
+                  class="text-sm text-muted transition-colors hover:text-brand"
+                  href="#resultados"
+                  >Resultados</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h6
+              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
+            >
+              Contacto
+            </h6>
+            <ul class="space-y-4 text-sm text-muted">
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined mt-0.5 text-base"
+                  >language</span
+                >
+                <span>www.cytcomunicaciones.com</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="material-symbols-outlined mt-0.5 text-base"
+                  >mail</span
+                >
+                <a
+                  href="mailto:info@cytcomunicaciones.com.ar"
+                  class="hover:text-brand transition-colors"
+                  >info@cytcomunicaciones.com.ar</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div
+          class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row md:text-left"
+        >
+          <p class="text-sm text-muted">
+            © 2026 CYT Comunicaciones. Todos los derechos reservados.
+          </p>
+          <div class="flex gap-6 text-sm text-muted">
+            <a class="transition-colors hover:text-brand" href="#">Privacidad</a>
+            <a class="transition-colors hover:text-brand" href="#">Términos</a>
+            <a class="transition-colors hover:text-brand" href="#">Legal</a>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <div
+      class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      id="schedule-modal"
+    >
+      <div
+        class="w-full max-w-lg overflow-hidden rounded-[2rem] border border-white/10 bg-[#110b2c] shadow-glow"
+      >
+        <div
+          class="flex items-center justify-between border-b border-white/10 px-6 py-5"
+        >
+          <div>
+            <p
+              class="text-sm font-bold uppercase tracking-[0.24em] text-cyanSoft"
+            >
+              Solicitar demo
+            </p>
+            <h3 class="mt-2 text-2xl font-extrabold text-white">
+              Agendá una reunión con CYT
+            </h3>
+          </div>
+          <button
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-3xl text-white transition hover:bg-white/10"
+            id="close-schedule-modal"
+            type="button"
+          >
+            ×
+          </button>
+        </div>
+        <form id="demo-form" class="grid gap-5 p-6 text-white">
+          <label class="grid gap-2 text-sm font-semibold">
+            Nombre
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted focus:border-brandSoft focus:ring-brandSoft"
+              name="nombre"
+              placeholder="Tu nombre"
+              required=""
+              type="text"
+            />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Email
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted focus:border-brandSoft focus:ring-brandSoft"
+              name="email"
+              placeholder="tu@empresa.com"
+              required=""
+              type="email"
+            />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Teléfono
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted focus:border-brandSoft focus:ring-brandSoft"
+              name="telefono"
+              placeholder="+54 ..."
+              required=""
+              type="tel"
+            />
+          </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Empresa
+            <input
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted focus:border-brandSoft focus:ring-brandSoft"
+              name="empresa"
+              placeholder="Nombre de la empresa"
+              required=""
+              type="text"
+            />
+          </label>
+          <button
+            class="rounded-full bg-cta px-6 py-4 text-lg font-extrabold text-white transition hover:scale-[1.02]"
+            type="submit"
+          >
+            Quiero ver una demo
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div
+      class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 px-4 backdrop-blur-sm"
+      id="video-modal"
+    >
+      <div
+        class="w-full max-w-5xl overflow-hidden rounded-[2rem] border border-white/10 bg-[#0b071f] shadow-glow"
+      >
+        <div
+          class="flex items-center justify-between border-b border-white/10 px-6 py-5 text-white"
+        >
+          <div>
+            <p
+              class="text-sm font-bold uppercase tracking-[0.24em] text-cyanSoft"
+            >
+              Demo
+            </p>
+            <h3 class="mt-2 text-2xl font-extrabold">Voice Bot con IA</h3>
+          </div>
+          <button
+            class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-3xl text-white transition hover:bg-white/10"
+            id="close-video-modal"
+            type="button"
+          >
+            ×
+          </button>
+        </div>
+        <div class="p-4 md:p-6">
+          <div class="overflow-hidden rounded-[1.5rem] border border-white/10">
+            <iframe
+              allow="autoplay; encrypted-media"
+              allowfullscreen=""
+              class="aspect-video w-full bg-black"
+              frameborder="0"
+              id="youtube-iframe"
+              src="https://www.youtube.com/embed/9XuWDcy5nT8"
+              title="Demo Voice Bot CYT"
+            ></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      const scheduleModal = document.getElementById("schedule-modal");
+      const openScheduleBtns = [
+        document.getElementById("open-schedule-modal-nav"),
+        document.getElementById("open-schedule-modal-hero"),
+        document.getElementById("open-schedule-modal-final"),
+      ];
+      const closeScheduleBtn = document.getElementById("close-schedule-modal");
+      const videoModal = document.getElementById("video-modal");
+      const openVideoBtn = document.getElementById("open-video-modal");
+      const closeVideoBtn = document.getElementById("close-video-modal");
+      const iframe = document.getElementById("youtube-iframe");
+      const baseVideoSrc = iframe ? iframe.src : "";
+      const navLinks = Array.from(
+        document.querySelectorAll('nav a[href^="#"]'),
+      );
+      const sections = navLinks
+        .map((link) => document.querySelector(link.getAttribute("href")))
+        .filter(Boolean);
+
+      const setActiveNavLink = (id) => {
+        navLinks.forEach((link) => {
+          const isActive = link.getAttribute("href") === `#${id}`;
+          link.classList.toggle("nav-link-active", isActive);
+          link.setAttribute("aria-current", isActive ? "page" : "false");
+        });
+      };
+
+      const clearActiveNavLink = () => {
+        navLinks.forEach((link) => {
+          link.classList.remove("nav-link-active");
+          link.setAttribute("aria-current", "false");
+        });
+      };
+
+      const updateActiveSection = () => {
+        const scrollPosition = window.scrollY + 140;
+        const firstSection = sections[0];
+
+        if (firstSection && scrollPosition < firstSection.offsetTop) {
+          clearActiveNavLink();
+          return;
+        }
+
+        let activeSection = firstSection;
+
+        sections.forEach((section) => {
+          if (section.offsetTop <= scrollPosition) {
+            activeSection = section;
+          }
+        });
+
+        if (activeSection?.id) {
+          setActiveNavLink(activeSection.id);
+        }
+      };
+
+      navLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          const targetId = link.getAttribute("href")?.replace("#", "");
+          if (targetId) {
+            setActiveNavLink(targetId);
+          }
+        });
+      });
+
+      openScheduleBtns.forEach((button) => {
+        if (button && scheduleModal) {
+          button.addEventListener("click", () => {
+            scheduleModal.classList.remove("hidden");
+            scheduleModal.classList.add("flex");
+          });
+        }
+      });
+
+      if (closeScheduleBtn && scheduleModal) {
+        closeScheduleBtn.addEventListener("click", () => {
+          scheduleModal.classList.add("hidden");
+          scheduleModal.classList.remove("flex");
+        });
+
+        scheduleModal.addEventListener("click", (event) => {
+          if (event.target === scheduleModal) {
+            scheduleModal.classList.add("hidden");
+            scheduleModal.classList.remove("flex");
+          }
+        });
+      }
+
+      if (openVideoBtn && videoModal && iframe) {
+        openVideoBtn.addEventListener("click", () => {
+          videoModal.classList.remove("hidden");
+          videoModal.classList.add("flex");
+          iframe.src = baseVideoSrc;
+        });
+      }
+
+      if (closeVideoBtn && videoModal && iframe) {
+        closeVideoBtn.addEventListener("click", () => {
+          videoModal.classList.add("hidden");
+          videoModal.classList.remove("flex");
+          iframe.src = "";
+        });
+
+        videoModal.addEventListener("click", (event) => {
+          if (event.target === videoModal) {
+            videoModal.classList.add("hidden");
+            videoModal.classList.remove("flex");
+            iframe.src = "";
+          }
+        });
+      }
+
+      window.addEventListener("scroll", updateActiveSection, {
+        passive: true,
+      });
+      window.addEventListener("hashchange", () => {
+        const hashId = window.location.hash.replace("#", "");
+        if (hashId) {
+          setActiveNavLink(hashId);
+        }
+      });
+
+      const initialHashId = window.location.hash.replace("#", "");
+      if (initialHashId) {
+        setActiveNavLink(initialHashId);
+      } else {
+        clearActiveNavLink();
+      }
+    </script>
+    <script>
+      (function () {
+        const form = document.getElementById("demo-form");
+        if (!form) return;
+        form.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          const btn = form.querySelector('[type="submit"]');
+          const originalText = btn.textContent;
+          btn.textContent = "Enviando…";
+          btn.disabled = true;
+          const data = {
+            nombre: form.nombre.value,
+            email: form.email.value,
+            telefono: form.telefono.value,
+            empresa: form.empresa.value,
+          };
+          try {
+            const res = await fetch(
+              "https://formsubmit.co/ajax/info@cytcomunicaciones.com.ar",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Accept: "application/json",
+                },
+                body: JSON.stringify(data),
+              },
+            );
+            if (res.ok) {
+              form.innerHTML =
+                '<div class="flex flex-col items-center gap-4 py-10 text-center">' +
+                '<span class="material-symbols-outlined text-6xl text-accent">check_circle</span>' +
+                '<p class="text-xl font-extrabold text-white">¡Solicitud enviada!</p>' +
+                '<p class="text-muted text-sm">Te contactamos en breve para coordinar la demo.</p>' +
+                "</div>";
+            } else {
+              throw new Error("error");
+            }
+          } catch (_) {
+            btn.textContent = originalText;
+            btn.disabled = false;
+            btn.insertAdjacentHTML(
+              "afterend",
+              '<p class="text-xs text-red-400 text-center">Hubo un error. Intentá de nuevo o escribinos a info@cytcomunicaciones.com.ar</p>',
+            );
+          }
+        });
+      })();
+    </script>
+    <script type="module" src="/js/three-bg.js"></script>
+    <script>
+      // Mostrar fondos oscuros sólo cuando el hero esté visible
+      (function(){
+        const hero = document.getElementById('hero-section');
+        const bg = document.querySelector('.bg-hero');
+        const threeBg = document.getElementById('three-bg');
+        const gridLines = document.querySelector('.grid-lines');
+        if (!hero) return;
+
+        function showHeroBg(visible) {
+          if (bg) {
+            if (visible) { bg.classList.remove('hidden'); bg.classList.add('visible'); }
+            else { bg.classList.remove('visible'); bg.classList.add('hidden'); }
+          }
+          if (threeBg) threeBg.style.opacity = visible ? '1' : '0';
+          if (gridLines) gridLines.style.opacity = visible ? '0.3' : '0';
+        }
+
+        const obs = new IntersectionObserver((entries) => {
+          entries.forEach(e => showHeroBg(e.isIntersecting));
+        }, { threshold: [0, 0.15, 0.5] });
+        obs.observe(hero);
+
+        const rect = hero.getBoundingClientRect();
+        showHeroBg(rect.top < window.innerHeight && rect.bottom > 0);
+      })();
+    </script>
+    <script>
+      (function(){
+        const btn = document.getElementById('audio-toggle');
+        if(!btn) return;
+        let active = false;
+        btn.addEventListener('click', async () => {
+          if(active){
+            btn.textContent = 'Activar audio';
+            btn.setAttribute('aria-pressed','false');
+            active = false;
+            return;
+          }
+          try{
+            btn.textContent = 'Pidiendo mic...';
+            await window.startThreeAudio();
+            btn.textContent = 'Audio activo';
+            btn.setAttribute('aria-pressed','true');
+            active = true;
+          }catch(e){
+            btn.textContent = 'Error audio';
+            console.warn(e);
+            setTimeout(()=>{ btn.textContent = 'Activar audio'; },2000);
+          }
+        });
+      })();
+    </script>
+  </body>
+</html>
