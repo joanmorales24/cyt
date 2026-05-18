@@ -1,2 +1,33 @@
 User-agent: *
-Disallow:
+Disallow: /admin/
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://cytcomunicaciones.com/sitemap.xml
+
+# Crawlers de IA — acceso permitido al contenido público
+User-agent: GPTBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Claude-Web
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: anthropic-ai
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /

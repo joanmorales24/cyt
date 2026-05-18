@@ -31,6 +31,9 @@ class AdminPanelProvider extends PanelProvider
             ->id('admin')
             ->path('admin')
             ->login()
+            ->brandName('CyT Comunicaciones')
+            ->brandLogo(asset('img/logo.png'))
+            ->brandLogoHeight('2.2rem')
             ->colors([
                 'primary' => Color::Purple,
             ])

@@ -1,12 +1,29 @@
+@php $seo = \App\Models\PageSeo::forPage('home'); @endphp
 <!doctype html>
 
 <html class="scroll-smooth" lang="es">
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>
-      CYT Comunicaciones | Contact Center, Omnicanalidad y CX en LATAM
-    </title>
+    <title>{{ $seo?->title ?? 'CYT Comunicaciones | Contact Center, Omnicanalidad y CX en LATAM' }}</title>
+    @if($seo?->description)
+    <meta name="description" content="{{ $seo->description }}">
+    @endif
+    @if($seo?->focus_keyword)
+    <meta name="keywords" content="{{ $seo->focus_keyword }}">
+    @endif
+    <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
+    <link rel="canonical" href="{{ $seo?->canonical_url ?? url('/') }}">
+    {{-- Open Graph --}}
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="{{ $seo?->title ?? 'CYT Comunicaciones' }}">
+    @if($seo?->description)
+    <meta property="og:description" content="{{ $seo->description }}">
+    @endif
+    <meta property="og:url" content="{{ $seo?->canonical_url ?? url('/') }}">
+    @if($seo?->og_image)
+    <meta property="og:image" content="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($seo->og_image) }}">
+    @endif
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link
       href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap"
@@ -377,6 +394,50 @@
         color: #f8f7ff !important;
       }
     </style>
+  <!-- Schema.org JSON-LD -->
+  <script type="application/ld+json">
+  [
+    {
+      "@@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "CYT Comunicaciones",
+      "url": "https://cytcomunicaciones.com",
+      "logo": "https://cytcomunicaciones.com/img/logo.png",
+      "foundingDate": "1990",
+      "description": "Más de 35 años transformando contact centers en LATAM con tecnología omnicanal, IA y plataforma Orion.",
+      "areaServed": "LATAM",
+      "sameAs": [
+        "https://www.linkedin.com/company/cyt-comunicaciones"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "info@cytcomunicaciones.com.ar",
+        "availableLanguage": "Spanish"
+      }
+    },
+    {
+      "@@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "CYT Comunicaciones",
+      "url": "https://cytcomunicaciones.com",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://cytcomunicaciones.com/blog?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@@context": "https://schema.org",
+      "@type": "Service",
+      "name": "Orion Contact Center",
+      "provider": { "@type": "Organization", "name": "CYT Comunicaciones" },
+      "description": "Plataforma omnicanal para contact centers con IA, CRM integrado y automatización de CX.",
+      "areaServed": "LATAM",
+      "serviceType": "Contact Center Software"
+    }
+  ]
+  </script>
   </head>
 
   <body
@@ -1021,89 +1082,81 @@
 
       <section class="px-6 py-24" id="nosotros">
         <div class="mx-auto max-w-7xl">
-          <div class="mb-14 max-w-3xl">
-            <p
-              class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft"
-            >
-              Por qué CYT
-            </p>
-            <h2
-              class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
-            >
-              Más de 35 años<br />transformando CX en LATAM.
-            </h2>
-            <p class="mt-5 text-lg leading-8 text-muted">
-              No somos una suscripción. Somos un socio tecnológico. Cada
-              implementación es una consultoría a medida respaldada por décadas
-              de operación real en Argentina y toda la región.
-            </p>
-          </div>
-          <div class="grid gap-6 md:grid-cols-2">
-            <article
-              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
-            >
-              <span
-                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-cyanSoft"
-                >hub</span
-              >
-              <div>
-                <h3 class="text-2xl font-extrabold">Ecosistema propio</h3>
-                <p class="mt-3 text-base leading-7 text-muted">
-                  Orion Contact Center e INTEGRA CRM son desarrollos propios.
-                  Sin problemas de compatibilidad porque todo nace de la misma
-                  fuente.
-                </p>
+          <div class="grid items-center gap-16 lg:grid-cols-2">
+
+            {{-- Columna izquierda: texto + cards --}}
+            <div>
+              <p class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft">Por qué CYT</p>
+              <h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl">
+                Más de 35 años<br />transformando CX en LATAM.
+              </h2>
+              <p class="mt-5 text-lg leading-8 text-muted">
+                No somos una suscripción. Somos un socio tecnológico. Cada
+                implementación es una consultoría a medida respaldada por décadas
+                de operación real en Argentina y toda la región.
+              </p>
+              <div class="mt-10 grid gap-4 sm:grid-cols-2">
+                <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
+                  <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-cyanSoft">hub</span>
+                  <div>
+                    <h3 class="font-extrabold">Ecosistema propio</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Orion Contact Center e INTEGRA CRM, desarrollos 100% propios.</p>
+                  </div>
+                </article>
+                <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
+                  <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-cyanSoft">verified</span>
+                  <div>
+                    <h3 class="font-extrabold">ISO 9001:2015</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Certificados por Bureau Veritas en cada proyecto.</p>
+                  </div>
+                </article>
+                <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
+                  <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-brandSoft">public</span>
+                  <div>
+                    <h3 class="font-extrabold">Liderazgo regional</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Argentina, Bolivia, Chile, Paraguay, Uruguay y Brasil.</p>
+                  </div>
+                </article>
+                <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
+                  <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-brandSoft">workspace_premium</span>
+                  <div>
+                    <h3 class="font-extrabold">Consultoría, no licencia</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Acompañamiento real. El éxito de tu operación es parte del acuerdo.</p>
+                  </div>
+                </article>
               </div>
-            </article>
-            <article
-              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
-            >
-              <span
-                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-cyanSoft"
-                >verified</span
-              >
-              <div>
-                <h3 class="text-2xl font-extrabold">ISO 9001:2015</h3>
-                <p class="mt-3 text-base leading-7 text-muted">
-                  Certificados por Bureau Veritas. Calidad de proceso auditada
-                  en cada proyecto, no solo en el producto.
-                </p>
+            </div>
+
+            {{-- Columna derecha: foto --}}
+            <div class="relative hidden lg:block">
+              <div class="overflow-hidden rounded-[2.5rem] shadow-glow">
+                <img
+                  src="img/home/8.jpg"
+                  alt="Agente de contact center CYT Comunicaciones"
+                  class="h-full w-full object-cover"
+                  style="aspect-ratio:1/1"
+                />
               </div>
-            </article>
-            <article
-              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
-            >
-              <span
-                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-brandSoft"
-                >public</span
-              >
-              <div>
-                <h3 class="text-2xl font-extrabold">Liderazgo regional</h3>
-                <p class="mt-3 text-base leading-7 text-muted">
-                  Presencia en Argentina, Bolivia, Chile, Paraguay, Uruguay y
-                  Brasil. Soporte local en cada país, sin depender de un
-                  proveedor global.
-                </p>
+              {{-- Badge flotante inferior izquierdo --}}
+              <div class="absolute -bottom-5 -left-5 flex items-center gap-3 rounded-2xl border border-white/20 bg-white px-5 py-4 shadow-card">
+                <div class="flex h-11 w-11 items-center justify-center rounded-xl bg-[rgba(123,63,242,0.12)]">
+                  <span class="material-symbols-outlined text-2xl text-brandSoft">groups</span>
+                </div>
+                <div>
+                  <p class="text-sm font-extrabold text-[#210853]">+200 clientes activos</p>
+                  <p class="text-xs text-[#5a4e6e]">en 6 países de LATAM</p>
+                </div>
               </div>
-            </article>
-            <article
-              class="glass flex items-start gap-6 rounded-[2rem] border border-white/10 p-8"
-            >
-              <span
-                class="material-symbols-outlined mt-1 shrink-0 text-4xl text-brandSoft"
-                >workspace_premium</span
-              >
-              <div>
-                <h3 class="text-2xl font-extrabold">
-                  Consultoría, no licencia
-                </h3>
-                <p class="mt-3 text-base leading-7 text-muted">
-                  Ofrecemos una solución escalable y acompañamiento real, no
-                  solo acceso a un software. El éxito de tu operación es parte
-                  del acuerdo.
-                </p>
+              {{-- Badge flotante superior derecho --}}
+              <div class="absolute -right-5 top-8 flex items-center gap-2 rounded-2xl border border-white/20 bg-white px-4 py-3 shadow-card">
+                <span class="material-symbols-outlined text-xl" style="color:#0077cc;font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 24">verified</span>
+                <div>
+                  <p class="text-xs font-extrabold text-[#210853]">ISO 9001:2015</p>
+                  <p class="text-[10px] text-[#5a4e6e]">Bureau Veritas</p>
+                </div>
               </div>
-            </article>
+            </div>
+
           </div>
         </div>
       </section>
@@ -1321,171 +1374,7 @@
       </div><!-- end light-body -->
     </main>
 
-    <footer class="light-footer border-t px-6 py-16">
-      <div class="mx-auto max-w-7xl">
-        <div class="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
-          <div class="col-span-2">
-            <img
-              alt="CYT Comunicaciones"
-              class="h-10 w-auto"
-              src="/img/logo.png"
-            />
-            <p class="mt-4 max-w-xs text-sm leading-7 text-muted">
-              Más de 35 años transformando contact centers en LATAM con
-              tecnología propia. Orion Contact Center e INTEGRA CRM.
-            </p>
-            <div
-              class="mt-6 inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2"
-            >
-              <span
-                class="material-symbols-outlined text-base text-cyanSoft"
-                >verified</span
-              >
-              <span class="text-xs font-bold text-muted"
-                >ISO 9001:2015 · Bureau Veritas</span
-              >
-            </div>
-            <div class="mt-6 flex gap-3">
-              <a
-                href="https://www.linkedin.com/company/cyt-comunicaciones"
-                class="social-chip"
-                aria-label="LinkedIn"
-                target="_blank"
-                rel="noopener"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0z"
-                  />
-                </svg>
-              </a>
-            </div>
-          </div>
-
-          <div>
-            <h6
-              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
-            >
-              Soluciones
-            </h6>
-            <ul class="space-y-4">
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#diferencia"
-                  >Voice Bot con IA</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#cx"
-                  >Automatización CX</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#plataforma"
-                  >Orion Contact Center</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#plataforma"
-                  >INTEGRA CRM</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#canales"
-                  >Omnicanalidad</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h6
-              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
-            >
-              Empresa
-            </h6>
-            <ul class="space-y-4">
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#nosotros"
-                  >Nosotros</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#industrias"
-                  >Industrias</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#premios"
-                  >Premios</a
-                >
-              </li>
-              <li>
-                <a
-                  class="text-sm text-muted transition-colors hover:text-brand"
-                  href="#resultados"
-                  >Resultados</a
-                >
-              </li>
-            </ul>
-          </div>
-
-          <div>
-            <h6
-              class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted"
-            >
-              Contacto
-            </h6>
-            <ul class="space-y-4 text-sm text-muted">
-              <li class="flex items-start gap-2">
-                <span class="material-symbols-outlined mt-0.5 text-base"
-                  >language</span
-                >
-                <span>www.cytcomunicaciones.com</span>
-              </li>
-              <li class="flex items-start gap-2">
-                <span class="material-symbols-outlined mt-0.5 text-base"
-                  >mail</span
-                >
-                <a
-                  href="mailto:info@cytcomunicaciones.com.ar"
-                  class="hover:text-brand transition-colors"
-                  >info@cytcomunicaciones.com.ar</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div
-          class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row md:text-left"
-        >
-          <p class="text-sm text-muted">
-            © 2026 CYT Comunicaciones. Todos los derechos reservados.
-          </p>
-          <div class="flex gap-6 text-sm text-muted">
-            <a class="transition-colors hover:text-brand" href="#">Privacidad</a>
-            <a class="transition-colors hover:text-brand" href="#">Términos</a>
-            <a class="transition-colors hover:text-brand" href="#">Legal</a>
-          </div>
-        </div>
-      </div>
-    </footer>
+    @include('partials._footer', ['footerPage' => 'home'])
 
     <div
       class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/70 px-4 backdrop-blur-sm"

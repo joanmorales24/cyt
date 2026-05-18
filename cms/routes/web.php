@@ -9,6 +9,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', fn () => view('index'))->name('home');
 Route::get('/voice-bot', fn () => view('voice_bot'))->name('voice-bot');
 
+// Legal pages
+Route::get('/politica-de-privacidad', fn () => view('legal.privacidad'))->name('legal.privacidad');
+Route::get('/terminos-y-condiciones', fn () => view('legal.terminos'))->name('legal.terminos');
+Route::get('/politica-de-cookies', fn () => view('legal.cookies'))->name('legal.cookies');
+Route::get('/politica-de-calidad', fn () => view('legal.calidad'))->name('legal.calidad');
+
 Route::prefix('blog')->name('blog.')->group(function () {
     Route::get('/', [BlogController::class, 'index'])->name('index');
     Route::get('/categoria/{slug}', [BlogController::class, 'category'])->name('category');

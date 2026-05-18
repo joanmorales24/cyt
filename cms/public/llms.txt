@@ -1,0 +1,38 @@
+# CYT Comunicaciones
+
+> Empresa tecnológica argentina con más de 35 años de experiencia en soluciones para contact centers y experiencia del cliente (CX) en LATAM.
+
+## Quiénes somos
+
+CYT Comunicaciones fue fundada en 1990 y es referente en la transformación de contact centers en América Latina. Desarrollamos y comercializamos tecnología propia para omnicanalidad, automatización y gestión de la experiencia del cliente.
+
+Contamos con certificación ISO 9001:2015 y más de 200 clientes activos en Argentina, Uruguay, Chile, Bolivia, Ecuador y Paraguay.
+
+## Productos principales
+
+### Orion Contact Center
+Plataforma omnicanal propia para contact centers. Integra voz, chat, email, WhatsApp y redes sociales en una sola interfaz. Incluye CRM integrado, marcador predictivo, grabación, reportes en tiempo real y módulos de IA.
+
+### Voice Bot con IA
+Solución de atención telefónica automatizada basada en inteligencia artificial generativa. Procesa lenguaje natural en español, entiende intenciones del cliente, resuelve consultas sin intervención humana y escala a un agente cuando es necesario.
+
+## Clientes destacados
+
+Musimundo, Carrefour, Mercedes-Benz, John Deere, Naturgy, Edenor, Metrovías, Banco FIE, Nación Servicios, entre otros.
+
+## Blog
+
+Publicamos artículos sobre contact centers, omnicanalidad, inteligencia artificial, CX y tendencias del sector en: https://cytcomunicaciones.com/blog
+
+## Contacto
+
+- Web: https://cytcomunicaciones.com
+- Email: info@cytcomunicaciones.com.ar
+- Ubicación: Argentina (operaciones en LATAM)
+
+## Páginas principales
+
+- Inicio: https://cytcomunicaciones.com
+- Voice Bot con IA: https://cytcomunicaciones.com/voice-bot
+- Blog: https://cytcomunicaciones.com/blog
+- Sitemap: https://cytcomunicaciones.com/sitemap.xml
