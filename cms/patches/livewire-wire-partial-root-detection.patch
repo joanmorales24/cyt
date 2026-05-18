@@ -1,0 +1,10 @@
+--- a/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php
++++ b/vendor/livewire/livewire/src/Features/SupportMultipleRootElementDetection/SupportMultipleRootElementDetection.php
+@@ -40,6 +40,7 @@ class SupportMultipleRootElementDetection extends ComponentHook
+         foreach ($body->childNodes as $child) {
+             if ($child->nodeType == XML_ELEMENT_NODE) {
+                 if ($child->tagName === 'script') continue;
++                if ($child->hasAttribute('wire:partial')) continue;
+ 
+                 $count++;
+             }

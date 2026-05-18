@@ -1,0 +1,23 @@
+/**
+ * Layout 2 columnas para el formulario de Posts en Filament Admin
+ * .post-form-main-grid se añade via extraAttributes() en PostForm.php
+ */
+
+/* Desktop: 70/30 */
+@media (min-width: 1024px) {
+    .post-form-main-grid {
+        grid-template-columns: minmax(0, 7fr) minmax(0, 3fr) !important;
+        align-items: start !important;
+    }
+
+    .post-form-main-grid > .fi-grid-col {
+        grid-column: auto !important;
+    }
+}
+
+/* Mobile: forzar 1 columna por si acaso */
+@media (max-width: 1023px) {
+    .post-form-main-grid {
+        grid-template-columns: 1fr !important;
+    }
+}

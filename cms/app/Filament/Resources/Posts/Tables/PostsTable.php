@@ -18,10 +18,13 @@ class PostsTable
         return $table
             ->columns([
                 ImageColumn::make('featured_image')
-                    ->label('Imagen')
-                    ->width(60)
-                    ->height(45)
-                    ->toggleable(),
+                    ->label('')
+                    ->disk('public')
+                    ->width(72)
+                    ->height(52)
+                    ->rounded()
+                    ->extraImgAttributes(['style' => 'object-fit:cover'])
+                    ->defaultImageUrl('https://placehold.co/72x52/e5e7eb/9ca3af?text=Sin+imagen'),
                 TextColumn::make('title')
                     ->label('Título')
                     ->searchable()

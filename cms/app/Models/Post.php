@@ -58,4 +58,94 @@ class Post extends Model
     {
         return $value ?: $this->title . ' | CyT Comunicaciones';
     }
+
+    public function getContentHtmlAttribute(): string
+    {
+        $blocks = json_decode($this->content ?? '[]', true);
+        if (! is_array($blocks)) return '';
+
+        $html = '';
+        foreach ($blocks as $block) {
+            $type = $block['type'] ?? '';
+            $data = $block['data'] ?? [];
+            $html .= match ($type) {
+                'paragraph' => $this->renderParagraph($data),
+                'heading'   => $this->renderHeading($data),
+                'image'     => $this->renderImage($data),
+                'video'     => $this->renderVideo($data),
+                'quote'     => $this->renderQuote($data),
+                'list'      => $this->renderList($data),
+                'divider'   => '<hr>',
+                'code'      => '<pre><code>' . e($data['code'] ?? '') . '</code></pre>',
+                default     => '',
+            };
+        }
+        return $html;
+    }
+
+    private function renderParagraph(array $data): string
+    {
+        $align = $data['align'] ?? 'left';
+        $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
+        return '<p' . $style . '>' . ($data['text'] ?? '') . '</p>';
+    }
+
+    private function renderHeading(array $data): string
+    {
+        $tag   = in_array($data['level'] ?? 'h2', ['h2','h3','h4']) ? $data['level'] : 'h2';
+        $align = $data['align'] ?? 'left';
+        $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
+        return "<{$tag}{$style}>" . ($data['text'] ?? '') . "</{$tag}>";
+    }
+
+    private function renderImage(array $data): string
+    {
+        if (empty($data['src'])) return '';
+        $src     = e($data['src']);
+        $alt     = e($data['alt'] ?? '');
+        $caption = $data['caption'] ?? '';
+        $fig     = '<figure><img src="' . $src . '" alt="' . $alt . '" style="max-width:100%">';
+        if ($caption) $fig .= '<figcaption>' . e($caption) . '</figcaption>';
+        return $fig . '</figure>';
+    }
+
+    private function renderVideo(array $data): string
+    {
+        if (empty($data['url'])) return '';
+        $url = $this->toEmbedUrl($data['url']);
+        return '<div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">'
+            . '<iframe src="' . e($url) . '" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>'
+            . '</div>';
+    }
+
+    private function renderQuote(array $data): string
+    {
+        $text = $data['text'] ?? '';
+        $cite = $data['cite'] ?? '';
+        $out  = '<blockquote><p>' . $text . '</p>';
+        if ($cite) $out .= '<cite>' . e($cite) . '</cite>';
+        return $out . '</blockquote>';
+    }
+
+    private function renderList(array $data): string
+    {
+        $tag   = ($data['style'] ?? 'unordered') === 'ordered' ? 'ol' : 'ul';
+        $items = $data['items'] ?? [];
+        $html  = "<{$tag}>";
+        foreach ($items as $item) {
+            $html .= '<li>' . ($item['text'] ?? $item) . '</li>';
+        }
+        return $html . "</{$tag}>";
+    }
+
+    private function toEmbedUrl(string $url): string
+    {
+        if (preg_match('/(?:youtube\.com\/watch\?v=|youtu\.be\/)([a-zA-Z0-9_-]+)/', $url, $m)) {
+            return 'https://www.youtube.com/embed/' . $m[1];
+        }
+        if (preg_match('/vimeo\.com\/(\d+)/', $url, $m)) {
+            return 'https://player.vimeo.com/video/' . $m[1];
+        }
+        return $url;
+    }
 }

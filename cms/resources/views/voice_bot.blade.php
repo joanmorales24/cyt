@@ -2204,30 +2204,44 @@
       (function () {
         const form = document.getElementById("demo-form");
         if (!form) return;
+
         form.addEventListener("submit", async function (e) {
           e.preventDefault();
           const btn = form.querySelector('[type="submit"]');
           const originalText = btn.textContent;
           btn.textContent = "Enviando…";
           btn.disabled = true;
+
+          const prevErr = form.querySelector(".form-error-msg");
+          if (prevErr) prevErr.remove();
+
           const data = {
-            nombre: form.nombre.value,
-            email: form.email.value,
-            telefono: form.telefono.value,
-            empresa: form.empresa.value,
+            name:    form.nombre.value,
+            email:   form.email.value,
+            phone:   form.telefono.value,
+            company: form.empresa.value,
+            source:  "voice-bot",
           };
+
+          const leadsUrl = "{{ route('leads.store') }}";
+          console.log('[leads] POST →', leadsUrl, data);
           try {
-            const res = await fetch(
-              "https://formsubmit.co/ajax/info@cytcomunicaciones.com.ar",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                },
-                body: JSON.stringify(data),
-              },
-            );
+            const res = await fetch(leadsUrl, {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify(data),
+            });
+            console.log('[leads] response status:', res.status);
+
+            if (res.status === 429) {
+              btn.textContent = originalText;
+              btn.disabled = false;
+              btn.insertAdjacentHTML("afterend",
+                '<p class="form-error-msg text-xs text-yellow-400 text-center mt-2">Demasiados intentos. Esperá unos minutos e intentá de nuevo.</p>'
+              );
+              return;
+            }
+
             if (res.ok) {
               form.innerHTML =
                 '<div class="flex flex-col items-center gap-4 py-10 text-center">' +
@@ -2236,14 +2250,13 @@
                 '<p class="text-muted text-sm">Te contactamos en breve para coordinar la demo.</p>' +
                 "</div>";
             } else {
-              throw new Error("error");
+              throw new Error("HTTP " + res.status);
             }
-          } catch (_) {
+          } catch (err) {
             btn.textContent = originalText;
             btn.disabled = false;
-            btn.insertAdjacentHTML(
-              "afterend",
-              '<p class="text-xs text-red-400 text-center">Hubo un error. Intentá de nuevo o escribinos a info@cytcomunicaciones.com.ar</p>',
+            btn.insertAdjacentHTML("afterend",
+              '<p class="form-error-msg text-xs text-red-400 text-center mt-2">Error ' + (err.message || '') + '. Intentá de nuevo o escribinos a <a href="mailto:info@cytcomunicaciones.com.ar" class="underline">info@cytcomunicaciones.com.ar</a></p>'
             );
           }
         });

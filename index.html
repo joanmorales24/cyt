@@ -1544,6 +1544,10 @@
           </button>
         </div>
         <form id="demo-form" class="grid gap-5 p-6 text-white">
+          <!-- Honeypot: invisible para humanos, los bots lo rellenan -->
+          <input type="text" name="_hp" value="" autocomplete="off" tabindex="-1" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden">
+          <!-- Timestamp: detecta envíos demasiado rápidos -->
+          <input type="hidden" name="_t" id="form-timestamp" value="0">
           <label class="grid gap-2 text-sm font-semibold">
             Nombre
             <input
@@ -1770,30 +1774,48 @@
       (function () {
         const form = document.getElementById("demo-form");
         if (!form) return;
+
+        // Marcar el momento en que el formulario fue cargado (anti-bot timing)
+        const tsField = document.getElementById("form-timestamp");
+        if (tsField) tsField.value = Math.floor(Date.now() / 1000);
+
         form.addEventListener("submit", async function (e) {
           e.preventDefault();
           const btn = form.querySelector('[type="submit"]');
           const originalText = btn.textContent;
           btn.textContent = "Enviando…";
           btn.disabled = true;
+
+          // Quitar mensaje de error previo si existe
+          const prevErr = form.querySelector(".form-error-msg");
+          if (prevErr) prevErr.remove();
+
           const data = {
-            nombre: form.nombre.value,
-            email: form.email.value,
-            telefono: form.telefono.value,
-            empresa: form.empresa.value,
+            name:    form.nombre.value,
+            email:   form.email.value,
+            phone:   form.telefono.value,
+            company: form.empresa.value,
+            source:  "landing",
+            _hp:     form._hp.value,
+            _t:      form._t.value,
           };
+
           try {
-            const res = await fetch(
-              "https://formsubmit.co/ajax/info@cytcomunicaciones.com.ar",
-              {
-                method: "POST",
-                headers: {
-                  "Content-Type": "application/json",
-                  Accept: "application/json",
-                },
-                body: JSON.stringify(data),
-              },
-            );
+            const res = await fetch("http://localhost:8000/api/leads", {
+              method: "POST",
+              headers: { "Content-Type": "application/json", Accept: "application/json" },
+              body: JSON.stringify(data),
+            });
+
+            if (res.status === 429) {
+              btn.textContent = originalText;
+              btn.disabled = false;
+              btn.insertAdjacentHTML("afterend",
+                '<p class="form-error-msg text-xs text-yellow-400 text-center mt-2">Demasiados intentos. Esperá unos minutos e intentá de nuevo.</p>'
+              );
+              return;
+            }
+
             if (res.ok) {
               form.innerHTML =
                 '<div class="flex flex-col items-center gap-4 py-10 text-center">' +
@@ -1807,9 +1829,8 @@
           } catch (_) {
             btn.textContent = originalText;
             btn.disabled = false;
-            btn.insertAdjacentHTML(
-              "afterend",
-              '<p class="text-xs text-red-400 text-center">Hubo un error. Intentá de nuevo o escribinos a info@cytcomunicaciones.com.ar</p>',
+            btn.insertAdjacentHTML("afterend",
+              '<p class="form-error-msg text-xs text-red-400 text-center mt-2">Hubo un error. Intentá de nuevo o escribinos a info@cytcomunicaciones.com.ar</p>'
             );
           }
         });
