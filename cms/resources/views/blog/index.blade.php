@@ -202,11 +202,11 @@
                     <span class="material-symbols-outlined text-4xl text-white/70">support_agent</span>
                     <h3 class="mt-3 text-lg font-extrabold">¿Querés saber más?</h3>
                     <p class="mt-2 text-sm leading-6 text-white/80">Solicitá una demo de Orion Contact Center o Voice Bot con IA.</p>
-                    <a href="https://cytcomunicaciones.com#contacto"
-                       class="mt-4 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-extrabold text-white transition hover:bg-white/25">
+                    <button data-open-demo
+                            class="mt-4 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-extrabold text-white transition hover:bg-white/25">
                         Solicitar demo
                         <span class="material-symbols-outlined text-sm">arrow_forward</span>
-                    </a>
+                    </button>
                 </div>
             </aside>
         </div>

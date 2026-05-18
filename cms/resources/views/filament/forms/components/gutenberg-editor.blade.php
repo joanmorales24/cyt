@@ -72,14 +72,14 @@
 /* ── Document area ──────────────────────────────────── */
 .gb-doc {
     min-height: 320px;
-    padding: 20px 16px;
+    padding: 12px 16px;
     cursor: text;
 }
 
 /* ── Block row ──────────────────────────────────────── */
 .gb-row {
     position: relative;
-    margin-bottom: 4px;
+    margin-bottom: 1px;
 }
 .gb-row:hover .gb-insert-row,
 .gb-row.is-selected .gb-insert-row { opacity: 1; }
@@ -198,10 +198,10 @@
 /* ── Block content elements ─────────────────────────── */
 [data-gb-para] {
     outline: none;
-    min-height: 1.5em;
-    line-height: 1.7;
-    font-size: 15px;
-    padding: 4px 0;
+    min-height: 1.4em;
+    line-height: 1.55;
+    font-size: 14px;
+    padding: 1px 0;
     font-family: system-ui, sans-serif;
     color: var(--gb-text);
     white-space: pre-wrap;
@@ -219,9 +219,9 @@
 [data-gb-para] a { color: var(--gb-accent); text-decoration: underline; }
 [data-gb-para] code { font-family: monospace; background: var(--gb-focus); padding: 1px 4px; border-radius: 3px; font-size: .9em; }
 
-.gb-h2 [data-gb-para] { font-size: 1.65rem; font-weight: 700; }
-.gb-h3 [data-gb-para] { font-size: 1.3rem;  font-weight: 700; }
-.gb-h4 [data-gb-para] { font-size: 1.1rem;  font-weight: 600; }
+.gb-h2 [data-gb-para] { font-size: 1.4rem;  font-weight: 700; line-height: 1.3; }
+.gb-h3 [data-gb-para] { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
+.gb-h4 [data-gb-para] { font-size: 1rem;    font-weight: 600; line-height: 1.3; }
 
 /* quote */
 .gb-quote-wrap {
@@ -276,6 +276,17 @@
     min-height: 1em;
 }
 .gb-list-item:empty::before { content: 'Elemento de lista'; color: var(--gb-muted); pointer-events: none; }
+.gb-list-item b, .gb-list-item strong { font-weight: 700; }
+.gb-list-item i, .gb-list-item em { font-style: italic; }
+.gb-list-item u { text-decoration: underline; }
+.gb-list-item s { text-decoration: line-through; }
+.gb-list-item a { color: var(--gb-accent); text-decoration: underline; }
+
+/* html legacy block */
+.gb-html-legacy { border: 1px dashed #f59e0b; border-radius: 6px; overflow: hidden; }
+.gb-html-legacy-badge { background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 600; padding: 4px 10px; letter-spacing: .04em; }
+.gb-html-legacy-preview { padding: 12px 14px; font-size: 14px; color: var(--gb-text); max-height: 240px; overflow: auto; border-bottom: 1px dashed #f59e0b; }
+.gb-html-legacy-textarea { width: 100%; min-height: 120px; padding: 10px 14px; font-family: ui-monospace,monospace; font-size: 12px; color: #374151; background: #fffbeb; border: none; outline: none; resize: vertical; display: block; }
 
 /* image */
 .gb-img-wrap { position: relative; }
@@ -330,7 +341,7 @@
 }
 
 /* video embed */
-.gb-video-wrap { border-radius: 8px; overflow: hidden; }
+.gb-video-wrap { border-radius: 1rem; overflow: hidden; }
 .gb-video-embed { position: relative; padding-bottom: 56.25%; height: 0; }
 .gb-video-embed iframe {
     position: absolute; top: 0; left: 0;
@@ -902,11 +913,13 @@
                                         <ul class="gb-list">
                                             <template x-for="(item, i) in block.data.items" :key="i">
                                                 <li class="gb-list-item" contenteditable="true"
-                                                    x-init="$el.textContent = item.text || ''"
-                                                    @input="item.text=$event.target.innerText;syncState()"
+                                                    x-init="$el.innerHTML = item.text || ''"
+                                                    @input="item.text=$event.target.innerHTML;syncState()"
                                                     @keydown.enter.prevent="addListItem(index)"
                                                     @keydown.backspace="removeListItemIfEmpty(index,i,$event)"
-                                                    @focus="selectedIndex=index"></li>
+                                                    @focus="selectedIndex=index"
+                                                    @mouseup="showInlineToolbar($event)"
+                                                    @keyup="showInlineToolbar($event)"></li>
                                             </template>
                                         </ul>
                                     </template>
@@ -914,11 +927,13 @@
                                         <ol class="gb-list">
                                             <template x-for="(item, i) in block.data.items" :key="i">
                                                 <li class="gb-list-item" contenteditable="true"
-                                                    x-init="$el.textContent = item.text || ''"
-                                                    @input="item.text=$event.target.innerText;syncState()"
+                                                    x-init="$el.innerHTML = item.text || ''"
+                                                    @input="item.text=$event.target.innerHTML;syncState()"
                                                     @keydown.enter.prevent="addListItem(index)"
                                                     @keydown.backspace="removeListItemIfEmpty(index,i,$event)"
-                                                    @focus="selectedIndex=index"></li>
+                                                    @focus="selectedIndex=index"
+                                                    @mouseup="showInlineToolbar($event)"
+                                                    @keyup="showInlineToolbar($event)"></li>
                                             </template>
                                         </ol>
                                     </template>
@@ -938,6 +953,20 @@
                                         x-init="$el.textContent = block.data.code || ''"
                                         @input="block.data.code=$event.target.innerText;syncState()"
                                         @focus="selectedIndex=index"></div>
+                                </div>
+                            </template>
+
+                            {{-- ═══ HTML LEGACY ═══ --}}
+                            <template x-if="block.type==='html'">
+                                <div class="gb-html-legacy">
+                                    <div class="gb-html-legacy-badge">HTML importado</div>
+                                    <div class="gb-html-legacy-preview" x-html="block.data.html"></div>
+                                    <textarea class="gb-html-legacy-textarea"
+                                        spellcheck="false"
+                                        x-init="$el.value = block.data.html || ''"
+                                        @input="block.data.html=$event.target.value;syncState()"
+                                        @focus="selectedIndex=index"
+                                        placeholder="HTML…"></textarea>
                                 </div>
                             </template>
 
@@ -1200,7 +1229,11 @@ function gutenbergEditor(initialBlocks, statePath, uploadUrl) {
             try {
                 const parsed = typeof initialBlocks === 'string' ? JSON.parse(initialBlocks) : initialBlocks;
                 this.blocks = Array.isArray(parsed) ? parsed.map(b => ({ ...b, _id: this._nextId++ })) : [];
-            } catch { this.blocks = []; }
+            } catch {
+                // Contenido legacy (HTML puro o WordPress) → convertir a bloques
+                const raw = typeof initialBlocks === 'string' ? initialBlocks.trim() : '';
+                this.blocks = raw ? this.htmlToBlocks(raw) : [];
+            }
 
             if (this.blocks.length === 0) this.blocks = [this.newBlock('paragraph')];
 
@@ -1213,6 +1246,7 @@ function gutenbergEditor(initialBlocks, statePath, uploadUrl) {
             const defaults = {
                 paragraph: { text: '', align: 'left' },
                 heading:   { text: '', level: 'h2', align: 'left' },
+                html:      { html: '' },
                 image:     { src: '', alt: '', caption: '' },
                 video:     { url: '' },
                 quote:     { text: '', cite: '' },
@@ -1223,10 +1257,113 @@ function gutenbergEditor(initialBlocks, statePath, uploadUrl) {
             return { _id: this._nextId++, type, data: { ...(defaults[type] || {}), ...data } };
         },
 
+        htmlToBlocks(html) {
+            // Quita comentarios WordPress (<!-- wp:... --> y <!-- /wp:... -->)
+            const clean = html.replace(/<!--\s*\/?wp:[^>]*-->/g, '').trim();
+
+            const doc = new DOMParser().parseFromString(clean, 'text/html');
+            const blocks = [];
+
+            const push = (type, data) => blocks.push(this.newBlock(type, data));
+
+            const innerHtml = (el) => el.innerHTML.trim();
+            const innerText = (el) => el.textContent.trim();
+
+            // Limpia atributos de estilo inline (color, font-size, etc.) dejando
+            // solo las etiquetas semánticas: <strong>, <em>, <a>, <u>, <s>
+            const cleanInline = (html) => {
+                const d = document.createElement('div');
+                d.innerHTML = html;
+                d.querySelectorAll('[style],[class]').forEach(el => {
+                    el.removeAttribute('style');
+                    el.removeAttribute('class');
+                    // Spans sin atributos → reemplazar con su contenido
+                    if (el.tagName === 'SPAN' && el.attributes.length === 0) {
+                        el.replaceWith(...el.childNodes);
+                    }
+                });
+                return d.innerHTML.trim();
+            };
+
+            const children = [...doc.body.childNodes];
+            for (const node of children) {
+                if (node.nodeType === Node.TEXT_NODE) {
+                    const t = node.textContent.trim();
+                    if (t) push('paragraph', { text: t, align: 'left' });
+                    continue;
+                }
+                if (node.nodeType !== Node.ELEMENT_NODE) continue;
+
+                const tag = node.tagName.toLowerCase();
+
+                if (/^h[1-6]$/.test(tag)) {
+                    const text = cleanInline(innerHtml(node));
+                    if (text) push('heading', { text, level: tag, align: 'left' });
+
+                } else if (tag === 'p') {
+                    const text = cleanInline(innerHtml(node));
+                    if (text) push('paragraph', { text, align: 'left' });
+
+                } else if (tag === 'ul' || tag === 'ol') {
+                    const items = [...node.querySelectorAll(':scope > li')]
+                        .map(li => ({ text: cleanInline(li.innerHTML) }))
+                        .filter(i => i.text);
+                    if (items.length) push('list', { style: tag === 'ol' ? 'ordered' : 'unordered', items });
+
+                } else if (tag === 'blockquote') {
+                    const cite = node.querySelector('cite');
+                    const citeText = cite ? innerText(cite) : '';
+                    if (cite) cite.remove();
+                    push('quote', { text: cleanInline(node.innerHTML), cite: citeText });
+
+                } else if (tag === 'hr') {
+                    push('divider');
+
+                } else if (tag === 'pre') {
+                    push('code', { code: innerText(node) });
+
+                } else if (tag === 'figure') {
+                    const img = node.querySelector('img');
+                    const caption = node.querySelector('figcaption');
+                    if (img) push('image', { src: img.getAttribute('src') || '', alt: img.getAttribute('alt') || '', caption: caption ? innerText(caption) : '' });
+
+                } else if (tag === 'img') {
+                    push('image', { src: node.getAttribute('src') || '', alt: node.getAttribute('alt') || '', caption: '' });
+
+                } else if (tag === 'table') {
+                    // Tabla → párrafo con HTML limpio (no tenemos bloque tabla)
+                    push('paragraph', { text: node.outerHTML, align: 'left' });
+
+                } else {
+                    // div, span, section, article, etc. → extraer texto como párrafo
+                    const text = cleanInline(innerHtml(node));
+                    if (text) push('paragraph', { text, align: 'left' });
+                }
+            }
+
+            // Si el body no tenía hijos tipo bloque (solo inline/texto puro)
+            if (blocks.length === 0 && doc.body.innerHTML.trim()) {
+                push('paragraph', { text: cleanInline(doc.body.innerHTML), align: 'left' });
+            }
+
+            return blocks.length ? blocks : [this.newBlock('paragraph')];
+        },
+
         syncState() {
             const clean = this.blocks.map(({ _id, ...rest }) => rest);
-            this.$refs.hiddenInput.value = JSON.stringify(clean);
-            this.$refs.hiddenInput.dispatchEvent(new Event('input', { bubbles: true }));
+            const json  = JSON.stringify(clean);
+
+            // Actualizar el input oculto (fallback)
+            this.$refs.hiddenInput.value = json;
+
+            // Actualizar el estado de Livewire directamente, con debounce
+            // para no disparar un request por cada tecla pulsada
+            clearTimeout(this._syncTimer);
+            this._syncTimer = setTimeout(() => {
+                if (this.$wire) {
+                    this.$wire.$set(this.statePath, json);
+                }
+            }, 400);
         },
 
         openPicker(index, append) {

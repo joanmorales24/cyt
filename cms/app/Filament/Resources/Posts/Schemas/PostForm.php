@@ -107,6 +107,9 @@ FileUpload::make('featured_image')
                                     ->directory('posts')
                                     ->visibility('public')
                                     ->imagePreviewHeight('200')
+                                    ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                                    ->maxSize(8192)
+                                    ->rules(['mimes:jpg,jpeg,png,gif,webp'])
                                     ->placeholder('Arrastra una imagen aquí o <span class="filepond--label-action">selecciona una</span>'),
                                 TextInput::make('featured_image_alt')
                                     ->label('Texto alternativo'),

@@ -23,6 +23,12 @@ class EditPost extends EditRecord
                 ->label('Guardar cambios')
                 ->color('primary')
                 ->action('save'),
+            Action::make('view')
+                ->label('Ver en la página')
+                ->icon('heroicon-o-arrow-top-right-on-square')
+                ->color('gray')
+                ->url(fn () => route('blog.show', $this->record->slug))
+                ->openUrlInNewTab(),
             DeleteAction::make(),
         ];
     }

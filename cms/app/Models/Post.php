@@ -61,8 +61,9 @@ class Post extends Model
 
     public function getContentHtmlAttribute(): string
     {
-        $blocks = json_decode($this->content ?? '[]', true);
-        if (! is_array($blocks)) return '';
+        $raw    = $this->content ?? '';
+        $blocks = json_decode($raw, true);
+        if (! is_array($blocks)) return $raw; // HTML legacy → mostrar tal cual
 
         $html = '';
         foreach ($blocks as $block) {
@@ -77,6 +78,7 @@ class Post extends Model
                 'list'      => $this->renderList($data),
                 'divider'   => '<hr>',
                 'code'      => '<pre><code>' . e($data['code'] ?? '') . '</code></pre>',
+                'html'      => $data['html'] ?? '',
                 default     => '',
             };
         }
@@ -101,10 +103,16 @@ class Post extends Model
     private function renderImage(array $data): string
     {
         if (empty($data['src'])) return '';
-        $src     = e($data['src']);
+
+        $raw = $data['src'];
+        // Si es ruta relativa del disk public → convertir a URL pública
+        $src = str_starts_with($raw, 'http://') || str_starts_with($raw, 'https://')
+            ? $raw
+            : \Illuminate\Support\Facades\Storage::disk('public')->url($raw);
+
         $alt     = e($data['alt'] ?? '');
         $caption = $data['caption'] ?? '';
-        $fig     = '<figure><img src="' . $src . '" alt="' . $alt . '" style="max-width:100%">';
+        $fig     = '<figure><img src="' . e($src) . '" alt="' . $alt . '" style="max-width:100%">';
         if ($caption) $fig .= '<figcaption>' . e($caption) . '</figcaption>';
         return $fig . '</figure>';
     }
@@ -113,8 +121,8 @@ class Post extends Model
     {
         if (empty($data['url'])) return '';
         $url = $this->toEmbedUrl($data['url']);
-        return '<div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden">'
-            . '<iframe src="' . e($url) . '" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0"></iframe>'
+        return '<div class="video-wrap" style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:1rem">'
+            . '<iframe src="' . e($url) . '" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;border-radius:1rem"></iframe>'
             . '</div>';
     }
 

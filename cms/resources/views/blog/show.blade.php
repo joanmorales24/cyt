@@ -115,7 +115,7 @@
 
                 {{-- Cuerpo --}}
                 <div class="cyt-prose">
-                    {!! $post->content !!}
+                    {!! $post->content_html !!}
                 </div>
 
                 {{-- Etiquetas del post --}}
@@ -217,4 +217,14 @@
         </div>
     </div>
 </div>
+
+@auth
+<a href="{{ route('filament.admin.resources.posts.edit', $post->slug) }}"
+   title="Editar entrada"
+   style="position:fixed;bottom:1.5rem;right:1.5rem;z-index:9999;display:flex;align-items:center;gap:0.5rem;background:#7c3aed;color:#fff;font-size:13px;font-weight:700;padding:0.6rem 1.1rem;border-radius:9999px;box-shadow:0 4px 20px rgba(124,58,237,0.45);text-decoration:none;transition:background 150ms" onmouseover="this.style.background='#6d28d9'" onmouseout="this.style.background='#7c3aed'">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+    Editar entrada
+</a>
+@endauth
+
 @endsection

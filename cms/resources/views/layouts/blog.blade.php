@@ -231,5 +231,102 @@
     </div>
 </footer>
 
+{{-- ── Modal Solicitar Demo (mismo endpoint CRM que index/voice-bot) ── --}}
+<div id="schedule-modal"
+     class="fixed inset-0 z-[9999] hidden items-center justify-center bg-black/60 px-4 backdrop-blur-sm">
+    <div class="w-full max-w-lg overflow-hidden rounded-[2rem] border border-white/10 bg-[#110b2c] shadow-2xl">
+        <div class="flex items-center justify-between border-b border-white/10 px-6 py-5">
+            <div>
+                <p class="text-sm font-bold uppercase tracking-[0.24em] text-purple-300">Solicitar demo</p>
+                <h3 class="mt-2 text-2xl font-extrabold text-white">Agendá una reunión con CYT</h3>
+            </div>
+            <button id="close-schedule-modal" type="button"
+                    class="flex h-11 w-11 items-center justify-center rounded-full border border-white/10 bg-white/5 text-2xl text-white transition hover:bg-white/10">×</button>
+        </div>
+        <form id="demo-form" class="grid gap-5 p-6 text-white">
+            <label class="grid gap-2 text-sm font-semibold">
+                Nombre
+                <input name="nombre" type="text" required placeholder="Tu nombre"
+                       class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400"/>
+            </label>
+            <label class="grid gap-2 text-sm font-semibold">
+                Email
+                <input name="email" type="email" placeholder="tu@empresa.com"
+                       class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400"/>
+            </label>
+            <label class="grid gap-2 text-sm font-semibold">
+                Teléfono
+                <input name="telefono" type="tel" placeholder="+54 ..."
+                       class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400"/>
+            </label>
+            <label class="grid gap-2 text-sm font-semibold">
+                Empresa
+                <input name="empresa" type="text" placeholder="Nombre de la empresa"
+                       class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400"/>
+            </label>
+            <button type="submit"
+                    class="rounded-full px-6 py-4 text-lg font-extrabold text-white transition hover:opacity-90"
+                    style="background:linear-gradient(90deg,#9d2cf3 0%,#7457ff 50%,#1ca9ff 100%)">
+                Quiero ver una demo
+            </button>
+        </form>
+    </div>
+</div>
+
+<script>
+(function () {
+    const modal    = document.getElementById('schedule-modal');
+    const closeBtn = document.getElementById('close-schedule-modal');
+    if (!modal) return;
+
+    function openModal()  { modal.classList.remove('hidden'); modal.classList.add('flex'); }
+    function closeModal() { modal.classList.add('hidden');    modal.classList.remove('flex'); }
+
+    document.querySelectorAll('[data-open-demo]').forEach(btn => btn.addEventListener('click', openModal));
+    closeBtn.addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if (e.target === modal) closeModal(); });
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+    const form = document.getElementById('demo-form');
+    form.addEventListener('submit', async function (e) {
+        e.preventDefault();
+        const btn = form.querySelector('[type="submit"]');
+        const original = btn.textContent;
+        btn.textContent = 'Enviando…';
+        btn.disabled = true;
+        form.querySelector('.form-error-msg')?.remove();
+
+        const data = {
+            name:    form.nombre.value,
+            email:   form.email.value,
+            phone:   form.telefono.value,
+            company: form.empresa.value,
+            source:  'blog',
+        };
+
+        try {
+            const res = await fetch('{{ route("leads.store") }}', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+                body: JSON.stringify(data),
+            });
+            if (res.status === 429) {
+                btn.textContent = original; btn.disabled = false;
+                btn.insertAdjacentHTML('afterend', '<p class="form-error-msg text-xs text-yellow-400 text-center mt-2">Demasiados intentos. Esperá unos minutos.</p>');
+                return;
+            }
+            if (res.ok) {
+                form.innerHTML = '<div class="py-10 text-center"><p class="text-xl font-extrabold text-white">¡Solicitud enviada!</p><p class="mt-2 text-sm text-white/70">Te contactamos en breve para coordinar la demo.</p></div>';
+            } else {
+                throw new Error('HTTP ' + res.status);
+            }
+        } catch (err) {
+            btn.textContent = original; btn.disabled = false;
+            btn.insertAdjacentHTML('afterend', '<p class="form-error-msg text-xs text-red-400 text-center mt-2">Error ' + (err.message || '') + '. Escribinos a <a href="mailto:info@cytcomunicaciones.com.ar" class="underline">info@cytcomunicaciones.com.ar</a></p>');
+        }
+    });
+})();
+</script>
+
 </body>
 </html>
