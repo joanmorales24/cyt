@@ -89,7 +89,8 @@ class Post extends Model
     {
         $align = $data['align'] ?? 'left';
         $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
-        return '<p' . $style . '>' . e($data['text'] ?? '') . '</p>';
+        $text = strip_tags($data['text'] ?? '', '<b><i><strong><em><a><br><code><mark>');
+        return '<p' . $style . '>' . $text . '</p>';
     }
 
     private function renderHeading(array $data): string
@@ -97,7 +98,8 @@ class Post extends Model
         $tag   = in_array($data['level'] ?? 'h2', ['h2','h3','h4']) ? $data['level'] : 'h2';
         $align = $data['align'] ?? 'left';
         $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
-        return "<{$tag}{$style}>" . e($data['text'] ?? '') . "</{$tag}>";
+        $text = strip_tags($data['text'] ?? '', '<b><i><strong><em><a><br><code><mark>');
+        return "<{$tag}{$style}>" . $text . "</{$tag}>";
     }
 
     private function renderImage(array $data): string
@@ -128,10 +130,10 @@ class Post extends Model
 
     private function renderQuote(array $data): string
     {
-        $text = $data['text'] ?? '';
-        $cite = $data['cite'] ?? '';
-        $out  = '<blockquote><p>' . e($text) . '</p>';
-        if ($cite) $out .= '<cite>' . e($cite) . '</cite>';
+        $text = strip_tags($data['text'] ?? '', '<b><i><strong><em><a><br><code><mark>');
+        $cite = strip_tags($data['cite'] ?? '', '<b><i><strong><em><a><br>');
+        $out  = '<blockquote><p>' . $text . '</p>';
+        if ($cite) $out .= '<cite>' . $cite . '</cite>';
         return $out . '</blockquote>';
     }
 
@@ -141,7 +143,9 @@ class Post extends Model
         $items = $data['items'] ?? [];
         $html  = "<{$tag}>";
         foreach ($items as $item) {
-            $html .= '<li>' . e($item['text'] ?? $item) . '</li>';
+            $itemText = is_array($item) ? ($item['text'] ?? '') : $item;
+            $itemText = strip_tags($itemText, '<b><i><strong><em><a><br><code><mark>');
+            $html .= '<li>' . $itemText . '</li>';
         }
         return $html . "</{$tag}>";
     }
