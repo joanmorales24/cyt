@@ -1405,6 +1405,7 @@
           </button>
         </div>
         <form id="demo-form" class="grid gap-5 p-6 text-white">
+          @csrf
           <label class="grid gap-2 text-sm font-semibold">
             Nombre
             <input
