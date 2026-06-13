@@ -14,7 +14,7 @@ class FilamentAuthenticate
         }
 
         if (! auth()->user()->canAccessFilament()) {
-            abort(403);
+            abort(403, 'No tienes permiso para acceder al panel de administración.');
         }
 
         return $next($request);
