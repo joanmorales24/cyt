@@ -2,7 +2,7 @@
 
 @php
     $seoTitle    = $post->seo_title ?: ($post->title . ' | CYT Comunicaciones');
-    $seoDesc     = $post->seo_description ?: Str::limit(strip_tags($post->excerpt ?? $post->content), 160);
+    $seoDesc     = $post->seo_description ? strip_tags($post->seo_description) : Str::limit(strip_tags($post->excerpt ?? $post->content), 160);
     $canonicalUrl = $post->seo_canonical_url ?: route('blog.show', $post->slug);
     $ogImage     = $post->og_image ?? $post->featured_image;
     if ($ogImage && !Str::startsWith($ogImage, 'http')) {
