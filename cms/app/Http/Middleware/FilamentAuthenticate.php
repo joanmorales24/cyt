@@ -14,7 +14,9 @@ class FilamentAuthenticate
         }
 
         if (! auth()->user()->canAccessFilament()) {
-            abort(403, 'No tienes permiso para acceder al panel de administración.');
+            auth()->logout();
+            return redirect()->route('filament.admin.auth.login')
+                ->with('error', 'No tienes permiso para acceder al panel de administración.');
         }
 
         return $next($request);
