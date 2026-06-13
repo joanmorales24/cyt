@@ -24,7 +24,7 @@ Route::prefix('blog')->name('blog.')->group(function () {
 
 // Leads (CRM) — throttle: 20 intentos cada 15 min (dev) / 3 en prod lo maneja el limiter
 Route::post('/api/leads', [LeadController::class, 'store'])
-    ->middleware('throttle:20,15')
+    ->middleware(['web', 'throttle:20,15'])
     ->name('leads.store');
 
 // Block image upload (admin only)
