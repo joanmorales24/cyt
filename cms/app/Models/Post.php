@@ -89,7 +89,7 @@ class Post extends Model
     {
         $align = $data['align'] ?? 'left';
         $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
-        return '<p' . $style . '>' . ($data['text'] ?? '') . '</p>';
+        return '<p' . $style . '>' . e($data['text'] ?? '') . '</p>';
     }
 
     private function renderHeading(array $data): string
@@ -97,7 +97,7 @@ class Post extends Model
         $tag   = in_array($data['level'] ?? 'h2', ['h2','h3','h4']) ? $data['level'] : 'h2';
         $align = $data['align'] ?? 'left';
         $style = $align !== 'left' ? " style=\"text-align:{$align}\"" : '';
-        return "<{$tag}{$style}>" . ($data['text'] ?? '') . "</{$tag}>";
+        return "<{$tag}{$style}>" . e($data['text'] ?? '') . "</{$tag}>";
     }
 
     private function renderImage(array $data): string
@@ -130,7 +130,7 @@ class Post extends Model
     {
         $text = $data['text'] ?? '';
         $cite = $data['cite'] ?? '';
-        $out  = '<blockquote><p>' . $text . '</p>';
+        $out  = '<blockquote><p>' . e($text) . '</p>';
         if ($cite) $out .= '<cite>' . e($cite) . '</cite>';
         return $out . '</blockquote>';
     }
@@ -141,7 +141,7 @@ class Post extends Model
         $items = $data['items'] ?? [];
         $html  = "<{$tag}>";
         foreach ($items as $item) {
-            $html .= '<li>' . ($item['text'] ?? $item) . '</li>';
+            $html .= '<li>' . e($item['text'] ?? $item) . '</li>';
         }
         return $html . "</{$tag}>";
     }
