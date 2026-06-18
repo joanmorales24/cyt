@@ -45,3 +45,6 @@ Route::get('/sitemap.xml', function () {
     return response()->view('sitemap', compact('posts'))
         ->header('Content-Type', 'application/xml');
 })->name('sitemap');
+
+// Catch-all 404 redirect to home
+Route::fallback(fn () => redirect('/'));

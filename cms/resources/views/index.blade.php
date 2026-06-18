@@ -6,9 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{{ $seo?->title ?? 'CYT Comunicaciones | Contact Center, Omnicanalidad y CX en LATAM' }}</title>
-    @if($seo?->description)
-    <meta name="description" content="{{ $seo->description }}">
-    @endif
+    <meta name="description" content="{{ $seo?->description ?? 'Plataforma de contact center con IA, omnicanalidad y Voice Bot. Transforma tu CX con Orion, INTEGRA CRM. Más de 35 años en LATAM.' }}">
     @if($seo?->focus_keyword)
     <meta name="keywords" content="{{ $seo->focus_keyword }}">
     @endif
@@ -17,9 +15,7 @@
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $seo?->title ?? 'CYT Comunicaciones' }}">
-    @if($seo?->description)
-    <meta property="og:description" content="{{ $seo->description }}">
-    @endif
+    <meta property="og:description" content="{{ $seo?->description ?? 'Plataforma de contact center con IA, omnicanalidad y Voice Bot para tu CX.' }}">
     <meta property="og:url" content="{{ $seo?->canonical_url ?? url('/') }}">
     @if($seo?->og_image)
     <meta property="og:image" content="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($seo->og_image) }}">

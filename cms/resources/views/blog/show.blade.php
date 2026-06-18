@@ -194,7 +194,7 @@
                     <span class="material-symbols-outlined text-4xl text-white/70">phone_in_talk</span>
                     <h3 class="mt-3 text-base font-extrabold">Voice Bot con IA</h3>
                     <p class="mt-2 text-sm leading-6 text-white/80">Automatizá tu atención telefónica con inteligencia artificial generativa.</p>
-                    <a href="https://cytcomunicaciones.com/voice-bot.html"
+                    <a href="{{ route('voice-bot') }}"
                        class="mt-4 inline-flex items-center gap-1 rounded-full border border-white/30 bg-white/15 px-4 py-2 text-sm font-extrabold text-white transition hover:bg-white/25">
                         Ver Voice Bot ↗
                     </a>

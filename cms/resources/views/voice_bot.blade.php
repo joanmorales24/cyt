@@ -6,9 +6,7 @@
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>{{ $seo?->title ?? 'CYT Comunicaciones | Voice Bot con IA para Automatización y CX' }}</title>
-    @if($seo?->description)
-    <meta name="description" content="{{ $seo->description }}">
-    @endif
+    <meta name="description" content="{{ $seo?->description ?? 'Voice Bot con IA generativa para automatizar llamadas masivas. Hasta 1000 llamadas/hora. Integración con CRM, cobranzas, ventas y post venta en LATAM.' }}">
     @if($seo?->focus_keyword)
     <meta name="keywords" content="{{ $seo->focus_keyword }}">
     @endif
@@ -17,9 +15,7 @@
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $seo?->title ?? 'CYT Comunicaciones | Voice Bot' }}">
-    @if($seo?->description)
-    <meta property="og:description" content="{{ $seo->description }}">
-    @endif
+    <meta property="og:description" content="{{ $seo?->description ?? 'Voice Bot con IA generativa para automatizar llamadas masivas. Hasta 1000 llamadas/hora.' }}">
     <meta property="og:url" content="{{ $seo?->canonical_url ?? url('/voice-bot') }}">
     @if($seo?->og_image)
     <meta property="og:image" content="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($seo->og_image) }}">
