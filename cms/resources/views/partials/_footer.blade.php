@@ -33,15 +33,7 @@
           Más de 35 años transformando contact centers en LATAM con tecnología propia.
           Orion Contact Center e INTEGRA CRM.
         </p>
-        <div class="mt-6 inline-flex items-center gap-3 rounded-2xl border border-[rgba(0,119,204,0.25)] bg-[rgba(0,119,204,0.07)] px-4 py-3">
-          <div class="flex h-9 w-9 flex-shrink-0 items-center justify-center rounded-xl bg-[rgba(0,119,204,0.12)]">
-            <span class="material-symbols-outlined text-lg" style="color:#0077cc;font-variation-settings:'FILL' 1,'wght' 600,'GRAD' 0,'opsz' 24">verified</span>
-          </div>
-          <div>
-            <p class="text-xs font-extrabold leading-tight" style="color:#0055a0">ISO 9001:2015</p>
-            <p class="text-[11px] leading-tight" style="color:#4a6080">Certificado Bureau Veritas</p>
-          </div>
-        </div>
+
         <div class="mt-6 flex gap-3">
           {{-- LinkedIn --}}
           <a href="https://www.linkedin.com/company/cyt-comunicaciones/" class="social-chip" aria-label="LinkedIn" target="_blank" rel="noopener">
