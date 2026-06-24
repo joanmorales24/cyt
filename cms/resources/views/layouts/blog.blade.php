@@ -34,6 +34,7 @@
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
     <script>
       tailwind.config = {
@@ -331,7 +332,7 @@
 {{-- WhatsApp Floating Button --}}
 <a href="https://wa.me/5491176602200" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg transition-all hover:scale-110"
    title="Contactá por WhatsApp">
-  <img src="/img/home/whatsapp.svg" alt="WhatsApp" class="w-8 h-8">
+  <i class="fab fa-whatsapp text-white text-2xl"></i>
 </a>
 
 </body>
