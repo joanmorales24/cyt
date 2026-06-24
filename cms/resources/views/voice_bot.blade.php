@@ -2196,7 +2196,7 @@
     {{-- WhatsApp Floating Button --}}
     <a href="https://wa.me/5491176602200" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg transition-all hover:scale-110"
        title="Contactá por WhatsApp">
-      <img src="/img/home/whatsapp.svg" alt="WhatsApp" class="w-8 h-8">
+      <img src="{{ asset('img/home/whatsapp.svg') }}" alt="WhatsApp" class="w-8 h-8">
     </a>
   </body>
 </html>
