@@ -503,11 +503,11 @@
               </p>
             </div>
             <div class="glass rounded-2xl border border-white/10 px-5 py-4">
-              <p class="text-3xl font-extrabold text-white">1000</p>
+              <p class="text-3xl font-extrabold text-white">+1000</p>
               <p
                 class="mt-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted"
               >
-                Llamadas/hora
+                Clientes
               </p>
             </div>
             <div class="glass rounded-2xl border border-white/10 px-5 py-4">
