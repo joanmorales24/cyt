@@ -178,7 +178,7 @@
                 </p>
                 <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-brand/10 bg-brand/5 px-4 py-2">
                     <span class="material-symbols-outlined text-base text-brand">verified</span>
-                    <span class="text-xs font-bold text-muted">ISO 9001:2015 · Bureau Veritas</span>
+                    <span class="text-xs font-bold text-muted">ISO 9001:2015</span>
                 </div>
                 <div class="mt-6 flex gap-3">
                     <a href="https://www.linkedin.com/company/cyt-comunicaciones" class="social-chip" aria-label="LinkedIn" target="_blank" rel="noopener">

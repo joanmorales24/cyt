@@ -1085,8 +1085,7 @@
                 >
                 <h3 class="mt-3 text-xl font-extrabold">ISO 9001:2015</h3>
                 <p class="mt-2 text-sm leading-6 text-muted">
-                  Certificados por Bureau Veritas. Calidad de proceso garantizada
-                  en cada implementación.
+                  Certificación ISO 9001:2015 en cada implementación.
                 </p>
               </div>
               <div
@@ -1569,8 +1568,7 @@
               <div>
                 <h3 class="text-2xl font-extrabold">ISO 9001:2015</h3>
                 <p class="mt-3 text-base leading-7 text-muted">
-                  Certificados por Bureau Veritas. Calidad de proceso auditada
-                  en cada proyecto, no solo en el producto.
+                  Certificación ISO 9001:2015 en cada proyecto.
                 </p>
               </div>
             </article>

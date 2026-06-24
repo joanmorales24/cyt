@@ -21,7 +21,7 @@
   <span class="material-symbols-outlined text-2xl text-[#7b3ff2]">verified</span>
   <div>
     <p class="font-bold text-[#210853]" style="margin:0">Certificación ISO 9001:2015</p>
-    <p class="text-sm text-[#5a4e6e]" style="margin:0">Bureau Veritas · Vigente</p>
+    <p class="text-sm text-[#5a4e6e]" style="margin:0">Vigente</p>
   </div>
 </div>
 
