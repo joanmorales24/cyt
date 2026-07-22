@@ -207,6 +207,15 @@
         animation-play-state: paused;
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        .logo-carousel-track {
+          animation: none;
+        }
+        .logo-carousel:hover .logo-carousel-track {
+          animation-play-state: auto;
+        }
+      }
+
       .logo-slide {
         display: flex;
         align-items: center;
@@ -221,11 +230,11 @@
         width: auto;
         max-width: 100%;
         object-fit: contain;
-        filter: grayscale(0.45) brightness(1.45) contrast(1.08) saturate(1.1);
-        opacity: 0.98;
+        opacity: 1;
+        border-radius: 0.5rem;
       }
 
-      @@keyframes logoScroll {
+      @keyframes logoScroll {
         from {
           transform: translateX(0);
         }
@@ -235,7 +244,7 @@
         }
       }
 
-      @@media (max-width: 768px) {
+      @media (max-width: 768px) {
         .logo-slide {
           min-width: 13rem;
           margin-right: 1.5rem;
@@ -249,6 +258,17 @@
           animation-duration: 28s;
         }
       }
+
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
       /* hero bg visibility control */
       .bg-hero {
         transition: opacity 320ms ease;
@@ -447,7 +467,7 @@
                 Voice Bot con IA para automatización de CX
               </span>
               <h1
-                class="max-w-4xl text-5xl font-extrabold leading-[0.96] tracking-[-0.04em] md:text-7xl"
+                class="max-w-4xl text-5xl font-extrabold leading-[0.96] tracking-[-0.02em] md:text-7xl text-wrap balance"
               >
                 Automatizá tu CX con un
                 <span class="text-gradient"
@@ -748,7 +768,7 @@
           </div>
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <span class="material-symbols-outlined text-3xl text-cyanSoft"
+              <span class="material-symbols-outlined text-3xl text-cyanSoft" aria-label="Reducción de costos"
                 >savings</span
               >
               <h3 class="mt-5 text-xl font-extrabold">
@@ -760,7 +780,7 @@
               </p>
             </div>
             <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <span class="material-symbols-outlined text-3xl text-cyanSoft"
+              <span class="material-symbols-outlined text-3xl text-cyanSoft" aria-label="Automatización con IA"
                 >smart_toy</span
               >
               <h3 class="mt-5 text-xl font-extrabold">Automatización</h3>
@@ -770,7 +790,7 @@
               </p>
             </div>
             <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <span class="material-symbols-outlined text-3xl text-brandSoft"
+              <span class="material-symbols-outlined text-3xl text-brandSoft" aria-label="Máxima productividad"
                 >bolt</span
               >
               <h3 class="mt-5 text-xl font-extrabold">Productividad</h3>
@@ -780,7 +800,7 @@
               </p>
             </div>
             <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <span class="material-symbols-outlined text-3xl text-brandSoft"
+              <span class="material-symbols-outlined text-3xl text-brandSoft" aria-label="Estadísticas en tiempo real"
                 >query_stats</span
               >
               <h3 class="mt-5 text-xl font-extrabold">Control total</h3>

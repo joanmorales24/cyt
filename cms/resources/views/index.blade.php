@@ -145,6 +145,81 @@
         color: transparent;
       }
 
+      .text-gradient-dark {
+        background: linear-gradient(
+          90deg,
+          #7b3ff2 0%,
+          #9d2cf3 50%,
+          #1ca9ff 100%
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .card-with-icon {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .card-icon {
+        position: absolute;
+        bottom: -30px;
+        right: -30px;
+        font-size: 200px !important;
+        opacity: 0.12;
+        color: #7b3ff2;
+        pointer-events: none;
+        transform: rotate(-25deg);
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card-icon {
+          transform: none;
+        }
+      }
+
+      .platform-panel {
+        position: relative;
+        overflow: hidden;
+      }
+
+      .platform-panel > * {
+        position: relative;
+        z-index: 1;
+      }
+
+      .card-animated {
+        position: relative;
+        background: rgba(18, 14, 44, 0.72);
+        border: 2px solid transparent;
+        background-image:
+          linear-gradient(rgba(18, 14, 44, 0.72), rgba(18, 14, 44, 0.72)),
+          linear-gradient(90deg, #7b3ff2, #1ca9ff, #7b3ff2);
+        background-origin: border-box;
+        background-clip: padding-box, border-box;
+        animation: borderShine 3s linear infinite;
+      }
+
+      @keyframes borderShine {
+        0% {
+          filter: hue-rotate(0deg);
+        }
+        100% {
+          filter: hue-rotate(360deg);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .card-animated {
+          animation: none;
+        }
+      }
+
+      .counter {
+        transition: all 0.3s ease;
+      }
+
       .social-chip {
         display: inline-flex;
         align-items: center;
@@ -207,11 +282,20 @@
         animation-play-state: paused;
       }
 
+      @media (prefers-reduced-motion: reduce) {
+        .logo-carousel-track {
+          animation: none;
+        }
+        .logo-carousel:hover .logo-carousel-track {
+          animation-play-state: auto;
+        }
+      }
+
       .logo-slide {
         display: flex;
         align-items: center;
         justify-content: center;
-        min-width: 18rem;
+        /* min-width: 18rem; */
         margin-right: 2.75rem;
       }
 
@@ -221,11 +305,11 @@
         width: auto;
         max-width: 100%;
         object-fit: contain;
-        filter: grayscale(0.45) brightness(1.45) contrast(1.08) saturate(1.1);
-        opacity: 0.98;
+        opacity: 1;
+        border-radius: 1.5rem;
       }
 
-      @@keyframes logoScroll {
+      @keyframes logoScroll {
         from {
           transform: translateX(0);
         }
@@ -235,7 +319,17 @@
         }
       }
 
-      @@media (max-width: 768px) {
+      @media (prefers-reduced-motion: reduce) {
+        *,
+        *::before,
+        *::after {
+          animation-duration: 0.01ms !important;
+          animation-iteration-count: 1 !important;
+          transition-duration: 0.01ms !important;
+        }
+      }
+
+      @media (max-width: 768px) {
         .logo-slide {
           min-width: 13rem;
           margin-right: 1.5rem;
@@ -299,10 +393,6 @@
         border-color: rgba(113, 42, 236, 0.1) !important;
       }
 
-      .light-body .logo-slide img {
-        filter: grayscale(0.3) brightness(0.8) contrast(1.15) saturate(1.05);
-      }
-
       /* ── HERO DARK SECTION ── */
       #hero-section {
         background: radial-gradient(circle at top left, rgba(123,63,242,0.45), transparent 35%),
@@ -336,6 +426,17 @@
       /* Override light-on-light text in non-hero */
       .light-body .text-white {
         color: #210853 !important;
+      }
+
+      .light-body .panel-cta,
+      .light-body .panel-cta h1,
+      .light-body .panel-cta h2,
+      .light-body .panel-cta h3,
+      .light-body .panel-cta h4,
+      .light-body .panel-cta p,
+      .light-body .panel-cta li,
+      .light-body .panel-cta span {
+        color: #ffffff !important;
       }
 
       /* Keep white text on colored CTA buttons */
@@ -388,7 +489,7 @@
       .panel-cta p,
       .panel-cta li,
       .panel-cta span {
-        color: #f8f7ff !important;
+        color: #ffffff !important;
       }
     </style>
   <!-- Schema.org JSON-LD -->
@@ -463,13 +564,13 @@
           <h1
             class="max-w-3xl text-5xl font-extrabold leading-[0.96] tracking-[-0.04em] text-white md:text-7xl"
           >
-            Transformá tu Contact Center en una
-            <span class="text-gradient">operación omnicanal</span>.
+            Transforma tu Contact Center en una
+            <span class="text-gradient">operación omnicanal</span>
+            potenciada con IA.
           </h1>
           <p class="mt-8 max-w-xl text-lg leading-8 text-muted md:text-xl">
             CYT combina más de 35 años de experiencia con tecnología propia:
-            Orion Contact Center, INTEGRA CRM y Voice Bot con IA generativa para
-            llevar tu CX al siguiente nivel.
+            Orion Contact Center, una solución integral de atención al cliente diseñada para transformar cada interacción en una conexión ágil e inteligente.
           </p>
           <div class="mt-10 flex flex-wrap gap-4">
             <button
@@ -535,35 +636,35 @@
             </p>
             <div class="logo-carousel">
               <div class="logo-carousel-track">
-                <div class="logo-slide"><img alt="Cliente Naturgy" src="/img/home/naturgy.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Barbuss" src="/img/home/barbuss-300x300.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Musimundo" src="/img/home/musimundo.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Carrefour" src="/img/home/carrefour.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Avellaneda" src="/img/home/3-300x300.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="/img/home/mercedes-benz.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Oncity" src="/img/home/oncity-300x300.webp" /></div>
-                <div class="logo-slide"><img alt="Cliente Paramedic" src="/img/home/paramedic.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Edenor" src="/img/home/edenor.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente 911" src="/img/home/8-300x300.webp" /></div>
-                <div class="logo-slide"><img alt="Cliente John Deere" src="/img/home/john-deere.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="/img/home/nacion-servicios.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Metrovias" src="/img/home/metrovias.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Banco FIE" src="/img/home/banco-fie.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.png" /></div>
 
-                <div class="logo-slide"><img alt="Cliente Naturgy" src="/img/home/naturgy.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Barbuss" src="/img/home/barbuss-300x300.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Musimundo" src="/img/home/musimundo.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Carrefour" src="/img/home/carrefour.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Avellaneda" src="/img/home/3-300x300.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Mercedes-Benz" src="/img/home/mercedes-benz.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Oncity" src="/img/home/oncity-300x300.webp" /></div>
-                <div class="logo-slide"><img alt="Cliente Paramedic" src="/img/home/paramedic.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Edenor" src="/img/home/edenor.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente 911" src="/img/home/8-300x300.webp" /></div>
-                <div class="logo-slide"><img alt="Cliente John Deere" src="/img/home/john-deere.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Nacion Servicios" src="/img/home/nacion-servicios.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Metrovias" src="/img/home/metrovias.svg" /></div>
-                <div class="logo-slide"><img alt="Cliente Banco FIE" src="/img/home/banco-fie.svg" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.png" /></div>
               </div>
             </div>
           </div>
@@ -576,11 +677,11 @@
             <h2
               class="text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
             >
-              No necesitás más herramientas.<br />Necesitás control.
+              No necesitas más herramientas.<br />tienes todo en Orion.
             </h2>
           </div>
           <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-3xl text-cyanSoft"
                 >savings</span
               >
@@ -592,7 +693,7 @@
                 sacrificar calidad ni escala.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-3xl text-cyanSoft"
                 >smart_toy</span
               >
@@ -602,7 +703,7 @@
                 humana, en cualquier canal.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-3xl text-brandSoft"
                 >bolt</span
               >
@@ -612,7 +713,7 @@
                 el tiempo de habla efectiva.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-3xl text-brandSoft"
                 >query_stats</span
               >
@@ -641,11 +742,11 @@
             <h2
               class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
             >
-              De la fragmentación al control total de tu CX.
+              De la fragmentación al <span class="text-gradient-dark">control total de tu CX</span>.
             </h2>
             <div class="mt-8 space-y-5 text-lg leading-8 text-muted">
               <div class="flex gap-4">
-                <span class="material-symbols-outlined mt-1 text-brandSoft"
+                <span class="material-symbols-outlined mt-1 text-brandSoft" aria-label="Consultas unificadas"
                   >hub</span
                 >
                 <p>
@@ -674,7 +775,8 @@
             </div>
           </div>
           <div class="grid gap-5 md:grid-cols-2">
-            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+            <div class="card-with-icon rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <span class="material-symbols-outlined card-icon" aria-label="Inteligencia artificial generativa">smart_toy</span>
               <p
                 class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
               >
@@ -686,7 +788,8 @@
                 negocio.
               </p>
             </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+            <div class="card-with-icon rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <span class="material-symbols-outlined card-icon" aria-label="Conversaciones en lenguaje natural">chat</span>
               <p
                 class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
               >
@@ -700,7 +803,8 @@
                 interacción.
               </p>
             </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+            <div class="card-with-icon rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <span class="material-symbols-outlined card-icon" aria-label="Entrenamiento y aprendizaje continuo">school</span>
               <p
                 class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
               >
@@ -712,7 +816,8 @@
                 políticas.
               </p>
             </div>
-            <div class="rounded-[2rem] border border-white/10 bg-white/6 p-7">
+            <div class="card-with-icon rounded-[2rem] border border-white/10 bg-white/6 p-7">
+              <span class="material-symbols-outlined card-icon" aria-label="Automatización de procesos">automation</span>
               <p
                 class="text-sm font-bold uppercase tracking-[0.22em] text-cyanSoft"
               >
@@ -732,7 +837,7 @@
 
       <section class="px-6 py-24" id="plataforma">
         <div
-          class="mx-auto max-w-7xl rounded-[2.5rem] border border-white/10 bg-panel/80 p-8 shadow-card md:p-12"
+          class="platform-panel mx-auto max-w-7xl rounded-[2.5rem] border border-white/10 bg-panel/80 p-8 shadow-card md:p-12"
         >
           <div class="grid items-center gap-10 lg:grid-cols-[0.95fr_1.05fr]">
             <div>
@@ -742,16 +847,14 @@
                 La plataforma
               </p>
               <h2
-                class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
+                class="mt-4 text-4xl font-extrabold tracking-[-0.02em] md:text-5xl text-wrap balance"
               >
-                CYT no es otro software.<br />Es la arquitectura de tu
-                operación.
+                Orion Contact Center no es un software más.<br />Es el <span class="text-gradient-dark">corazón de tu negocio</span>.
               </h2>
               <p class="mt-5 text-lg leading-8 text-muted">
-                Más de 35 años construyendo el stack tecnológico completo:
-                <strong>Orion Contact Center</strong> e
-                <strong>INTEGRA CRM</strong> operan como un ecosistema nativo,
-                sin fricciones de compatibilidad, sin depender de terceros.
+                Más de 35 años construyendo el stack tecnológico completo: Orion Contact
+                Center con su  <strong>CRM Integrado de CYT</strong> opera como un ecosistema nativo, sin
+                fricciones de compatibilidad, sin depender de terceros.
               </p>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
@@ -790,8 +893,11 @@
                 >
                 <h3 class="mt-3 text-xl font-extrabold">ISO 9001:2015</h3>
                 <p class="mt-2 text-sm leading-6 text-muted">
-                  Certificación ISO 9001:2015 en cada implementación.
-                </p>
+                  Sistema de gestión de calidad y
+                  procedimientos de trabajo
+                  certificados por la Norma ISO
+                  9001:2015 en cada implementación.          
+              </p>
               </div>
               <div
                 class="rounded-[1.75rem] border border-white/10 bg-white/5 p-6"
@@ -804,8 +910,11 @@
                   Integración abierta
                 </h3>
                 <p class="mt-2 text-sm leading-6 text-muted">
-                  Conecta con SAP, CRM/ERP y cualquier sistema de terceros
-                  sin romper tu infraestructura actual.
+                  Se conecta con CRMs y
+                  ERPs de terceros,
+                  adaptándose a las
+                  herramientas de gestión
+                  de tu operación.
                 </p>
               </div>
             </div>
@@ -819,54 +928,73 @@
             <h2
               class="text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
             >
-              Todo conectado.<br />Todo bajo control.
+              Todo conectado.<br /><span class="text-gradient-dark">Todo en el mismo lugar.</span>
             </h2>
           </div>
           <div class="grid grid-cols-1 gap-6 md:grid-cols-3 lg:grid-cols-4">
             <div
-              class="glass rounded-[2rem] border border-white/10 p-8 md:col-span-2"
+              class="glass card-animated rounded-[2rem] p-8 md:col-span-2"
             >
               <p class="text-4xl font-extrabold text-brandSoft">01</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Inteligencia Artificial incorporada</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                IA aplicada a las conversaciones para ganar Automatización
+                y eficiencia operativa.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">02</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Voicebot con IA</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Gestión inteligente de llamadas por linea telefonica y llamadas de WhatsApp con IA
+                generativa utilizando tecnologia Real-Time
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">03</p>
+              <h3 class="mt-4 text-2xl font-extrabold">Chatbots IA</h3>
+              <p class="mt-3 text-base leading-7 text-muted">
+                Automatización de
+                converaciones en WhatsApp,
+                web y redes sociales con
+                lenguaje natural utilizando IA
+                generativa.
+              </p>
+            </div>
+            <div class="glass rounded-[2rem] p-8">
+              <p class="text-4xl font-extrabold text-brandSoft">04</p>
               <h3 class="mt-4 text-2xl font-extrabold">CRM integrado</h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                INTEGRA CRM centraliza toda la información del cliente antes de
-                que empiece la conversación. Una sola vista, sin saltar entre
+                El CRM integrado de Orion
+                centraliza toda la
+                información del cliente
+                antes de que empiece la
+                conversación. Una sola vista,
+                sin saltar entre
                 herramientas.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <p class="text-4xl font-extrabold text-brandSoft">02</p>
-              <h3 class="mt-4 text-2xl font-extrabold">Dialer predictivo</h3>
-              <p class="mt-3 text-base leading-7 text-muted">
-                Algoritmos que predicen la disponibilidad del agente y eliminan
-                tiempos muertos entre llamadas.
-              </p>
-            </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <p class="text-4xl font-extrabold text-brandSoft">03</p>
-              <h3 class="mt-4 text-2xl font-extrabold">IVR inteligente</h3>
+            <div
+              class="glass card-animated rounded-[2rem] p-8"
+            >
+              <p class="text-4xl font-extrabold text-brandSoft">05</p>
+              <h3 class="mt-4 text-2xl font-extrabold">
+                IVR inteligente
+              </h3>
               <p class="mt-3 text-base leading-7 text-muted">
                 Navegación por voz que deriva al cliente al área correcta en
                 segundos, sin fricción.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
-              <p class="text-4xl font-extrabold text-brandSoft">04</p>
-              <h3 class="mt-4 text-2xl font-extrabold">Chatbots IA</h3>
-              <p class="mt-3 text-base leading-7 text-muted">
-                Automatización de consultas en WhatsApp, web y redes con
-                lenguaje natural y IA generativa.
-              </p>
-            </div>
             <div
-              class="glass rounded-[2rem] border border-white/10 p-8 md:col-span-2 lg:col-span-3"
+              class="glass card-animated rounded-[2rem] p-8 md:col-span-2"
             >
-              <p class="text-4xl font-extrabold text-brandSoft">05</p>
+              <p class="text-4xl font-extrabold text-brandSoft">06</p>
               <h3 class="mt-4 text-2xl font-extrabold">
                 Canales centralizados
               </h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Telefonía IP, WhatsApp, Instagram, Facebook Messenger, SMS,
+                Telefonía IP, Webchat, WhatsApp, Instagram, Facebook Messenger, SMS,
                 mail y redes sociales en una única bandeja omnicanal dentro de
                 Orion. Sin silos de información.
               </p>
@@ -889,50 +1017,50 @@
               La misma tecnología.<br />Adaptada a cada vertical.
             </h2>
             <p class="mt-5 text-lg leading-8 text-muted">
-              Más de 35 años de proyectos en sectores críticos y de gran escala.
-              CYT adapta su plataforma a las reglas, volúmenes y flujos de cada
-              industria.
+              Más de 35 años iderando proyectos de gran escala, Orion Contact Center
+              se adapta de forma nativa a las normativas, volúmenes de tráfico y flujos 
+              operativos críticos de cada industria.
             </p>
           </div>
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            <article class="glass rounded-[2rem] border border-white/10 p-8">
+            <article class="glass card-animated rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-4xl text-accent"
                 >monetization_on</span
               >
-              <h3 class="mt-5 text-2xl font-extrabold">Finanzas</h3>
+              <h3 class="mt-5 text-2xl font-extrabold">Finanzas & Banca</h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Automatización de cobranzas, notificaciones por voz y WhatsApp,
-                y segmentación por riesgo de crédito.
+               Automatización de cobranzas con IVR Predictivo y Voicebots con IA. Reduzca la
+                morosidad mediante notificaciones masivas y segmente carteras con nuestro CRM.
               </p>
             </article>
-            <article class="glass rounded-[2rem] border border-white/10 p-8">
+            <article class="glass card-animated rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-4xl text-accent"
                 >storefront</span
               >
-              <h3 class="mt-5 text-2xl font-extrabold">Retail</h3>
+              <h3 class="mt-5 text-2xl font-extrabold">Retail & E-commerce</h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Soporte post venta, confirmación de pedidos, devoluciones y
-                seguimiento de reclamos multicanal.
+                Potencie sus ventas y postventa. Centralice pedidos, logística y reclamos con
+                Chatbots con IA, atención humana y WhatsApp Call.
               </p>
             </article>
-            <article class="glass rounded-[2rem] border border-white/10 p-8">
+            <article class="glass card-animated rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-4xl text-accent"
                 >health_and_safety</span
               >
-              <h3 class="mt-5 text-2xl font-extrabold">Salud</h3>
+              <h3 class="mt-5 text-2xl font-extrabold">Salud & Clínicas</h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Recordatorios de turnos, confirmaciones automáticas y
-                seguimiento de pacientes con trazabilidad completa.
+                Gestión eficiente de pacientes. Automatice turnos y recordatorios 24/7 mediante
+                canales con IA, asegurando grabación y trazabilidad total.
               </p>
             </article>
-            <article class="glass rounded-[2rem] border border-white/10 p-8">
+            <article class="glass card-animated rounded-[2rem] p-8">
               <span class="material-symbols-outlined text-4xl text-accent"
                 >support_agent</span
               >
-              <h3 class="mt-5 text-2xl font-extrabold">Seguros y Telecom</h3>
+              <h3 class="mt-5 text-2xl font-extrabold">Seguros</h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Gestión de siniestros, verificaciones, renovaciones y campañas
-                de retención a gran escala.
+                Operaciones masivas y escalables. Gestione siniestros, renovaciones y retención
+                combinando asistentes virtuales con IA y derivación de polizas
               </p>
             </article>
           </div>
@@ -953,13 +1081,13 @@
               <h2
                 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
               >
-                Una estrategia conversacional para voz, WhatsApp, Facebook e
-                Instagram.
+                Una suite omnicanal para tu estrategia conversacional
               </h2>
               <p class="mt-5 text-lg leading-8 text-muted">
-                El Voice Bot escala la atención telefónica. El ecosistema CYT
-                suma automatización de consultas en canales digitales para que
-                la experiencia sea continua, medible y centralizada.
+                Con Orion Contact Center, integre bots
+                inteligentes, automatice consultas y combine
+                canales digitales y teléfonicos con atención
+                humana de forma transparente y medible.
               </p>
             </div>
             <div class="grid gap-4 sm:grid-cols-2">
@@ -969,10 +1097,9 @@
                 <span class="material-symbols-outlined text-4xl text-cyanSoft"
                   >phone_in_talk</span
                 >
-                <h3 class="mt-4 text-2xl font-extrabold">Voice Bot</h3>
+                <h3 class="mt-4 text-2xl font-extrabold">Voice Bot con IA</h3>
                 <p class="mt-3 text-base leading-7 text-muted">
-                  Campañas salientes, atención automática y derivación
-                  contextual.
+                  Campañas salientes eficientes, atención automática 24/7 y derivación inteligente con contexto.
                 </p>
               </div>
               <div
@@ -985,8 +1112,7 @@
                 </span>
                 <h3 class="mt-4 text-2xl font-extrabold">WhatsApp</h3>
                 <p class="mt-3 text-base leading-7 text-muted">
-                  Consultas, seguimiento y envío de información con
-                  trazabilidad.
+                  Gestione chats y reciba llamadas de voz directamente en la plataforma con trazabilidad total.
                 </p>
               </div>
               <div
@@ -999,8 +1125,8 @@
                 </span>
                 <h3 class="mt-4 text-2xl font-extrabold">Facebook</h3>
                 <p class="mt-3 text-base leading-7 text-muted">
-                  Mensajería automatizada para captar, informar y reconducir
-                  conversaciones.
+                  Gestione los chats de facebook messenger y responda los comentarios de su muro de facebook atendiendo a
+                  sus clientes también en este canal.
                 </p>
               </div>
               <div
@@ -1013,7 +1139,7 @@
                 </span>
                 <h3 class="mt-4 text-2xl font-extrabold">Instagram</h3>
                 <p class="mt-3 text-base leading-7 text-muted">
-                  Respuestas ágiles en DM para campañas, leads y post venta.
+                  Respuestas inmediatas por DM para potenciar campañas de marketing, captación de leads y postventa.
                 </p>
               </div>
             </div>
@@ -1032,44 +1158,42 @@
             <h2
               class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-6xl"
             >
-              No funcionalidades.<br />Resultados medibles.
+              <span class="text-gradient-dark">Menos costos operativos.</span><br />Resultados medibles.
             </h2>
           </div>
           <div class="grid gap-6 md:grid-cols-3">
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-brand">98%</p>
+              <p class="text-7xl font-extrabold text-brand counter" data-target="15" data-suffix="%">0%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
-                Tasa de contacto efectivo
+                Incremento en Ventas
               </h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Limpieza de bases y discadores inteligentes que maximizan el
-                resultado de cada campaña.
+                La omnicanalidad real permite realizar ventas cruzadas y seguimiento de leads sin fricción, aumentando la conversión de punta a punta.
               </p>
             </div>
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-cyan">-40%</p>
+              <p class="text-7xl font-extrabold text-cyan counter" data-target="39" data-suffix="%">0%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
-                Tiempos muertos del agente
+                Menos Tiempos de Espera
               </h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Automatización que elimina esperas y gestiones manuales sin
-                valor operativo real.
+                Acelere la atención de sus clientes conectando de forma inteligente llamadas, WhatsApp y redes sociales.
+
               </p>
             </div>
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-accent">70%</p>
+              <p class="text-7xl font-extrabold text-accent counter" data-target="35" data-prefix="-" data-suffix="%">0%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
-                Consultas resueltas sin agente
+                Costos operativos
               </h3>
               <p class="mt-3 text-base leading-7 text-muted">
-                Bots que atienden la mayoría de los tickets sin intervención
-                humana, 24/7.
+                Optimice recursos centralizando toda su comunicación en una sola pantalla y eliminando licencias duplicadas.
               </p>
             </div>
           </div>
@@ -1084,10 +1208,10 @@
             <div>
               <p class="text-sm font-bold uppercase tracking-[0.3em] text-cyanSoft">Por qué CYT</p>
               <h2 class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl">
-                Más de 35 años<br />transformando CX en LATAM.
+                Más de 35 años<br />transformando <span class="text-gradient-dark">CX en LATAM.</span>
               </h2>
               <p class="mt-5 text-lg leading-8 text-muted">
-                No somos una suscripción. Somos un socio tecnológico. Cada
+                Somos un socio tecnológico. Cada
                 implementación es una consultoría a medida respaldada por décadas
                 de operación real en Argentina y toda la región.
               </p>
@@ -1095,29 +1219,42 @@
                 <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
                   <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-cyanSoft">hub</span>
                   <div>
-                    <h3 class="font-extrabold">Ecosistema propio</h3>
-                    <p class="mt-1 text-sm leading-6 text-muted">Orion Contact Center e INTEGRA CRM, desarrollos 100% propios.</p>
+                    <h3 class="font-extrabold">Desarrollo 100% propio</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Orion Contact Center se adapta
+a su ritmo. Implemente módulos
+de forma independiente según
+el crecimiento de su operación.</p>
                   </div>
                 </article>
                 <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
                   <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-cyanSoft">verified</span>
                   <div>
-                    <h3 class="font-extrabold">ISO 9001:2015</h3>
-                    <p class="mt-1 text-sm leading-6 text-muted">Certificación ISO 9001:2015 en cada proyecto.</p>
+                    <h3 class="font-extrabold">Calidad de Nivel Mundial</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Procesos de consultoría, desarrollo e
+implementación respaldados por
+Sistema de Gestión de Calidad
+certificado por la Norma ISO
+
+9001:2015</p>
                   </div>
                 </article>
                 <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
                   <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-brandSoft">public</span>
                   <div>
                     <h3 class="font-extrabold">Liderazgo regional</h3>
-                    <p class="mt-1 text-sm leading-6 text-muted">Argentina, Bolivia, Chile, Paraguay, Uruguay y Brasil.</p>
+                    <p class="mt-1 text-sm leading-6 text-muted">Operación sólida con bases directas en
+Argentina y Bolivia, brindando servicios de
+alta escala a todo Latinoamérica.</p>
                   </div>
                 </article>
                 <article class="glass flex items-start gap-4 rounded-2xl border border-white/10 p-6">
                   <span class="material-symbols-outlined mt-0.5 shrink-0 text-3xl text-brandSoft">workspace_premium</span>
                   <div>
-                    <h3 class="font-extrabold">Consultoría, no licencia</h3>
-                    <p class="mt-1 text-sm leading-6 text-muted">Acompañamiento real. El éxito de tu operación es parte del acuerdo.</p>
+                    <h3 class="font-extrabold">Profesionales
+experimentados</h3>
+                    <p class="mt-1 text-sm leading-6 text-muted">Acompañamiento real. Proyectos
+liderados por un equipo experto en
+tecnología y CX</p>
                   </div>
                 </article>
               </div>
@@ -1167,34 +1304,34 @@
             <h2
               class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
             >
-              De la fragmentación al control total.
+              De la dispersion a la <span class="text-gradient-dark">gestión inteligente</span>
             </h2>
           </div>
           <div
             class="overflow-hidden rounded-[3rem] border border-white/10 shadow-card md:grid md:grid-cols-2"
           >
             <div class="bg-white/5 p-10 lg:p-14">
-              <h3 class="text-2xl font-bold text-muted">Antes de CYT</h3>
+              <h3 class="text-3xl font-bold text-muted">Antes de CYT</h3>
               <ul class="mt-8 space-y-5">
-                <li class="flex items-center gap-4 text-base text-muted">
+                <li class="flex items-center gap-4 text-lg text-muted">
                   <span class="material-symbols-outlined text-brandSoft"
                     >close</span
-                  >Múltiples proveedores y facturas desconectadas
+                  >Múltiples proveedores sin integración.
                 </li>
-                <li class="flex items-center gap-4 text-base text-muted">
+                <li class="flex items-center gap-4 text-lg text-muted">
                   <span class="material-symbols-outlined text-brandSoft"
                     >close</span
                   >Agentes saturados con herramientas distintas
                 </li>
-                <li class="flex items-center gap-4 text-base text-muted">
+                <li class="flex items-center gap-4 text-lg text-muted">
                   <span class="material-symbols-outlined text-brandSoft"
                     >close</span
                   >Reportes manuales, tardíos e inconsistentes
                 </li>
-                <li class="flex items-center gap-4 text-base text-muted">
+                <li class="flex items-center gap-4 text-lg text-muted">
                   <span class="material-symbols-outlined text-brandSoft"
                     >close</span
-                  >Clientes frustrados por esperas y repetición
+                  >Clientes frustrados por atención ineficiente.
                 </li>
               </ul>
             </div>
@@ -1209,27 +1346,27 @@
                 );
               "
             >
-              <h3 class="text-2xl font-bold">Con CYT</h3>
+              <h3 class="text-3xl font-bold text-white">Con CYT</h3>
               <ul class="mt-8 space-y-5">
-                <li class="flex items-center gap-4 text-base">
-                  <span class="material-symbols-outlined text-accent"
+                <li class="flex items-center gap-4 text-lg text-white">
+                  <span class="material-symbols-outlined text-white"
                     >check_circle</span
-                  >Ecosistema único bajo una misma visión
+                  >Ecosistema único para toda la gestión.
                 </li>
-                <li class="flex items-center gap-4 text-base">
-                  <span class="material-symbols-outlined text-accent"
+                <li class="flex items-center gap-4 text-lg text-white">
+                  <span class="material-symbols-outlined text-white"
                     >check_circle</span
-                  >Consola unificada e intuitiva para el agente
+                  >Plataforma unificada e intuitiva para el agente.
                 </li>
-                <li class="flex items-center gap-4 text-base">
-                  <span class="material-symbols-outlined text-accent"
+                <li class="flex items-center gap-4 text-lg text-white">
+                  <span class="material-symbols-outlined text-white"
                     >check_circle</span
-                  >Data en tiempo real y analítica predictiva
+                  >Data en tiempo real y analítica con IA.
                 </li>
-                <li class="flex items-center gap-4 text-base">
-                  <span class="material-symbols-outlined text-accent"
+                <li class="flex items-center gap-4 text-lg text-white">
+                  <span class="material-symbols-outlined text-white"
                     >check_circle</span
-                  >Experiencia de cliente fluida de punta a punta
+                  >Experiencia de cliente fluida de punta a punta.
                 </li>
               </ul>
             </div>
@@ -1248,11 +1385,11 @@
             <h2
               class="mt-4 text-4xl font-extrabold tracking-[-0.03em] md:text-5xl"
             >
-              Premios que<br />avalan la trayectoria.
+              Premios que avalan<br /><span class="text-gradient-dark">nuestra trayectoria.</span>
             </h2>
           </div>
           <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <p
                 class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
               >
@@ -1266,7 +1403,7 @@
                 interactiva de fabricación local en Argentina.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <p
                 class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
               >
@@ -1280,7 +1417,7 @@
                 Latinoamérica, acreditando el liderazgo regional de CYT.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <p
                 class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
               >
@@ -1294,7 +1431,7 @@
                 otorgada por el Gobierno de la Ciudad de Buenos Aires.
               </p>
             </div>
-            <div class="glass rounded-[2rem] border border-white/10 p-8">
+            <div class="glass rounded-[2rem] p-8">
               <p
                 class="text-xs font-bold uppercase tracking-[0.28em] text-cyanSoft"
               >
@@ -1622,6 +1759,39 @@
       } else {
         clearActiveNavLink();
       }
+
+      // Counters animation
+      const counters = document.querySelectorAll('.counter');
+      const observerOptions = {
+        threshold: 0.5,
+      };
+
+      const counterObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting && !entry.target.dataset.animated) {
+            entry.target.dataset.animated = 'true';
+            const target = parseInt(entry.target.dataset.target);
+            const prefix = entry.target.dataset.prefix || '';
+            const suffix = entry.target.dataset.suffix || '';
+            const duration = 2000;
+            const start = Date.now();
+
+            const animate = () => {
+              const now = Date.now();
+              const progress = Math.min((now - start) / duration, 1);
+              const current = Math.floor(progress * target);
+              entry.target.textContent = prefix + current + suffix;
+
+              if (progress < 1) {
+                requestAnimationFrame(animate);
+              }
+            };
+            animate();
+          }
+        });
+      }, observerOptions);
+
+      counters.forEach(counter => counterObserver.observe(counter));
     </script>
     <script>
       (function () {
