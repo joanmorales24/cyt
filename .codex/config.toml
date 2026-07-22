@@ -1,0 +1,6 @@
+[mcp_servers.fathom]
+command = "npx"
+args = [
+    "mcp-remote@latest",
+    "https://api.fathom.ai/mcp",
+]
