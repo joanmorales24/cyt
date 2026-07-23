@@ -19,9 +19,14 @@ class LeadNotificationEmailResource extends Resource
 {
     protected static ?string $model = LeadNotificationEmail::class;
 
-    protected static ?string $navigationLabel = 'Correos de notificación';
+    protected static ?string $navigationLabel = 'Notificaciones';
 
-    protected static ?string $pluralModelLabel = 'Correos de notificación';
+    protected static ?string $pluralModelLabel = 'Notificaciones';
+
+    public static function shouldRegisterNavigation(): bool
+    {
+        return false;
+    }
 
     public static function form(Schema $schema): Schema
     {
