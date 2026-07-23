@@ -14,7 +14,7 @@ class LeadNotificationEmailResource extends Resource
 {
     protected static ?string $model = LeadNotificationEmail::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-envelope';
+    protected static ?string $navigationIcon = 'heroicon-m-envelope';
 
     protected static ?string $navigationLabel = 'Correos de notificación';
 
