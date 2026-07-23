@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Lead;
+use App\Models\LeadNotificationEmail;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -26,16 +27,29 @@ class LeadController extends Controller
         $lead = Lead::create($data);
 
         // ── 5. Notificación por correo (falla silenciosa) ─────────────────
+        $this->sendNotificationEmails($lead);
+
+        return response()->json(['ok' => true], 201);
+    }
+
+    private function sendNotificationEmails(Lead $lead): void
+    {
+        $emails = LeadNotificationEmail::where('active', true)->pluck('email')->toArray();
+
+        if (empty($emails)) {
+            Log::warning('No hay correos configurados para notificaciones de leads', ['lead_id' => $lead->id]);
+            return;
+        }
+
         try {
-            Mail::html($this->buildEmailHtml($lead), function ($msg) use ($lead) {
-                $msg->to(config('mail.from.address'))
+            Mail::html($this->buildEmailHtml($lead), function ($msg) use ($lead, $emails) {
+                $msg->to($emails[0])
+                    ->cc(array_slice($emails, 1))
                     ->subject('Nuevo lead: ' . $lead->name);
             });
         } catch (\Throwable $e) {
             Log::warning('Lead guardado, correo falló: ' . $e->getMessage(), ['lead_id' => $lead->id]);
         }
-
-        return response()->json(['ok' => true], 201);
     }
 
     private function buildEmailHtml(Lead $lead): string
