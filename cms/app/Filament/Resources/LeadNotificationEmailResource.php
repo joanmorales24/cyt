@@ -5,8 +5,8 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\LeadNotificationEmailResource\Pages;
 use App\Models\LeadNotificationEmail;
 use Filament\Forms;
-use Filament\Forms\Form;
 use Filament\Resources\Resource;
+use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Table;
 
@@ -18,9 +18,9 @@ class LeadNotificationEmailResource extends Resource
 
     protected static ?string $pluralModelLabel = 'Correos de notificación';
 
-    public static function form(Form $form): Form
+    public static function form(Schema $schema): Schema
     {
-        return $form
+        return $schema
             ->schema([
                 Forms\Components\TextInput::make('email')
                     ->email()
