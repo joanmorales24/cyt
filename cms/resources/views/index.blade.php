@@ -1857,7 +1857,7 @@ tecnología y CX</p>
     </script>
 
     {{-- WhatsApp Floating Button --}}
-    <a href="https://wa.me/5491176602200" target="_blank" rel="noopener" class="fixed bottom-6 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg transition-all hover:scale-110"
+    <a href="https://wa.me/5491176602200" target="_blank" rel="noopener" class="fixed bottom-24 right-6 z-50 flex items-center justify-center w-14 h-14 bg-[#25D366] hover:bg-[#20BA5A] rounded-full shadow-lg transition-all hover:scale-110"
        title="Contactá por WhatsApp">
       <i class="fab fa-whatsapp text-white text-2xl"></i>
     </a>
