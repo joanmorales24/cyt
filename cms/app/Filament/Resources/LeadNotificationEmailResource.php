@@ -14,6 +14,8 @@ use Filament\Schemas\Schema;
 use Filament\Tables;
 use Filament\Tables\Filters;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
 class LeadNotificationEmailResource extends Resource
 {
@@ -26,6 +28,26 @@ class LeadNotificationEmailResource extends Resource
     public static function shouldRegisterNavigation(): bool
     {
         return false;
+    }
+
+    public static function canViewAny(): bool
+    {
+        return auth()->user()?->is_admin ?? false;
+    }
+
+    public static function canCreate(): bool
+    {
+        return auth()->user()?->is_super_admin ?? false;
+    }
+
+    public static function canEdit(Model $record): bool
+    {
+        return auth()->user()?->is_super_admin ?? false;
+    }
+
+    public static function canDelete(Model $record): bool
+    {
+        return auth()->user()?->is_super_admin ?? false;
     }
 
     public static function form(Schema $schema): Schema
