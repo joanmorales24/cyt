@@ -155,6 +155,7 @@
       .cyt-prose code { font-family: monospace; font-size: 0.875em; background: rgba(123,63,242,0.08); color: #7b3ff2; padding: 0.1em 0.4em; border-radius: 0.25rem; }
       .cyt-prose pre code { background: none; color: inherit; padding: 0; }
     </style>
+    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
 </head>
 
 <body class="bg-[#fdf7ff] font-sans text-[#210853] selection:bg-brand/40 selection:text-white">
