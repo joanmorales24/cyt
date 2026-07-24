@@ -98,18 +98,34 @@ return new class extends Migration
 
     private function downMysql(): void
     {
-        $maxId = DB::table('users')->max('id');
-
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropPrimary();
-            $table->dropColumn('id');
+        Schema::create('users_old', function (Blueprint $table) {
+            $table->id();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_super_admin')->default(false);
+            $table->timestamps();
         });
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->id()->first();
+        DB::table('users')->get()->each(function ($user) {
+            DB::table('users_old')->insert([
+                'name' => $user->name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'password' => $user->password,
+                'remember_token' => $user->remember_token,
+                'is_admin' => $user->is_admin,
+                'is_super_admin' => $user->is_super_admin,
+                'created_at' => $user->created_at,
+                'updated_at' => $user->updated_at,
+            ]);
         });
 
-        DB::statement('ALTER TABLE users AUTO_INCREMENT = ' . ($maxId + 1));
+        Schema::drop('users');
+        Schema::rename('users_old', 'users');
     }
 
     private function downSqlite(): void
