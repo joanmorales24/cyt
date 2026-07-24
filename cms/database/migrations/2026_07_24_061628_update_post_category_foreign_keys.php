@@ -21,13 +21,13 @@ return new class extends Migration {
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        Schema::table('post_category', function (Blueprint $table) {
-            $table->uuid('category_id')->change();
-        });
+        DB::statement('ALTER TABLE post_category DROP FOREIGN KEY post_category_category_id_foreign');
+        DB::statement('ALTER TABLE post_category MODIFY category_id CHAR(36) NOT NULL');
+        DB::statement('ALTER TABLE post_category ADD CONSTRAINT post_category_category_id_foreign FOREIGN KEY (category_id) REFERENCES categories(id) ON DELETE CASCADE');
 
-        Schema::table('post_tag', function (Blueprint $table) {
-            $table->uuid('tag_id')->change();
-        });
+        DB::statement('ALTER TABLE post_tag DROP FOREIGN KEY post_tag_tag_id_foreign');
+        DB::statement('ALTER TABLE post_tag MODIFY tag_id CHAR(36) NOT NULL');
+        DB::statement('ALTER TABLE post_tag ADD CONSTRAINT post_tag_tag_id_foreign FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
@@ -83,5 +83,3 @@ return new class extends Migration {
     {
     }
 };
-
-
