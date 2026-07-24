@@ -20,20 +20,33 @@ return new class extends Migration
 
     private function upMysql(): void
     {
-        Schema::table('leads', function (Blueprint $table) {
-            $table->uuid('uuid')->nullable()->unique()->after('id');
+        Schema::create('leads_new', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('email');
+            $table->string('phone')->nullable();
+            $table->string('company')->nullable();
+            $table->text('message')->nullable();
+            $table->string('source')->nullable();
+            $table->timestamps();
         });
 
         DB::table('leads')->get()->each(function ($lead) {
-            DB::table('leads')->where('id', $lead->id)->update(['uuid' => \Illuminate\Support\Str::uuid()]);
+            DB::table('leads_new')->insert([
+                'id' => \Illuminate\Support\Str::uuid(),
+                'name' => $lead->name,
+                'email' => $lead->email,
+                'phone' => $lead->phone,
+                'company' => $lead->company,
+                'message' => $lead->message,
+                'source' => $lead->source,
+                'created_at' => $lead->created_at,
+                'updated_at' => $lead->updated_at,
+            ]);
         });
 
-        Schema::table('leads', function (Blueprint $table) {
-            $table->dropPrimary();
-            $table->dropColumn('id');
-            $table->renameColumn('uuid', 'id');
-            $table->primary('id');
-        });
+        Schema::drop('leads');
+        Schema::rename('leads_new', 'leads');
     }
 
     private function upSqlite(): void

@@ -20,20 +20,25 @@ return new class extends Migration
 
     private function upMysql(): void
     {
-        Schema::table('lead_notification_emails', function (Blueprint $table) {
-            $table->uuid('uuid')->nullable()->unique()->after('id');
+        Schema::create('lead_notification_emails_new', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('email')->unique();
+            $table->boolean('active')->default(true);
+            $table->timestamps();
         });
 
         DB::table('lead_notification_emails')->get()->each(function ($email) {
-            DB::table('lead_notification_emails')->where('id', $email->id)->update(['uuid' => \Illuminate\Support\Str::uuid()]);
+            DB::table('lead_notification_emails_new')->insert([
+                'id' => \Illuminate\Support\Str::uuid(),
+                'email' => $email->email,
+                'active' => $email->active,
+                'created_at' => $email->created_at,
+                'updated_at' => $email->updated_at,
+            ]);
         });
 
-        Schema::table('lead_notification_emails', function (Blueprint $table) {
-            $table->dropPrimary();
-            $table->dropColumn('id');
-            $table->renameColumn('uuid', 'id');
-            $table->primary('id');
-        });
+        Schema::drop('lead_notification_emails');
+        Schema::rename('lead_notification_emails_new', 'lead_notification_emails');
     }
 
     private function upSqlite(): void

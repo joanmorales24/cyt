@@ -20,20 +20,51 @@ return new class extends Migration
 
     private function upMysql(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->uuid('uuid')->nullable()->unique()->after('id');
+        Schema::create('posts_new', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->integer('wp_id')->nullable();
+            $table->string('title');
+            $table->string('slug')->unique();
+            $table->longText('content')->nullable();
+            $table->text('excerpt')->nullable();
+            $table->string('featured_image')->nullable();
+            $table->string('featured_image_alt')->nullable();
+            $table->string('status')->default('draft');
+            $table->timestamp('published_at')->nullable();
+            $table->string('seo_title')->nullable();
+            $table->text('seo_description')->nullable();
+            $table->string('seo_focus_keyword')->nullable();
+            $table->string('seo_canonical_url')->nullable();
+            $table->string('og_image')->nullable();
+            $table->string('old_slug')->nullable();
+            $table->timestamps();
         });
 
         DB::table('posts')->get()->each(function ($post) {
-            DB::table('posts')->where('id', $post->id)->update(['uuid' => \Illuminate\Support\Str::uuid()]);
+            DB::table('posts_new')->insert([
+                'id' => \Illuminate\Support\Str::uuid(),
+                'wp_id' => $post->wp_id,
+                'title' => $post->title,
+                'slug' => $post->slug,
+                'content' => $post->content,
+                'excerpt' => $post->excerpt,
+                'featured_image' => $post->featured_image,
+                'featured_image_alt' => $post->featured_image_alt,
+                'status' => $post->status,
+                'published_at' => $post->published_at,
+                'seo_title' => $post->seo_title,
+                'seo_description' => $post->seo_description,
+                'seo_focus_keyword' => $post->seo_focus_keyword,
+                'seo_canonical_url' => $post->seo_canonical_url,
+                'og_image' => $post->og_image,
+                'old_slug' => $post->old_slug,
+                'created_at' => $post->created_at,
+                'updated_at' => $post->updated_at,
+            ]);
         });
 
-        Schema::table('posts', function (Blueprint $table) {
-            $table->dropPrimary();
-            $table->dropColumn('id');
-            $table->renameColumn('uuid', 'id');
-            $table->primary('id');
-        });
+        Schema::drop('posts');
+        Schema::rename('posts_new', 'posts');
     }
 
     private function upSqlite(): void
