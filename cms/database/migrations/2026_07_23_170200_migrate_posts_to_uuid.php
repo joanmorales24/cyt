@@ -41,7 +41,6 @@ return new class extends Migration
             $table->string('og_image')->nullable();
             $table->string('old_slug')->nullable();
             $table->timestamps();
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
 
         $firstUserId = DB::table('users')->first()?->id;
