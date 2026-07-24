@@ -8,14 +8,23 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration {
     public function up(): void
     {
-        if (!Schema::hasColumn('categories', 'id') || !$this->isUuid('categories', 'id')) {
-            $driver = DB::connection()->getDriverName();
+        if (!Schema::hasTable('categories')) {
+            Schema::create('categories', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('name');
+                $table->string('slug')->unique();
+                $table->text('description')->nullable();
+                $table->timestamps();
+            });
+            return;
+        }
 
-            if ($driver === 'sqlite') {
-                $this->upSqlite();
-            } else {
-                $this->upMysql();
-            }
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $this->upSqlite();
+        } else {
+            $this->upMysql();
         }
     }
 
@@ -27,6 +36,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
@@ -35,6 +45,7 @@ return new class extends Migration {
                 'id' => \Illuminate\Support\Str::uuid(),
                 'name' => $cat->name,
                 'slug' => $cat->slug,
+                'description' => $cat->description ?? null,
                 'created_at' => $cat->created_at,
                 'updated_at' => $cat->updated_at,
             ]);
@@ -56,6 +67,7 @@ return new class extends Migration {
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
@@ -64,6 +76,7 @@ return new class extends Migration {
                 'id' => \Illuminate\Support\Str::uuid(),
                 'name' => $cat->name,
                 'slug' => $cat->slug,
+                'description' => $cat->description ?? null,
                 'created_at' => $cat->created_at,
                 'updated_at' => $cat->updated_at,
             ]);
@@ -71,17 +84,6 @@ return new class extends Migration {
 
         Schema::drop('categories');
         Schema::rename('categories_new', 'categories');
-    }
-
-    private function isUuid($table, $column): bool
-    {
-        $columns = Schema::getColumns($table);
-        foreach ($columns as $col) {
-            if ($col['name'] === $column) {
-                return str_contains($col['type'], 'uuid') || str_contains($col['type'], 'varchar');
-            }
-        }
-        return false;
     }
 
     public function down(): void

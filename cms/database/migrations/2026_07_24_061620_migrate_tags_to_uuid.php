@@ -8,14 +8,22 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration {
     public function up(): void
     {
-        if (!Schema::hasColumn('tags', 'id') || !$this->isUuid('tags', 'id')) {
-            $driver = DB::connection()->getDriverName();
+        if (!Schema::hasTable('tags')) {
+            Schema::create('tags', function (Blueprint $table) {
+                $table->uuid('id')->primary();
+                $table->string('name');
+                $table->string('slug')->unique();
+                $table->timestamps();
+            });
+            return;
+        }
 
-            if ($driver === 'sqlite') {
-                $this->upSqlite();
-            } else {
-                $this->upMysql();
-            }
+        $driver = DB::connection()->getDriverName();
+
+        if ($driver === 'sqlite') {
+            $this->upSqlite();
+        } else {
+            $this->upMysql();
         }
     }
 
@@ -46,7 +54,6 @@ return new class extends Migration {
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
-
     private function upSqlite(): void
     {
         if (Schema::hasTable('tags_new')) {
@@ -74,18 +81,8 @@ return new class extends Migration {
         Schema::rename('tags_new', 'tags');
     }
 
-    private function isUuid($table, $column): bool
-    {
-        $columns = Schema::getColumns($table);
-        foreach ($columns as $col) {
-            if ($col['name'] === $column) {
-                return str_contains($col['type'], 'uuid') || str_contains($col['type'], 'varchar');
-            }
-        }
-        return false;
-    }
-
     public function down(): void
     {
     }
 };
+
