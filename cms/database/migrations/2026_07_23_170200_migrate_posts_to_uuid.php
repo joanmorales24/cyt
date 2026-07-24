@@ -45,7 +45,9 @@ return new class extends Migration
         });
 
         $firstUserId = DB::table('users')->first()?->id;
-        DB::table('posts')->get()->each(function ($post) use ($firstUserId) {
+
+        if (Schema::hasTable('posts')) {
+            DB::table('posts')->get()->each(function ($post) use ($firstUserId) {
             DB::table('posts_new')->insert([
                 'id' => \Illuminate\Support\Str::uuid(),
                 'user_id' => $firstUserId,
@@ -67,9 +69,12 @@ return new class extends Migration
                 'created_at' => $post->created_at,
                 'updated_at' => $post->updated_at,
             ]);
-        });
+            });
+        }
 
-        Schema::drop('posts');
+        if (Schema::hasTable('posts')) {
+            Schema::drop('posts');
+        }
         Schema::rename('posts_new', 'posts');
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
