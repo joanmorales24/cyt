@@ -5,8 +5,7 @@ use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Facades\DB;
 
-return new class extends Migration
-{
+return new class extends Migration {
     public function up(): void
     {
         $driver = DB::connection()->getDriverName();
@@ -41,10 +40,16 @@ return new class extends Migration
 
         Schema::drop('lead_notification_emails');
         Schema::rename('lead_notification_emails_new', 'lead_notification_emails');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     private function upSqlite(): void
     {
+        if (Schema::hasTable('lead_notification_emails_new')) {
+            Schema::drop('lead_notification_emails_new');
+        }
+
         Schema::create('lead_notification_emails_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('email')->unique();
@@ -64,9 +69,8 @@ return new class extends Migration
 
         Schema::drop('lead_notification_emails');
         Schema::rename('lead_notification_emails_new', 'lead_notification_emails');
-
-        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
+
 
     public function down(): void
     {

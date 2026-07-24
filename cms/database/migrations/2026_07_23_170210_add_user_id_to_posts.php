@@ -9,14 +9,16 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::table('posts', function (Blueprint $table) {
-            $table->uuid('user_id')->nullable()->after('id');
-            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
-        });
+        if (!Schema::hasColumn('posts', 'user_id')) {
+            Schema::table('posts', function (Blueprint $table) {
+                $table->uuid('user_id')->nullable()->after('id');
+                $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
+            });
 
-        $firstUserId = DB::table('users')->first()?->id;
-        if ($firstUserId) {
-            DB::table('posts')->update(['user_id' => $firstUserId]);
+            $firstUserId = DB::table('users')->first()?->id;
+            if ($firstUserId) {
+                DB::table('posts')->update(['user_id' => $firstUserId]);
+            }
         }
     }
 
