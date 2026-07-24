@@ -536,6 +536,7 @@
     }
   ]
   </script>
+  <script src="https://www.google.com/recaptcha/api.js"></script>
   </head>
 
   <body
@@ -1809,17 +1810,20 @@ tecnología y CX</p>
           const prevErr = form.querySelector(".form-error-msg");
           if (prevErr) prevErr.remove();
 
-          const data = {
-            name:    form.nombre.value,
-            email:   form.email.value,
-            phone:   form.telefono.value,
-            company: form.empresa.value,
-            source:  "landing",
-          };
-
-          const leadsUrl = "{{ route('leads.store') }}";
-          console.log('[leads] POST →', leadsUrl, data);
           try {
+            const token = await grecaptcha.execute('{{ config("services.recaptcha.site") }}', { action: 'submit' });
+
+            const data = {
+              name:    form.nombre.value,
+              email:   form.email.value,
+              phone:   form.telefono.value,
+              company: form.empresa.value,
+              source:  "landing",
+              'g-recaptcha-response': token,
+            };
+
+            const leadsUrl = "{{ route('leads.store') }}";
+            console.log('[leads] POST →', leadsUrl, data);
             const res = await fetch(leadsUrl, {
               method: "POST",
               headers: { "Content-Type": "application/json", Accept: "application/json" },
