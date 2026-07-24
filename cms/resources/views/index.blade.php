@@ -580,12 +580,13 @@
             >
               Solicitar demo
             </button>
-            <a
+            {{-- Voice Bot button commented out --}}
+            {{-- <a
               href="/voice-bot"
               class="glass inline-flex items-center gap-3 rounded-full border border-white/20 px-7 py-4 text-lg font-bold text-white transition hover:bg-white/10"
             >
               Voice Bot con IA →
-            </a>
+            </a> --}}
           </div>
           <div class="mt-14 grid grid-cols-2 gap-4 sm:flex sm:flex-wrap">
             <div class="glass rounded-2xl border border-white/10 px-5 py-4">
