@@ -168,69 +168,7 @@
 </main>
 
 {{-- Footer --}}
-<footer class="light-footer border-t px-6 py-16">
-    <div class="mx-auto max-w-7xl">
-        <div class="grid grid-cols-2 gap-12 md:grid-cols-4 lg:grid-cols-5">
-            <div class="col-span-2">
-                <img src="/img/logo.png" alt="CYT Comunicaciones" class="h-10 w-auto">
-                <p class="mt-4 max-w-xs text-sm leading-7 text-muted">
-                    Más de 35 años transformando contact centers en LATAM con tecnología propia.
-                    Orion Contact Center e INTEGRA CRM.
-                </p>
-                <div class="mt-6 inline-flex items-center gap-2 rounded-full border border-brand/10 bg-brand/5 px-4 py-2">
-                    <span class="material-symbols-outlined text-base text-brand">verified</span>
-                    <span class="text-xs font-bold text-muted">ISO 9001:2015</span>
-                </div>
-                <div class="mt-6 flex gap-3">
-                    <a href="https://www.linkedin.com/company/cyt-comunicaciones" class="social-chip" aria-label="LinkedIn" target="_blank" rel="noopener">
-                        <svg viewBox="0 0 24 24" aria-hidden="true">
-                            <path d="M20.45 20.45h-3.56v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zm1.78 13.02H3.56V9h3.56v11.45zM22.22 0H1.77C.8 0 0 .77 0 1.73v20.54C0 23.23.8 24 1.77 24h20.45C23.2 24 24 23.23 24 22.27V1.73C24 .77 23.2 0 22.22 0z"/>
-                        </svg>
-                    </a>
-                </div>
-            </div>
-            <div>
-                <h6 class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted">Soluciones</h6>
-                <ul class="space-y-4">
-                    <li><a href="{{ route('voice-bot') }}" class="text-sm text-muted transition-colors hover:text-brand">Voice Bot con IA</a></li>
-                    <li><a href="{{ route('home') }}#cx" class="text-sm text-muted transition-colors hover:text-brand">Automatización CX</a></li>
-                    <li><a href="{{ route('home') }}#plataforma" class="text-sm text-muted transition-colors hover:text-brand">Orion Contact Center</a></li>
-                    <li><a href="{{ route('home') }}#plataforma" class="text-sm text-muted transition-colors hover:text-brand">INTEGRA CRM</a></li>
-                    <li><a href="{{ route('home') }}#canales" class="text-sm text-muted transition-colors hover:text-brand">Omnicanalidad</a></li>
-                </ul>
-            </div>
-            <div>
-                <h6 class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted">Blog</h6>
-                <ul class="space-y-4">
-                    <li><a href="{{ route('blog.index') }}" class="text-sm text-muted transition-colors hover:text-brand">Todas las entradas</a></li>
-                    <li><a href="{{ route('blog.category', 'noticias') }}" class="text-sm text-muted transition-colors hover:text-brand">Noticias</a></li>
-                    <li><a href="{{ route('blog.category', 'prensa') }}" class="text-sm text-muted transition-colors hover:text-brand">Prensa</a></li>
-                    <li><a href="{{ route('sitemap') }}" class="text-sm text-muted transition-colors hover:text-brand">Sitemap</a></li>
-                </ul>
-            </div>
-            <div>
-                <h6 class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted">Contacto</h6>
-                <ul class="space-y-4 text-sm text-muted">
-                    <li class="flex items-start gap-2">
-                        <span class="material-symbols-outlined mt-0.5 text-base text-brand">language</span>
-                        <span>www.cytcomunicaciones.com</span>
-                    </li>
-                    <li class="flex items-start gap-2">
-                        <span class="material-symbols-outlined mt-0.5 text-base text-brand">mail</span>
-                        <a href="mailto:info@cytcomunicaciones.com.ar" class="hover:text-brand transition-colors">info@cytcomunicaciones.com.ar</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-brand/10 pt-8 text-center md:flex-row md:text-left">
-            <p class="text-sm text-muted">© {{ date('Y') }} CYT Comunicaciones. Todos los derechos reservados.</p>
-            <div class="flex gap-6 text-sm text-muted">
-                <a href="{{ route('sitemap') }}" class="transition-colors hover:text-brand">Sitemap</a>
-                <a href="{{ route('home') }}" class="transition-colors hover:text-brand">Inicio</a>
-            </div>
-        </div>
-    </div>
-</footer>
+@include('partials._footer', ['footerPage' => 'blog'])
 
 {{-- ── Modal Solicitar Demo (mismo endpoint CRM que index/voice-bot) ── --}}
 <div id="schedule-modal"
