@@ -24,6 +24,7 @@ return new class extends Migration
 
         Schema::create('posts_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->uuid('user_id')->nullable();
             $table->integer('wp_id')->nullable();
             $table->string('title');
             $table->string('slug')->unique();
@@ -40,11 +41,14 @@ return new class extends Migration
             $table->string('og_image')->nullable();
             $table->string('old_slug')->nullable();
             $table->timestamps();
+            $table->foreign('user_id')->references('id')->on('users')->cascadeOnDelete();
         });
 
-        DB::table('posts')->get()->each(function ($post) {
+        $firstUserId = DB::table('users')->first()?->id;
+        DB::table('posts')->get()->each(function ($post) use ($firstUserId) {
             DB::table('posts_new')->insert([
                 'id' => \Illuminate\Support\Str::uuid(),
+                'user_id' => $firstUserId,
                 'wp_id' => $post->wp_id,
                 'title' => $post->title,
                 'slug' => $post->slug,
