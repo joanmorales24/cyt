@@ -12,6 +12,7 @@ use Filament\Actions\DeleteAction;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Schemas\Components\Section;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
@@ -73,6 +74,18 @@ class UserResource extends Resource
                         ->same('password')
                         ->dehydrated(false)
                         ->required(fn (string $operation) => $operation === 'create'),
+                ]),
+
+            Section::make('Roles y permisos')
+                ->schema([
+                    Toggle::make('is_admin')
+                        ->label('Administrador')
+                        ->helperText('Permite acceso al panel de administración')
+                        ->default(false),
+                    Toggle::make('is_super_admin')
+                        ->label('Super administrador')
+                        ->helperText('Acceso total a todas las funciones')
+                        ->default(false),
                 ]),
         ]);
     }
