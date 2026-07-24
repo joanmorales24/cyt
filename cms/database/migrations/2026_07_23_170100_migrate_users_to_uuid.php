@@ -20,20 +20,35 @@ return new class extends Migration
 
     private function upMysql(): void
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->uuid('uuid')->nullable()->unique()->after('id');
+        Schema::create('users_new', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('name');
+            $table->string('email')->unique();
+            $table->timestamp('email_verified_at')->nullable();
+            $table->string('password');
+            $table->rememberToken();
+            $table->boolean('is_admin')->default(false);
+            $table->boolean('is_super_admin')->default(false);
+            $table->timestamps();
         });
 
         DB::table('users')->get()->each(function ($user) {
-            DB::table('users')->where('id', $user->id)->update(['uuid' => \Illuminate\Support\Str::uuid()]);
+            DB::table('users_new')->insert([
+                'id' => \Illuminate\Support\Str::uuid(),
+                'name' => $user->name,
+                'email' => $user->email,
+                'email_verified_at' => $user->email_verified_at,
+                'password' => $user->password,
+                'remember_token' => $user->remember_token,
+                'is_admin' => $user->is_admin,
+                'is_super_admin' => $user->is_super_admin,
+                'created_at' => $user->created_at,
+                'updated_at' => $user->updated_at,
+            ]);
         });
 
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropPrimary();
-            $table->dropColumn('id');
-            $table->renameColumn('uuid', 'id');
-            $table->primary('id');
-        });
+        Schema::drop('users');
+        Schema::rename('users_new', 'users');
     }
 
     private function upSqlite(): void
