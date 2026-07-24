@@ -536,7 +536,6 @@
     }
   ]
   </script>
-  <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
   </head>
 
   <body

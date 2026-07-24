@@ -51,7 +51,6 @@
       .legal-prose ul { list-style:disc; padding-left:1.5rem; color:#3d3350; line-height:1.75; margin-bottom:1rem; }
       .legal-prose ul li { margin-bottom:.4rem; }
     </style>
-    <script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
   </head>
   <body class="bg-[#fdf7ff] font-sans text-[#210853]">
 

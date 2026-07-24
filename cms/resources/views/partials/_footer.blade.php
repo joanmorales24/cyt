@@ -120,3 +120,5 @@
     </div>
   </div>
 </footer>
+
+<script src="https://www.google.com/recaptcha/api.js?render={{ config('services.recaptcha.site') }}"></script>
