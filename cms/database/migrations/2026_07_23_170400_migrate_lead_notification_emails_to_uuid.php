@@ -20,6 +20,8 @@ return new class extends Migration
 
     private function upMysql(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         Schema::create('lead_notification_emails_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('email')->unique();
@@ -62,6 +64,8 @@ return new class extends Migration
 
         Schema::drop('lead_notification_emails');
         Schema::rename('lead_notification_emails_new', 'lead_notification_emails');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     public function down(): void

@@ -20,6 +20,8 @@ return new class extends Migration
 
     private function upMysql(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         Schema::create('leads_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
@@ -47,6 +49,8 @@ return new class extends Migration
 
         Schema::drop('leads');
         Schema::rename('leads_new', 'leads');
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     private function upSqlite(): void
