@@ -18,8 +18,6 @@
             <a class="nav-link {{ $active === 'home' ? 'nav-link-active' : '' }}" href="/#industrias">Industrias</a>
             <a class="nav-link {{ $active === 'home' ? 'nav-link-active' : '' }}" href="/#nosotros">Nosotros</a>
             <a class="nav-link {{ $active === 'blog' ? 'nav-link-active' : '' }}" href="/blog">Blog</a>
-            <a class="nav-link font-extrabold {{ $active === 'voice-bot' ? 'nav-link-active' : '' }}"
-               style="color:#0077cc;" href="/voice-bot">Voice Bot ↗</a>
             <button id="open-schedule-modal-nav"
                     class="rounded-full bg-cta px-5 py-2.5 text-sm font-extrabold text-white shadow-glow transition hover:scale-[1.02]">
                 Solicitar demo
@@ -41,7 +39,6 @@
         <a href="/#industrias" class="block text-sm font-semibold text-[#4a4456] hover:text-[#210853] py-1">Industrias</a>
         <a href="/#nosotros"   class="block text-sm font-semibold text-[#4a4456] hover:text-[#210853] py-1">Nosotros</a>
         <a href="/blog"        class="block text-sm font-semibold text-[#4a4456] hover:text-[#210853] py-1 {{ $active === 'blog' ? 'font-extrabold text-[#210853]' : '' }}">Blog</a>
-        <a href="/voice-bot"   class="block text-sm font-extrabold py-1 {{ $active === 'voice-bot' ? 'text-[#0077cc]' : 'text-[#0077cc]' }}">Voice Bot ↗</a>
         <button id="open-schedule-modal-nav-mobile"
                 class="block w-full text-center rounded-full bg-cta px-5 py-2.5 text-sm font-extrabold text-white shadow-glow mt-2">
             Solicitar demo

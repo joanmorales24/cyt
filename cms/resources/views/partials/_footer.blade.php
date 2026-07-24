@@ -65,7 +65,6 @@
       <div>
         <h6 class="mb-6 text-xs font-bold uppercase tracking-[0.28em] text-muted">Soluciones</h6>
         <ul class="space-y-4">
-          <li><a class="text-sm text-muted transition-colors hover:text-brand" href="/voice-bot">Voice Bot con IA</a></li>
           <li><a class="text-sm text-muted transition-colors hover:text-brand" href="{{ $base }}#cx">Automatización CX</a></li>
           <li><a class="text-sm text-muted transition-colors hover:text-brand" href="{{ $base }}#plataforma">Orion Contact Center</a></li>
           <li><a class="text-sm text-muted transition-colors hover:text-brand" href="{{ $base }}#plataforma">INTEGRA CRM</a></li>
