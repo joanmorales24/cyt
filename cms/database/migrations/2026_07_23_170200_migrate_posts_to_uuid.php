@@ -72,10 +72,10 @@ return new class extends Migration
         }
 
         if (Schema::hasTable('posts')) {
-            Schema::drop('posts');
+            DB::statement('DROP TABLE posts');
         }
 
-        Schema::rename('posts_new', 'posts');
+        DB::statement('RENAME TABLE posts_new TO posts');
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
