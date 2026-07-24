@@ -109,14 +109,13 @@
 
     </div>
 
-    <div class="flex flex-wrap justify-center gap-6 text-sm text-muted">
-      <a class="transition-colors hover:text-brand" href="/politica-de-privacidad">Privacidad</a>
-      <a class="transition-colors hover:text-brand" href="/terminos-y-condiciones">Términos</a>
-      <a class="transition-colors hover:text-brand" href="/politica-de-cookies">Cookies</a>
-      <a class="transition-colors hover:text-brand" href="/politica-de-calidad">Calidad</a>
-    </div>
-
-    <div class="mt-16 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-center md:flex-row md:text-left">
+    <div class="mt-16 flex flex-col items-center gap-4 border-t border-white/10 pt-8 text-center">
+      <div class="flex flex-wrap justify-center gap-6 text-sm text-muted">
+        <a class="transition-colors hover:text-brand" href="/politica-de-privacidad">Privacidad</a>
+        <a class="transition-colors hover:text-brand" href="/terminos-y-condiciones">Términos</a>
+        <a class="transition-colors hover:text-brand" href="/politica-de-cookies">Cookies</a>
+        <a class="transition-colors hover:text-brand" href="/politica-de-calidad">Calidad</a>
+      </div>
       <p class="text-sm text-muted">© {{ date('Y') }} CYT Comunicaciones. Todos los derechos reservados.</p>
     </div>
   </div>
