@@ -23,10 +23,6 @@ return new class extends Migration {
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        if (Schema::hasTable('categories_new')) {
-            Schema::drop('categories_new');
-        }
-
         Schema::create('categories_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');

@@ -23,10 +23,6 @@ return new class extends Migration {
     {
         DB::statement('SET FOREIGN_KEY_CHECKS=0');
 
-        if (Schema::hasTable('tags_new')) {
-            Schema::drop('tags_new');
-        }
-
         Schema::create('tags_new', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('name');
@@ -49,6 +45,7 @@ return new class extends Migration {
 
         DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
+
 
     private function upSqlite(): void
     {
