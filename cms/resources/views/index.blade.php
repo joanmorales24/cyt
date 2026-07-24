@@ -80,6 +80,10 @@
       };
     </script>
     <style>
+      .grecaptcha-badge {
+        display: none !important;
+      }
+
       .material-symbols-outlined {
         font-variation-settings:
           "FILL" 0,
