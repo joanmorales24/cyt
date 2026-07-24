@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 return new class extends Migration {
     public function up(): void
     {
+        DB::statement('SET FOREIGN_KEY_CHECKS=0');
+
         if (!Schema::hasTable('tags')) {
             Schema::create('tags', function (Blueprint $table) {
                 $table->uuid('id')->primary();
@@ -15,6 +17,7 @@ return new class extends Migration {
                 $table->string('slug')->unique();
                 $table->timestamps();
             });
+            DB::statement('SET FOREIGN_KEY_CHECKS=1');
             return;
         }
 
@@ -25,6 +28,8 @@ return new class extends Migration {
         } else {
             $this->upMysql();
         }
+
+        DB::statement('SET FOREIGN_KEY_CHECKS=1');
     }
 
     private function upMysql(): void
