@@ -15,6 +15,12 @@ class CreatePost extends CreateRecord
         return 'Nueva entrada';
     }
 
+    protected function mutateFormDataBeforeCreate(array $data): array
+    {
+        $data['user_id'] = auth()->id();
+        return $data;
+    }
+
     protected function getHeaderActions(): array
     {
         return [
