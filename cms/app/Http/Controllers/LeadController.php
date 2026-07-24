@@ -13,6 +13,24 @@ class LeadController extends Controller
 {
     public function store(Request $request): JsonResponse
     {
+        // ── Validación reCAPTCHA ──────────────────────────────────────────
+        $request->validate([
+            'g-recaptcha-response' => 'required|string',
+        ]);
+
+        $recaptchaResponse = $request->input('g-recaptcha-response');
+        $secretKey = config('services.recaptcha.secret');
+
+        $response = \Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+            'secret' => $secretKey,
+            'response' => $recaptchaResponse,
+        ]);
+
+        $result = $response->json();
+        if (!$result['success'] || $result['score'] < 0.5) {
+            return response()->json(['error' => 'reCAPTCHA validation failed'], 422);
+        }
+
         // ── Validación de campos ──────────────────────────────────────────
         $data = $request->validate([
             'name'    => 'required|string|max:255',
