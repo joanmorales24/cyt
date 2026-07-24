@@ -18,6 +18,7 @@ use Filament\Schemas\Schema;
 use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Columns\IconColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\BadgeColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\Hash;
 
@@ -96,6 +97,16 @@ class UserResource extends Resource
                     ->falseIcon(Heroicon::OutlinedXCircle)
                     ->trueColor('success')
                     ->falseColor('danger'),
+                BadgeColumn::make('is_super_admin')
+                    ->label('Super Admin')
+                    ->getStateUsing(fn ($record) => $record->is_super_admin ? 'Sí' : 'No')
+                    ->colors(['success' => 'Sí', 'gray' => 'No'])
+                    ->sortable(),
+                BadgeColumn::make('is_admin')
+                    ->label('Admin')
+                    ->getStateUsing(fn ($record) => $record->is_admin ? 'Sí' : 'No')
+                    ->colors(['primary' => 'Sí', 'gray' => 'No'])
+                    ->sortable(),
                 TextColumn::make('created_at')
                     ->label('Creado')
                     ->dateTime('d/m/Y H:i')
