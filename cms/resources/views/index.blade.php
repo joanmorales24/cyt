@@ -729,7 +729,7 @@
       </section>
 
       {{-- Brief Frost & Sullivan --}}
-      <section class="px-6 py-24 relative overflow-hidden" style="background-image: url('/img/home/brief-bg.jpg'); background-size: cover; background-position: right center; background-attachment: fixed;">
+      <section class="px-6 py-24 relative overflow-hidden" style="background-image: url('/img/home/sullivan.png'); background-size: cover; background-position: right center; background-attachment: fixed;">
         <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
         <div class="mx-auto max-w-6xl relative z-10">
           <div class="flex flex-col md:flex-row items-center justify-between gap-8">
