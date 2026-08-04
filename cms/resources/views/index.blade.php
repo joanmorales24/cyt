@@ -12,6 +12,7 @@
     @endif
     <meta name="robots" content="{{ $seo?->robots ?? 'index, follow' }}">
     <link rel="canonical" href="{{ $seo?->canonical_url ?? url('/') }}">
+    <link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
     <meta property="og:title" content="{{ $seo?->title ?? 'CYT Comunicaciones' }}">
