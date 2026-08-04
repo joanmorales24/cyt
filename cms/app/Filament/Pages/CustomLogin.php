@@ -3,18 +3,12 @@
 namespace App\Filament\Pages;
 
 use Filament\Auth\Pages\Login as BaseLogin;
+use Filament\Auth\Http\Responses\Contracts\LoginResponse;
 use Illuminate\Validation\ValidationException;
 
 class CustomLogin extends BaseLogin
 {
-    protected function getFormActions(): array
-    {
-        $actions = parent::getFormActions();
-
-        return $actions;
-    }
-
-    public function authenticate(): void
+    public function authenticate(): ?LoginResponse
     {
         // Validar reCAPTCHA
         $recaptchaResponse = request()->input('g-recaptcha-response');
@@ -39,6 +33,6 @@ class CustomLogin extends BaseLogin
         }
 
         // Continuar con la autenticación normal
-        parent::authenticate();
+        return parent::authenticate();
     }
 }
