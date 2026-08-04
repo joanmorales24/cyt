@@ -1631,6 +1631,29 @@ tecnología y CX</p>
       </div>
     </div>
 
+    {{-- Brief Frost & Sullivan --}}
+    <section class="py-16 px-6">
+      <div class="mx-auto max-w-6xl">
+        <div class="rounded-2xl bg-gradient-to-r from-brand/10 to-cyan/10 border border-brand/20 p-10 md:p-16">
+          <div class="flex flex-col md:flex-row items-center justify-between gap-8">
+            <div class="flex-1">
+              <p class="text-sm font-semibold text-brand mb-2">DOCUMENTO EJECUTIVO</p>
+              <h3 class="text-3xl md:text-4xl font-bold text-[#210853] mb-3">Brief Ejecutivo Frost & Sullivan</h3>
+              <p class="text-lg text-[#3d2e5a] leading-relaxed">
+                Análisis completo sobre CYT elaborado por la consultora Frost & Sullivan: liderando el futuro de las conversaciones inteligentes en América Latina.
+              </p>
+            </div>
+            <div class="flex-shrink-0">
+              <a href="/docs/brief-frost-sullivan.pdf" download class="inline-flex items-center gap-3 px-8 py-4 bg-brand text-white font-semibold rounded-full hover:bg-brandSoft transition-all hover:scale-105 shadow-lg">
+                <span class="material-symbols-outlined">download</span>
+                Descargar PDF
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <script>
       const scheduleModal = document.getElementById("schedule-modal");
       const openScheduleBtns = [
