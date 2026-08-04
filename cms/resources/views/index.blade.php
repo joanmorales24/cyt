@@ -730,12 +730,12 @@
       </section>
 
       {{-- Brief Frost & Sullivan --}}
-      <section class="px-6 py-24 relative overflow-hidden brief-section" style="background-image: url('/img/home/sullivan-mobile.png'); background-size: cover; background-position: center;">
+      <section class="px-6 py-24 relative overflow-hidden brief-section" style="background-image: url('/img/home/sullivan.png'); background-size: cover; background-position: right center;">
         <style>
-          @media (min-width: 768px) {
+          @media (max-width: 767px) {
             .brief-section {
-              background-image: url('/img/home/sullivan.png') !important;
-              background-position: right center !important;
+              background-image: url('/img/home/sullivan-mobile.png') !important;
+              background-position: center !important;
             }
           }
         </style>
