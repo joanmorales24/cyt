@@ -729,17 +729,16 @@
       </section>
 
       {{-- Brief Frost & Sullivan --}}
-      <section class="px-6 py-24 relative overflow-hidden" style="background-image: url('/img/home/sullivan.png'); background-size: cover; background-position: right center; background-attachment: fixed;">
-        <div class="absolute inset-0 bg-gradient-to-r from-white via-white/90 to-transparent"></div>
+      <section class="px-6 py-24 relative overflow-hidden" style="background-image: url('/img/home/sullivan.png'); background-size: cover; background-position: right center;">
         <div class="mx-auto max-w-6xl relative z-10">
           <div class="flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="flex-1">
-              <p class="text-sm font-semibold text-brand mb-2">DOCUMENTO EJECUTIVO</p>
-              <h3 class="text-4xl md:text-5xl font-bold text-[#210853] mb-4 leading-tight">Brief Ejecutivo<br/>Frost & Sullivan</h3>
-              <p class="text-lg text-[#3d2e5a] leading-relaxed mb-8 max-w-lg">
+              <p class="text-sm font-semibold text-white mb-2">DOCUMENTO EJECUTIVO</p>
+              <h3 class="text-4xl md:text-5xl font-bold text-white mb-4 leading-tight">Brief Ejecutivo<br/>Frost & Sullivan</h3>
+              <p class="text-lg text-white leading-relaxed mb-8 max-w-lg">
                 Análisis completo sobre CYT elaborado por la consultora Frost & Sullivan: liderando el futuro de las conversaciones inteligentes en América Latina.
               </p>
-              <a href="/docs/brief-frost-sullivan.pdf" download class="inline-flex items-center gap-3 px-8 py-4 bg-brand text-white font-semibold rounded-full hover:bg-brandSoft transition-all hover:scale-105 shadow-lg">
+              <a href="/docs/brief-frost-sullivan.pdf" download class="inline-flex items-center gap-3 px-8 py-4 bg-white text-[#210853] font-semibold rounded-full hover:bg-gray-100 transition-all hover:scale-105 shadow-lg">
                 <span class="material-symbols-outlined">download</span>
                 Descárguelo aquí
               </a>
