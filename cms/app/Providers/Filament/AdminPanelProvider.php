@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\CustomLogin;
 use App\Filament\Widgets\RecentLeads;
 use App\Filament\Widgets\RecentPosts;
 use App\Filament\Widgets\StatsOverview;
@@ -31,7 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login()
+            ->login(CustomLogin::class)
             ->brandName('CyT Comunicaciones')
             ->brandLogo(asset('img/logo.png'))
             ->brandLogoHeight('2.2rem')
