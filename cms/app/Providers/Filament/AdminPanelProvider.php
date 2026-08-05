@@ -36,7 +36,7 @@ class AdminPanelProvider extends PanelProvider
             ->brandName('CyT Comunicaciones')
             ->brandLogo(asset('img/logo.png'))
             ->brandLogoHeight('2.2rem')
-            ->favicon(asset('favicon.ico'))
+            ->favicon(asset('favicon.png'))
             ->colors([
                 'primary' => Color::Purple,
             ])
