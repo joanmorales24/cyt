@@ -739,7 +739,7 @@
             }
           }
         </style>
-        <div class="mx-auto max-w-6xl relative z-10">
+        <div class="mx-auto max-w-[75%] md:max-w-6xl relative z-10">
           <div class="flex flex-col md:flex-row items-center justify-between gap-8">
             <div class="flex-1">
               <p class="text-sm font-semibold text-white mb-2">DOCUMENTO EJECUTIVO</p>
