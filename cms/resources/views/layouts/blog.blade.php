@@ -147,7 +147,7 @@
         color: #5a4e6e; font-style: italic; margin: 1.5rem 0;
         background: rgba(123,63,242,0.04); border-radius: 0 0.5rem 0.5rem 0; padding: 1rem 1.25rem;
       }
-      .cyt-prose strong { color: #210853; font-weight: 700; }
+      .cyt-prose strong { color: #0a0420; font-weight: 800; }
       .cyt-prose table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
       .cyt-prose th { background: rgba(123,63,242,0.08); color: #210853; font-weight: 700; padding: 0.6rem 1rem; text-align: left; border-bottom: 2px solid rgba(123,63,242,0.2); }
       .cyt-prose td { padding: 0.6rem 1rem; border-bottom: 1px solid rgba(113,42,236,0.08); color: #3d2e5a; }
