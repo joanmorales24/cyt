@@ -40,4 +40,10 @@ return [
         'secret' => env('RECAPTCHA_SECRET_KEY'),
     ],
 
+    'zoho' => [
+        'api_url' => env('ZOHO_CRM_API_URL', 'https://www.zohoapis.com/crm/v7'),
+        'api_token' => env('ZOHO_CRM_API_TOKEN'),
+        'module' => env('ZOHO_CRM_MODULE', 'Leads'),
+    ],
+
 ];

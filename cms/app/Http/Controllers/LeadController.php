@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Lead;
 use App\Models\LeadNotificationEmail;
+use App\Services\ZohoCRMService;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -44,7 +45,11 @@ class LeadController extends Controller
         // ── 4. Guardar en DB (siempre, antes del correo) ──────────────────
         $lead = Lead::create($data);
 
-        // ── 5. Notificación por correo (falla silenciosa) ─────────────────
+        // ── 5. Enviar a Zoho CRM (falla silenciosa) ──────────────────────
+        $zohoCRM = new ZohoCRMService();
+        $zohoCRM->sendLead($lead);
+
+        // ── 6. Notificación por correo (falla silenciosa) ─────────────────
         $this->sendNotificationEmails($lead);
 
         return response()->json(['ok' => true], 201);
