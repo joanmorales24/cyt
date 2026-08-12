@@ -41,20 +41,12 @@ class PostResource extends Resource
 
     public static function canEdit(Model $record): bool
     {
-        $user = auth()->user();
-        if (!$user || !$user->is_admin) {
-            return false;
-        }
-        return $user->is_super_admin || $record->user_id === $user->id;
+        return auth()->user()?->is_admin ?? false;
     }
 
     public static function canDelete(Model $record): bool
     {
-        $user = auth()->user();
-        if (!$user || !$user->is_admin) {
-            return false;
-        }
-        return $user->is_super_admin || $record->user_id === $user->id;
+        return auth()->user()?->is_admin ?? false;
     }
 
     public static function form(Schema $schema): Schema
