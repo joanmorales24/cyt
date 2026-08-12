@@ -66,7 +66,9 @@ class PostsTable
                     ->relationship('categories', 'name'),
             ])
             ->recordActions([
-                EditAction::make(),
+                EditAction::make()
+                    ->label('Editar')
+                    ->tooltip('Editar entrada'),
             ])
             ->toolbarActions([
                 BulkActionGroup::make([
