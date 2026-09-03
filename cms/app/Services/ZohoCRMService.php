@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\AppSetting;
 use App\Models\Lead;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
@@ -15,7 +16,7 @@ class ZohoCRMService
     public function __construct()
     {
         $this->apiUrl = config('services.zoho.api_url');
-        $this->apiToken = config('services.zoho.api_token');
+        $this->apiToken = AppSetting::get('zoho_api_token') ?? config('services.zoho.api_token');
         $this->module = config('services.zoho.module', 'Leads');
     }
 
