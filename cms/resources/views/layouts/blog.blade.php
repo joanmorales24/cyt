@@ -204,6 +204,11 @@
                 <input name="empresa" type="text" placeholder="Nombre de la empresa"
                        class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400"/>
             </label>
+            <label class="grid gap-2 text-sm font-semibold">
+                Mensaje
+                <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" rows="4"
+                          class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400 resize-none"></textarea>
+            </label>
             <button type="submit"
                     class="rounded-full px-6 py-4 text-lg font-extrabold text-white transition hover:opacity-90"
                     style="background:linear-gradient(90deg,#9d2cf3 0%,#7457ff 50%,#1ca9ff 100%)">
@@ -241,6 +246,7 @@
             email:   form.email.value,
             phone:   form.telefono.value,
             company: form.empresa.value,
+            message: form.mensaje.value,
             source:  'blog',
         };
 
