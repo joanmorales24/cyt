@@ -1607,6 +1607,15 @@ tecnología y CX</p>
               type="text"
             />
           </label>
+          <label class="grid gap-2 text-sm font-semibold">
+            Mensaje
+            <textarea
+              class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-muted focus:border-brandSoft focus:ring-brandSoft resize-none"
+              name="mensaje"
+              placeholder="¿En qué podemos ayudarte?"
+              rows="4"
+            ></textarea>
+          </label>
           <button
             class="rounded-full bg-cta px-6 py-4 text-lg font-extrabold text-white transition hover:scale-[1.02]"
             type="submit"
