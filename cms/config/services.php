@@ -35,9 +35,9 @@ return [
         ],
     ],
 
-    'recaptcha' => [
-        'site' => env('RECAPTCHA_SITE_KEY'),
-        'secret' => env('RECAPTCHA_SECRET_KEY'),
+    'turnstile' => [
+        'site' => env('TURNSTILE_SITE_KEY'),
+        'secret' => env('TURNSTILE_SECRET_KEY'),
     ],
 
     'zoho' => [

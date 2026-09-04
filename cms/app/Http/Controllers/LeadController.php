@@ -14,22 +14,22 @@ class LeadController extends Controller
 {
     public function store(Request $request): JsonResponse
     {
-        // ── Validación reCAPTCHA ──────────────────────────────────────────
+        // ── Validación Turnstile ─────────────────────────────────────────
         $request->validate([
-            'g-recaptcha-response' => 'required|string',
+            'cf-turnstile-response' => 'required|string',
         ]);
 
-        $recaptchaResponse = $request->input('g-recaptcha-response');
-        $secretKey = config('services.recaptcha.secret');
+        $turnstileResponse = $request->input('cf-turnstile-response');
+        $secretKey = config('services.turnstile.secret');
 
-        $response = \Http::asForm()->post('https://www.google.com/recaptcha/api/siteverify', [
+        $response = \Http::asForm()->post('https://challenges.cloudflare.com/turnstile/v0/siteverify', [
             'secret' => $secretKey,
-            'response' => $recaptchaResponse,
+            'response' => $turnstileResponse,
         ]);
 
         $result = $response->json();
-        if (!$result['success'] || $result['score'] < 0.5) {
-            return response()->json(['error' => 'reCAPTCHA validation failed'], 422);
+        if (!$result['success']) {
+            return response()->json(['error' => 'Turnstile validation failed'], 422);
         }
 
         // ── Validación de campos ──────────────────────────────────────────
