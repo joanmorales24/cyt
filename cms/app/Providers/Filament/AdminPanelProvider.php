@@ -54,7 +54,7 @@ class AdminPanelProvider extends PanelProvider
             ->renderHook(
                 PanelsRenderHook::HEAD_END,
                 fn (): HtmlString => new HtmlString('
-<script src="https://www.google.com/recaptcha/api.js?render=' . config('services.recaptcha.site') . '"></script>
+<!-- <script src="https://www.google.com/recaptcha/api.js?render=' . config('services.recaptcha.site') . '"></script> -->
 <style>
 /* Sidebar formulario Posts — ancho fijo para consistencia */
 @media (min-width: 1024px) {
