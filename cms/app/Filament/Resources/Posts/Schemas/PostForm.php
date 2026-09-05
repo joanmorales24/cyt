@@ -143,7 +143,7 @@ class PostForm
                                                     Tab::make('Biblioteca de medios')
                                                         ->schema([
                                                             MediaGridPicker::make('media_id')
-                                                                ->label(''),
+                                                                ->hiddenLabel(),
                                                         ]),
                                                 ]),
                                         ])
