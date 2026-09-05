@@ -3,9 +3,11 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Filament\Forms\Components\GutenbergEditor;
+use App\Models\MediaItem;
 use Filament\Actions\Action;
 use Filament\Schemas\Components\Actions;
 use Filament\Forms\Components\DateTimePicker;
+use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
@@ -15,6 +17,8 @@ use Filament\Notifications\Notification;
 use Filament\Schemas\Components\Flex;
 use Filament\Schemas\Components\Group;
 use Filament\Schemas\Components\Section;
+use Filament\Schemas\Components\Tabs;
+use Filament\Schemas\Components\Tabs\Tab;
 use Filament\Schemas\Schema;
 use Illuminate\Support\Str;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
@@ -104,55 +108,88 @@ class PostForm
 
                         Section::make('Imagen destacada')
                             ->schema([
-                                Actions::make([
-                                    Action::make('chooseFromLibrary')
-                                        ->label('Elegir de la biblioteca')
-                                        ->icon('heroicon-o-photo')
-                                        ->color('gray')
-                                        ->modalHeading('Elegir imagen de la biblioteca')
-                                        ->modalSubmitActionLabel('Usar esta imagen')
-                                        ->schema([
-                                            Select::make('media_id')
-                                                ->label('Imagen')
-                                                ->searchable()
-                                                ->allowHtml()
-                                                ->options(function () {
-                                                    return Media::query()
-                                                        ->whereIn('collection_name', ['featured_image', 'default'])
-                                                        ->latest()
-                                                        ->limit(300)
-                                                        ->get()
-                                                        ->mapWithKeys(fn (Media $media) => [
-                                                            $media->id => '<div style="display:flex;align-items:center;gap:8px"><img src="'.e($media->hasGeneratedConversion('thumb') ? $media->getUrl('thumb') : $media->getUrl()).'" style="width:40px;height:40px;object-fit:cover;border-radius:4px;flex-shrink:0"><span>'.e($media->name).'</span></div>',
-                                                        ]);
-                                                })
-                                                ->required(),
-                                        ])
-                                        ->action(function (array $data, $record) {
-                                            if (! $record) {
-                                                Notification::make()
-                                                    ->title('Guardá el post primero para poder elegir una imagen')
-                                                    ->warning()
-                                                    ->send();
-                                                return;
-                                            }
-
-                                            $media = Media::find($data['media_id']);
-                                            if ($media) {
-                                                $media->copy($record, 'featured_image');
-                                            }
-                                        })
-                                        ->successNotificationTitle('Imagen asignada. Recargá la página para verla.'),
-                                ]),
                                 SpatieMediaLibraryFileUpload::make('featured_image')
-                                    ->label('O subir una nueva')
+                                    ->label('')
                                     ->collection('featured_image')
                                     ->image()
                                     ->imageEditor()
                                     ->imagePreviewHeight('200')
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                                     ->maxSize(8192)
-                                    ->placeholder('Arrastra una imagen aquí o <span class="filepond--label-action">selecciona una</span>'),
+                                    ->disabled()
+                                    ->dehydrated(false)
+                                    ->placeholder('Sin imagen'),
+                                Actions::make([
+                                    Action::make('manageFeaturedImage')
+                                        ->label('Cambiar imagen destacada')
+                                        ->icon('heroicon-o-photo')
+                                        ->modalHeading('Imagen destacada')
+                                        ->modalSubmitActionLabel('Usar esta imagen')
+                                        ->schema([
+                                            Tabs::make('source')
+                                                ->tabs([
+                                                    Tab::make('Subir nueva')
+                                                        ->schema([
+                                                            FileUpload::make('new_file')
+                                                                ->label('')
+                                                                ->image()
+                                                                ->imageEditor()
+                                                                ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
+                                                                ->maxSize(8192)
+                                                                ->disk('public')
+                                                                ->directory('uploads-temp'),
+                                                        ]),
+                                                    Tab::make('Biblioteca de medios')
+                                                        ->schema([
+                                                            Select::make('media_id')
+                                                                ->label('Imagen existente')
+                                                                ->searchable()
+                                                                ->allowHtml()
+                                                                ->options(function () {
+                                                                    return Media::query()
+                                                                        ->whereIn('collection_name', ['featured_image', 'default'])
+                                                                        ->latest()
+                                                                        ->limit(300)
+                                                                        ->get()
+                                                                        ->mapWithKeys(fn (Media $media) => [
+                                                                            $media->id => '<div style="display:flex;align-items:center;gap:8px"><img src="'.e($media->hasGeneratedConversion('thumb') ? $media->getUrl('thumb') : $media->getUrl()).'" style="width:40px;height:40px;object-fit:cover;border-radius:4px;flex-shrink:0"><span>'.e($media->name).'</span></div>',
+                                                                        ]);
+                                                                }),
+                                                        ]),
+                                                ]),
+                                        ])
+                                        ->action(function (array $data, $record) {
+                                            if (! $record) {
+                                                Notification::make()
+                                                    ->title('Guardá el post primero para poder cambiar la imagen')
+                                                    ->warning()
+                                                    ->send();
+                                                return;
+                                            }
+
+                                            if (! empty($data['new_file'])) {
+                                                $path = $data['new_file'];
+                                                $absolutePath = \Illuminate\Support\Facades\Storage::disk('public')->path($path);
+
+                                                $media = $record->addMedia($absolutePath)
+                                                    ->preservingOriginal()
+                                                    ->toMediaCollection('featured_image');
+
+                                                // Guardar una copia en la biblioteca general para reutilizar después
+                                                $libraryItem = MediaItem::create(['name' => $media->name]);
+                                                $media->copy($libraryItem, 'default');
+
+                                                \Illuminate\Support\Facades\Storage::disk('public')->delete($path);
+                                            } elseif (! empty($data['media_id'])) {
+                                                $media = Media::find($data['media_id']);
+                                                if ($media) {
+                                                    $media->copy($record, 'featured_image');
+                                                }
+                                            }
+                                        })
+                                        ->successNotificationTitle('Imagen actualizada.')
+                                        ->successRedirectUrl(fn () => request()->fullUrl()),
+                                ]),
                                 TextInput::make('featured_image_alt')
                                     ->label('Texto alternativo'),
                             ]),
