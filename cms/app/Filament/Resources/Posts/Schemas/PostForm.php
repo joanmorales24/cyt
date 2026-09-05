@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Filament\Forms\Components\GutenbergEditor;
+use App\Filament\Forms\Components\MediaGridPicker;
 use App\Models\MediaItem;
 use Filament\Actions\Action;
 use Filament\Schemas\Components\Actions;
@@ -141,20 +142,8 @@ class PostForm
                                                         ]),
                                                     Tab::make('Biblioteca de medios')
                                                         ->schema([
-                                                            Select::make('media_id')
-                                                                ->label('Imagen existente')
-                                                                ->searchable()
-                                                                ->allowHtml()
-                                                                ->options(function () {
-                                                                    return Media::query()
-                                                                        ->whereIn('collection_name', ['featured_image', 'default'])
-                                                                        ->latest()
-                                                                        ->limit(300)
-                                                                        ->get()
-                                                                        ->mapWithKeys(fn (Media $media) => [
-                                                                            $media->id => '<div style="display:flex;align-items:center;gap:8px"><img src="'.e($media->hasGeneratedConversion('thumb') ? $media->getUrl('thumb') : $media->getUrl()).'" style="width:40px;height:40px;object-fit:cover;border-radius:4px;flex-shrink:0"><span>'.e($media->name).'</span></div>',
-                                                                        ]);
-                                                                }),
+                                                            MediaGridPicker::make('media_id')
+                                                                ->label(''),
                                                         ]),
                                                 ]),
                                         ])
