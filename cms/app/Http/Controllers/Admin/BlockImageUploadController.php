@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\MediaItem;
 use App\Services\ImageSanitizer;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class BlockImageUploadController extends Controller
 {
@@ -17,11 +17,15 @@ class BlockImageUploadController extends Controller
         ]);
 
         $clean = ImageSanitizer::sanitize($request->file('image'));
-        $path  = $clean->store('blocks', 'public');
+
+        $libraryItem = MediaItem::create(['name' => pathinfo($clean->getClientOriginalName(), PATHINFO_FILENAME)]);
+        $media = $libraryItem->addMedia($clean->getRealPath())
+            ->usingName($libraryItem->name)
+            ->toMediaCollection('default');
 
         return response()->json([
-            'url'  => Storage::disk('public')->url($path),
-            'path' => $path,
+            'url'  => $media->getUrl(),
+            'path' => $media->getUrl(),
         ]);
     }
 }
