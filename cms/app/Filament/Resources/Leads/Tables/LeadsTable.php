@@ -18,6 +18,11 @@ class LeadsTable
                 TextColumn::make('email')->label('Email')->searchable(),
                 TextColumn::make('phone')->label('Teléfono'),
                 TextColumn::make('company')->label('Empresa')->searchable(),
+                TextColumn::make('message')
+                    ->label('Mensaje')
+                    ->limit(40)
+                    ->tooltip(fn ($record) => $record->message)
+                    ->searchable(),
                 TextColumn::make('source')->label('Origen')->badge(),
                 TextColumn::make('created_at')->label('Fecha')->dateTime('d/m/Y H:i')->sortable(),
             ])
