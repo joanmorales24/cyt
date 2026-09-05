@@ -14,6 +14,11 @@ class MediaItem extends Model implements HasMedia
 
     protected $fillable = ['name'];
 
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('default')->useDisk('public');
+    }
+
     public function registerMediaConversions(?Media $media = null): void
     {
         $this->addMediaConversion('thumb')
