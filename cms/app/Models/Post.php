@@ -6,11 +6,44 @@ use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Image\Enums\Fit;
 
-class Post extends Model
+class Post extends Model implements HasMedia
 {
     use HasUuids;
+    use InteractsWithMedia;
+
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('featured_image')->singleFile();
+    }
+
+    public function registerMediaConversions(?Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->fit(Fit::Crop, 400, 300)
+            ->nonQueued();
+    }
+
+    public function getFeaturedImageUrlAttribute(): ?string
+    {
+        if ($url = $this->getFirstMediaUrl('featured_image')) {
+            return $url;
+        }
+
+        if (! $this->attributes['featured_image'] ?? null) {
+            return null;
+        }
+
+        $raw = $this->attributes['featured_image'];
+
+        return Str::startsWith($raw, 'http') ? $raw : Storage::disk('public')->url($raw);
+    }
     protected $fillable = [
         'wp_id',
         'title',

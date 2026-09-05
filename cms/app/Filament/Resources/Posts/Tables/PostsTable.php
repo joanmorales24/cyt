@@ -17,9 +17,8 @@ class PostsTable
     {
         return $table
             ->columns([
-                ImageColumn::make('featured_image')
+                ImageColumn::make('featured_image_url')
                     ->label('')
-                    ->disk('public')
                     ->width(72)
                     ->height(52)
                     ->rounded()

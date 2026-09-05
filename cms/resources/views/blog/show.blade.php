@@ -4,7 +4,7 @@
     $seoTitle    = $post->seo_title ?: ($post->title . ' | CYT Comunicaciones');
     $seoDesc     = $post->seo_description ? strip_tags($post->seo_description) : Str::limit(strip_tags($post->excerpt ?? $post->content), 160);
     $canonicalUrl = $post->seo_canonical_url ?: route('blog.show', $post->slug);
-    $ogImage     = $post->og_image ?? $post->featured_image;
+    $ogImage     = $post->og_image ?? $post->featured_image_url;
     if ($ogImage && !Str::startsWith($ogImage, 'http')) {
         $ogImage = Storage::url($ogImage);
     }
@@ -105,9 +105,9 @@
             <article class="min-w-0 flex-1">
 
                 {{-- Imagen destacada --}}
-                @if($post->featured_image)
+                @if($post->featured_image_url)
                     <figure class="mb-10 overflow-hidden rounded-[2rem] shadow-card">
-                        <img src="{{ Str::startsWith($post->featured_image, 'http') ? $post->featured_image : Storage::url($post->featured_image) }}"
+                        <img src="{{ $post->featured_image_url }}"
                              alt="{{ $post->featured_image_alt ?? $post->title }}"
                              class="w-full max-h-[480px] object-cover">
                     </figure>
@@ -167,9 +167,9 @@
                         <div class="space-y-5">
                             @foreach($related as $r)
                                 <div class="flex gap-3">
-                                    @if($r->featured_image)
+                                    @if($r->featured_image_url)
                                         <a href="{{ route('blog.show', $r->slug) }}" class="shrink-0">
-                                            <img src="{{ Str::startsWith($r->featured_image, 'http') ? $r->featured_image : Storage::url($r->featured_image) }}"
+                                            <img src="{{ $r->featured_image_url }}"
                                                  alt="{{ $r->title }}"
                                                  class="h-14 w-20 rounded-xl object-cover"
                                                  loading="lazy">

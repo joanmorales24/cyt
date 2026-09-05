@@ -4,7 +4,7 @@ namespace App\Filament\Resources\Posts\Schemas;
 
 use App\Filament\Forms\Components\GutenbergEditor;
 use Filament\Forms\Components\DateTimePicker;
-use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Components\TextInput;
@@ -100,16 +100,14 @@ class PostForm
 
                         Section::make('Imagen destacada')
                             ->schema([
-FileUpload::make('featured_image')
+SpatieMediaLibraryFileUpload::make('featured_image')
                                     ->label('Cambiar imagen')
+                                    ->collection('featured_image')
                                     ->image()
-                                    ->disk('public')
-                                    ->directory('posts')
-                                    ->visibility('public')
+                                    ->imageEditor()
                                     ->imagePreviewHeight('200')
                                     ->acceptedFileTypes(['image/jpeg', 'image/png', 'image/gif', 'image/webp'])
                                     ->maxSize(8192)
-                                    ->rules(['mimes:jpg,jpeg,png,gif,webp'])
                                     ->placeholder('Arrastra una imagen aquí o <span class="filepond--label-action">selecciona una</span>'),
                                 TextInput::make('featured_image_alt')
                                     ->label('Texto alternativo'),

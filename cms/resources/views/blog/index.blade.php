@@ -67,9 +67,9 @@
                         @foreach($posts as $post)
                             <article class="group flex flex-col overflow-hidden rounded-[2rem] border border-brand/10 bg-white shadow-sm transition hover:shadow-[0_8px_40px_rgba(123,63,242,0.12)] hover:-translate-y-0.5">
                                 {{-- Imagen --}}
-                                @if($post->featured_image)
+                                @if($post->featured_image_url)
                                     <a href="{{ route('blog.show', $post->slug) }}" class="block overflow-hidden">
-                                        <img src="{{ Str::startsWith($post->featured_image, 'http') ? $post->featured_image : Storage::url($post->featured_image) }}"
+                                        <img src="{{ $post->featured_image_url }}"
                                              alt="{{ $post->featured_image_alt ?? $post->title }}"
                                              class="h-48 w-full object-cover transition duration-500 group-hover:scale-105"
                                              loading="lazy">
