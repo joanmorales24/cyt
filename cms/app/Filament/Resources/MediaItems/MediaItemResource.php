@@ -54,7 +54,11 @@ class MediaItemResource extends Resource
                     ->label('Vista previa')
                     ->state(fn (Media $record) => $record->hasGeneratedConversion('thumb') ? $record->getUrl('thumb') : $record->getUrl()),
 
-                TextColumn::make('name')->label('Nombre')->searchable(),
+                TextColumn::make('name')
+                    ->label('Nombre')
+                    ->searchable()
+                    ->limit(25)
+                    ->tooltip(fn (Media $record) => $record->name),
 
                 TextColumn::make('model_type')
                     ->label('Usado en')
