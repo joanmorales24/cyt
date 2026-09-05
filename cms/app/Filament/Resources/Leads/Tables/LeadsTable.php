@@ -20,7 +20,7 @@ class LeadsTable
                 TextColumn::make('company')->label('Empresa')->searchable(),
                 TextColumn::make('message')
                     ->label('Mensaje')
-                    ->limit(40)
+                    ->limit(20)
                     ->tooltip(fn ($record) => $record->message)
                     ->searchable(),
                 TextColumn::make('source')->label('Origen')->badge(),
