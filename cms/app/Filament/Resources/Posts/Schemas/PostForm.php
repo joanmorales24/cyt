@@ -177,7 +177,7 @@ class PostForm
                                             }
                                         })
                                         ->successNotificationTitle('Imagen actualizada.')
-                                        ->successRedirectUrl(fn () => request()->fullUrl()),
+                                        ->successRedirectUrl(fn () => url()->previous()),
                                 ]),
                                 TextInput::make('featured_image_alt')
                                     ->label('Texto alternativo'),
