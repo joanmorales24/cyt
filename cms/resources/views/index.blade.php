@@ -537,6 +537,7 @@
     }
   ]
   </script>
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   </head>
 
   <body
@@ -1616,6 +1617,12 @@ tecnología y CX</p>
               rows="4"
             ></textarea>
           </label>
+          <div
+            class="cf-turnstile"
+            data-sitekey="{{ config('services.turnstile.site') }}"
+            data-size="invisible"
+            data-execution="execute"
+          ></div>
           <button
             class="rounded-full bg-cta px-6 py-4 text-lg font-extrabold text-white transition hover:scale-[1.02]"
             type="submit"
@@ -1847,15 +1854,26 @@ tecnología y CX</p>
           if (prevErr) prevErr.remove();
 
           try {
-            const token = await grecaptcha.execute('{{ config("services.recaptcha.site") }}', { action: 'submit' });
+            const token = await new Promise((resolve, reject) => {
+              const widget = form.querySelector('.cf-turnstile');
+              if (!widget || typeof turnstile === 'undefined') {
+                reject(new Error('Turnstile no disponible'));
+                return;
+              }
+              turnstile.execute(widget, {
+                callback: (token) => resolve(token),
+                'error-callback': () => reject(new Error('Turnstile validation failed')),
+              });
+            });
 
             const data = {
               name:    form.nombre.value,
               email:   form.email.value,
               phone:   form.telefono.value,
               company: form.empresa.value,
+              message: form.mensaje.value,
               source:  "landing",
-              'g-recaptcha-response': token,
+              'cf-turnstile-response': token,
             };
 
             const leadsUrl = "{{ route('leads.store') }}";

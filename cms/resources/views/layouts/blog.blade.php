@@ -156,6 +156,7 @@
       .cyt-prose code { font-family: monospace; font-size: 0.875em; background: rgba(123,63,242,0.08); color: #7b3ff2; padding: 0.1em 0.4em; border-radius: 0.25rem; }
       .cyt-prose pre code { background: none; color: inherit; padding: 0; }
     </style>
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
 </head>
 
 <body class="bg-[#fdf7ff] font-sans text-[#210853] selection:bg-brand/40 selection:text-white">
@@ -209,6 +210,12 @@
                 <textarea name="mensaje" placeholder="¿En qué podemos ayudarte?" rows="4"
                           class="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-white/40 focus:outline-none focus:border-purple-400 resize-none"></textarea>
             </label>
+            <div
+                class="cf-turnstile"
+                data-sitekey="{{ config('services.turnstile.site') }}"
+                data-size="invisible"
+                data-execution="execute"
+            ></div>
             <button type="submit"
                     class="rounded-full px-6 py-4 text-lg font-extrabold text-white transition hover:opacity-90"
                     style="background:linear-gradient(90deg,#9d2cf3 0%,#7457ff 50%,#1ca9ff 100%)">
@@ -241,16 +248,29 @@
         btn.disabled = true;
         form.querySelector('.form-error-msg')?.remove();
 
-        const data = {
-            name:    form.nombre.value,
-            email:   form.email.value,
-            phone:   form.telefono.value,
-            company: form.empresa.value,
-            message: form.mensaje.value,
-            source:  'blog',
-        };
-
         try {
+            const token = await new Promise((resolve, reject) => {
+                const widget = form.querySelector('.cf-turnstile');
+                if (!widget || typeof turnstile === 'undefined') {
+                    reject(new Error('Turnstile no disponible'));
+                    return;
+                }
+                turnstile.execute(widget, {
+                    callback: (token) => resolve(token),
+                    'error-callback': () => reject(new Error('Turnstile validation failed')),
+                });
+            });
+
+            const data = {
+                name:    form.nombre.value,
+                email:   form.email.value,
+                phone:   form.telefono.value,
+                company: form.empresa.value,
+                message: form.mensaje.value,
+                source:  'blog',
+                'cf-turnstile-response': token,
+            };
+
             const res = await fetch('{{ route("leads.store") }}', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
