@@ -5,18 +5,25 @@ Disallow: /api/
 # Sitemap
 Sitemap: https://cytcomunicaciones.com/sitemap.xml
 
-# Crawlers de IA — acceso permitido al contenido público
+# Descubrimiento en ChatGPT Search (distinto de GPTBot, que es entrenamiento)
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /admin/
+Disallow: /api/
+
 User-agent: GPTBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-User-agent: Claude-Web
+# Crawlers de Anthropic (ClaudeBot reemplaza a los nombres antiguos
+# Claude-Web / anthropic-ai)
+User-agent: ClaudeBot
 Allow: /
 Disallow: /admin/
 Disallow: /api/
 
-User-agent: anthropic-ai
+User-agent: Claude-User
 Allow: /
 Disallow: /admin/
 Disallow: /api/

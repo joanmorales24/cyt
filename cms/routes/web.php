@@ -46,5 +46,6 @@ Route::get('/sitemap.xml', function () {
         ->header('Content-Type', 'application/xml');
 })->name('sitemap');
 
-// Catch-all 404 redirect to home
-Route::fallback(fn () => redirect('/'));
+// Catch-all: rutas inexistentes devuelven 404 real (importante para SEO/GEO,
+// un soft-redirect a home confunde a los motores de búsqueda)
+Route::fallback(fn () => abort(404));
