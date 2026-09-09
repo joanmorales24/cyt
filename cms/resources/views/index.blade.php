@@ -1195,7 +1195,7 @@
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-brand counter" data-target="15" data-suffix="%">0%</p>
+              <p class="text-7xl font-extrabold text-brand counter" data-target="15" data-suffix="%">15%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
                 Incremento en Ventas
               </h3>
@@ -1206,7 +1206,7 @@
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-cyan counter" data-target="39" data-suffix="%">0%</p>
+              <p class="text-7xl font-extrabold text-cyan counter" data-target="39" data-suffix="%">39%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
                 Menos Tiempos de Espera
               </h3>
@@ -1218,7 +1218,7 @@
             <div
               class="glass rounded-[2rem] border border-white/10 p-10 text-center"
             >
-              <p class="text-7xl font-extrabold text-accent counter" data-target="35" data-prefix="-" data-suffix="%">0%</p>
+              <p class="text-7xl font-extrabold text-accent counter" data-target="35" data-prefix="-" data-suffix="%">-35%</p>
               <h3 class="mt-5 text-2xl font-extrabold">
                 Costos operativos
               </h3>
