@@ -15,11 +15,20 @@
     <link rel="icon" href="{{ asset('favicon.png') }}" type="image/png">
     {{-- Open Graph --}}
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="CYT Comunicaciones">
+    <meta property="og:locale" content="es_AR">
     <meta property="og:title" content="{{ $seo?->title ?? 'CYT Comunicaciones' }}">
     <meta property="og:description" content="{{ $seo?->description ?? 'Plataforma de contact center con IA, omnicanalidad y Voice Bot para tu CX.' }}">
     <meta property="og:url" content="{{ $seo?->canonical_url ?? url('/') }}">
     @if($seo?->og_image)
     <meta property="og:image" content="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($seo->og_image) }}">
+    @endif
+    {{-- Twitter Card --}}
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ $seo?->title ?? 'CYT Comunicaciones' }}">
+    <meta name="twitter:description" content="{{ $seo?->description ?? 'Plataforma de contact center con IA, omnicanalidad y Voice Bot para tu CX.' }}">
+    @if($seo?->og_image)
+    <meta name="twitter:image" content="{{ \Illuminate\Support\Facades\Storage::disk('public')->url($seo->og_image) }}">
     @endif
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
     <link

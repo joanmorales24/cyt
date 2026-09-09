@@ -3,6 +3,7 @@
 @php
     $seoTitle    = $post->seo_title ?: ($post->title . ' | CYT Comunicaciones');
     $seoDesc     = $post->seo_description ? strip_tags($post->seo_description) : Str::limit(strip_tags($post->excerpt ?? $post->content), 160);
+    $seoDesc     = trim(preg_replace('/\s+/', ' ', $seoDesc));
     $canonicalUrl = $post->seo_canonical_url ?: route('blog.show', $post->slug);
     $ogImage     = $post->og_image ?? $post->featured_image_url;
     if ($ogImage && !Str::startsWith($ogImage, 'http')) {
@@ -23,9 +24,9 @@
 <script type="application/ld+json">
 {
   "@@context": "https://schema.org",
-  "@@type": "NewsArticle",
-  "headline": "{{ addslashes($post->title) }}",
-  "description": "{{ addslashes($seoDesc) }}",
+  "@@type": "Article",
+  "headline": {!! json_encode($post->title) !!},
+  "description": {!! json_encode($seoDesc) !!},
   "datePublished": "{{ optional($post->published_at)->toIso8601String() }}",
   "dateModified": "{{ $post->updated_at->toIso8601String() }}",
   "author": { "@@type": "Organization", "name": "CYT Comunicaciones" },
@@ -36,6 +37,34 @@
   },
   "mainEntityOfPage": { "@@type": "WebPage", "@@id": "{{ $canonicalUrl }}" }
   @if($ogImage),"image": "{{ $ogImage }}"@endif
+}
+</script>
+<script type="application/ld+json">
+{
+  "@@context": "https://schema.org",
+  "@@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@@type": "ListItem",
+      "position": 1,
+      "name": "Blog",
+      "item": "{{ route('blog.index') }}"
+    }
+    @foreach($post->categories as $i => $cat)
+    ,{
+      "@@type": "ListItem",
+      "position": {{ $i + 2 }},
+      "name": {!! json_encode($cat->name) !!},
+      "item": "{{ route('blog.category', $cat->slug) }}"
+    }
+    @endforeach
+    ,{
+      "@@type": "ListItem",
+      "position": {{ $post->categories->count() + 2 }},
+      "name": {!! json_encode($post->title) !!},
+      "item": "{{ $canonicalUrl }}"
+    }
+  ]
 }
 </script>
 @endsection

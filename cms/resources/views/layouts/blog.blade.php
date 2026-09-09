@@ -27,6 +27,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="@yield('seo_title', 'Blog | CYT Comunicaciones')">
     <meta name="twitter:description" content="@yield('seo_description', 'Noticias, novedades y artículos de CYT Comunicaciones.')">
+    @if(trim($__env->yieldContent('og_image')))
+    <meta name="twitter:image" content="@yield('og_image')">
+    @endif
 
     {{-- Structured data --}}
     @yield('structured_data')
