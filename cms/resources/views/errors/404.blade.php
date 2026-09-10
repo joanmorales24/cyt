@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Página no encontrada | CyT Comunicaciones</title>
     <meta name="robots" content="noindex, follow">
-    <script src="https://cdn.tailwindcss.com"></script>
+    @vite(['resources/css/site.css'])
 </head>
 <body class="min-h-screen flex items-center justify-center bg-[#09051c] text-white font-sans px-6">
     <div class="text-center max-w-lg">

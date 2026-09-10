@@ -34,70 +34,23 @@
     {{-- Structured data --}}
     @yield('structured_data')
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            colors: {
-              base:        "#09051c",
-              ink:         "#f8f7ff",
-              muted:       "#c5c0e0",
-              line:        "rgba(255,255,255,0.08)",
-              brand:       "#7b3ff2",
-              brandSoft:   "#aa7cff",
-              cyan:        "#1ca9ff",
-              cyanSoft:    "#8de4ff",
-              panel:       "rgba(18, 14, 44, 0.72)",
-              panelStrong: "rgba(13, 10, 34, 0.92)",
-              accent:      "#72ffd2",
-            },
-            boxShadow: {
-              glow: "0 24px 80px rgba(73, 43, 180, 0.45)",
-              card: "0 18px 60px rgba(4, 7, 30, 0.35)",
-            },
-            backgroundImage: {
-              hero: "radial-gradient(circle at top left, rgba(123,63,242,0.45), transparent 35%), radial-gradient(circle at 80% 20%, rgba(28,169,255,0.28), transparent 24%), linear-gradient(135deg, #1b0d44 0%, #0a0b25 48%, #080414 100%)",
-              cta:  "linear-gradient(90deg, #9d2cf3 0%, #7457ff 45%, #1ca9ff 100%)",
-            },
-            fontFamily: { sans: ["Manrope", "sans-serif"] },
-          },
-        },
-      };
-    </script>
+    @vite(['resources/css/site.css'])
 
     <style>
-      .material-symbols-outlined {
-        font-variation-settings: "FILL" 0, "wght" 500, "GRAD" 0, "opsz" 24;
-      }
-      .glass {
-        background: linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.05));
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-      }
-      .light-body .glass {
-        background: rgba(255,255,255,0.88) !important;
-        box-shadow: 0 4px 32px rgba(113,42,236,0.07);
-      }
-      .text-gradient {
-        background: linear-gradient(90deg, #f8f7ff 0%, #b79aff 36%, #5ebeff 100%);
-        -webkit-background-clip: text;
-        background-clip: text;
-        color: transparent;
-      }
+      /* Variantes propias del blog (siempre fondo claro, a diferencia del
+         home que arranca sobre un hero oscuro): mismo nombre de clase que
+         site.css pero distintos valores, así que se declaran acá para ganar
+         por orden de cascada. */
       .text-gradient-dark {
         background: linear-gradient(90deg, #7b3ff2 0%, #1ca9ff 100%);
         -webkit-background-clip: text;
         background-clip: text;
         color: transparent;
-      }
-      nav.light-nav {
-        background: rgba(253,247,255,0.94) !important;
-        border-color: rgba(113,42,236,0.1) !important;
       }
       .nav-link {
         position: relative;
@@ -127,12 +80,6 @@
         color: #210853;
       }
       .social-chip svg { width: 1.25rem; height: 1.25rem; fill: currentColor; }
-      footer.light-footer {
-        background: #f3eaff !important;
-        border-color: rgba(113,42,236,0.12) !important;
-        color: #210853;
-      }
-      footer.light-footer .text-muted { color: #5a4e6e !important; }
 
       /* Prose styles for post content */
       .cyt-prose img       { border-radius: 1rem; max-width: 100%; height: auto; margin: 1.5rem 0; box-shadow: 0 4px 24px rgba(113,42,236,0.1); }
