@@ -68,6 +68,7 @@
     ]
   }
   </script>
+  @include('partials._analytics')
   </head>
 
   <body

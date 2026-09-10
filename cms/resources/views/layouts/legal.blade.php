@@ -23,6 +23,7 @@
         font-variation-settings: "FILL" 0,"wght" 500,"GRAD" 0,"opsz" 24;
       }
     </style>
+    @include('partials._analytics')
   </head>
   <body class="bg-[#fdf7ff] font-sans text-[#210853]">
 

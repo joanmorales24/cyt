@@ -106,6 +106,7 @@
       .cyt-prose pre code { background: none; color: inherit; padding: 0; }
     </style>
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
+    @include('partials._analytics')
 </head>
 
 <body class="bg-[#fdf7ff] font-sans text-[#210853] selection:bg-brand/40 selection:text-white">
