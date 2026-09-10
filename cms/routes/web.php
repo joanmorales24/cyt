@@ -42,7 +42,26 @@ Route::middleware(['web', 'auth'])->prefix('admin/media')->name('admin.media.')-
 // Sitemap
 Route::get('/sitemap.xml', function () {
     $posts = \App\Models\Post::where('status', 'published')->orderByDesc('published_at')->get();
-    return response()->view('sitemap', compact('posts'))
+
+    $categories = \App\Models\Category::whereHas('posts', fn ($q) => $q->where('status', 'published'))
+        ->withMax(['posts as latest_post_at' => fn ($q) => $q->where('status', 'published')], 'updated_at')
+        ->get();
+
+    $tags = \App\Models\Tag::whereHas('posts', fn ($q) => $q->where('status', 'published'))
+        ->withMax(['posts as latest_post_at' => fn ($q) => $q->where('status', 'published')], 'updated_at')
+        ->get();
+
+    $homeSeo = \App\Models\PageSeo::where('page', 'home')->first();
+    $latestPostAt = $posts->max('updated_at');
+
+    $staticLastmod = [
+        'home' => $homeSeo?->updated_at ?? $latestPostAt,
+        'voice-bot' => \Carbon\Carbon::createFromTimestamp(filemtime(resource_path('views/voice_bot.blade.php'))),
+        'blog.index' => $latestPostAt,
+        'legal' => \Carbon\Carbon::createFromTimestamp(filemtime(resource_path('views/legal/privacidad.blade.php'))),
+    ];
+
+    return response()->view('sitemap', compact('posts', 'categories', 'tags', 'staticLastmod'))
         ->header('Content-Type', 'application/xml');
 })->name('sitemap');
 
