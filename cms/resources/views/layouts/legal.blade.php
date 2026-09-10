@@ -10,7 +10,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet" />
-    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&icon_names=arrow_back,arrow_forward,article,automation,calendar_today,call,category,chat,check_circle,download,groups,hub,label_off,location_on,mail,menu,phone,phone_in_talk,public,school,search_off,smart_toy,smartphone,support_agent,verified,workspace_premium&display=block" rel="stylesheet" />
     @vite(['resources/css/site.css'])
     <style>
       .material-symbols-outlined {
