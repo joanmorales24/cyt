@@ -37,7 +37,7 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&icon_names=arrow_back,arrow_forward,article,automation,calendar_today,call,category,chat,check_circle,download,groups,hub,label_off,location_on,mail,menu,phone,phone_in_talk,public,school,search_off,smart_toy,smartphone,support_agent,verified,workspace_premium&display=block"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,500,0,0&icon_names=arrow_back,arrow_forward,article,automation,bolt,calendar_today,call,category,chat,check_circle,close,cloud,download,forum,groups,health_and_safety,hub,integration_instructions,label_off,location_on,mail,menu,monetization_on,person_check,phone,phone_in_talk,public,query_stats,record_voice_over,route,savings,schedule,school,search_off,smart_toy,smartphone,storefront,support_agent,timer,trending_up,verified,visibility_off,workspace_premium&display=block"
       rel="stylesheet"
     />
     @vite(['resources/css/site.css'])
@@ -99,7 +99,7 @@
       <section
         id="hero-section"
         class="relative flex min-h-screen items-center overflow-hidden px-6 py-32"
-        style="background: url('img/home/background-cx.jpg') center/cover no-repeat;"
+        style="background: url('img/home/background-cx.webp') center/cover no-repeat;"
       >
         <div
           class="absolute inset-0"
@@ -187,35 +187,35 @@
             </p>
             <div class="logo-carousel">
               <div class="logo-carousel-track">
-                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.webp" width="168" height="112" loading="lazy" /></div>
 
-                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.png" /></div>
-                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.png" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 1" src="/img/home/logos/1.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 2" src="/img/home/logos/2.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 3" src="/img/home/logos/3.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 4" src="/img/home/logos/4.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 5" src="/img/home/logos/5.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 6" src="/img/home/logos/6.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 7" src="/img/home/logos/7.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 8" src="/img/home/logos/8.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 9" src="/img/home/logos/9.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 10" src="/img/home/logos/10.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 11" src="/img/home/logos/11.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 12" src="/img/home/logos/12.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 13" src="/img/home/logos/13.webp" width="168" height="112" loading="lazy" /></div>
+                <div class="logo-slide"><img alt="Cliente Empresa 14" src="/img/home/logos/14.webp" width="168" height="112" loading="lazy" /></div>
               </div>
             </div>
           </div>
@@ -279,11 +279,11 @@
       </section>
 
       {{-- Brief Frost & Sullivan --}}
-      <section class="px-6 py-24 relative overflow-hidden brief-section" style="background-image: url('/img/home/sullivan.png'); background-size: cover; background-position: left center;">
+      <section class="px-6 py-24 relative overflow-hidden brief-section" style="background-image: url('/img/home/sullivan.webp'); background-size: cover; background-position: left center;">
         <style>
           @media (max-width: 767px) {
             .brief-section {
-              background-image: url('/img/home/sullivan-mobile.png') !important;
+              background-image: url('/img/home/sullivan-mobile.webp') !important;
               background-position: center !important;
             }
           }

@@ -9,7 +9,7 @@
 <nav class="light-nav fixed top-0 z-50 w-full border-b backdrop-blur-xl">
     <div class="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="/" class="flex items-center gap-3">
-            <img alt="CYT Comunicaciones" class="h-9 w-auto" src="/img/logo.png" />
+            <img alt="CYT Comunicaciones" class="h-9 w-auto" src="/img/logo.webp" />
         </a>
 
         {{-- Desktop --}}

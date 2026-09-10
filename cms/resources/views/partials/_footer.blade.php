@@ -28,7 +28,7 @@
 
       {{-- Marca + redes + ISO --}}
       <div class="col-span-2">
-        <img alt="CYT Comunicaciones" class="h-10 w-auto" src="/img/logo.png" />
+        <img alt="CYT Comunicaciones" class="h-10 w-auto" src="/img/logo.webp" />
         <p class="mt-4 max-w-xs text-sm leading-7 text-muted">
           Más de 35 años transformando contact centers en LATAM con tecnología propia.
           Orion Contact Center e INTEGRA CRM.
