@@ -5,6 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <meta name="msvalidate.01" content="195F2584CF60D2331434762743C8E400" />
     <title>{{ $seo?->title ?? 'CYT Comunicaciones | Contact Center, Omnicanalidad y CX en LATAM' }}</title>
     <meta name="description" content="{{ $seo?->description ?? 'Plataforma de contact center con IA, omnicanalidad y Voice Bot. Transforma tu CX con Orion, INTEGRA CRM. Más de 35 años en LATAM.' }}">
     @if($seo?->focus_keyword)
